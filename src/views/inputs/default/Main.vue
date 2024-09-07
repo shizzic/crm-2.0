@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed, defineAsyncComponent } from 'vue'
 import type { Merge } from '@/assets/types'
 import type { Props } from './'
 import { Merge_provide } from '@/assets/symbols'
 import { DefaultCSS } from './'
-import Range from './components/Range.vue'
-import Errors from './components/Errors.vue'
+const Range = defineAsyncComponent(() => import('./components/Range.vue'))
+const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 
 const model: any = defineModel()
 const props = withDefaults(defineProps<Props>(), {
