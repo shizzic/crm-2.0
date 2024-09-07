@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
-import { useUserStore } from '@/stores'
+import { useUserStore } from '@/stores/user'
 import type { Lang } from '@/assets/types'
 import { Lang_provide } from '@/assets/symbols'
 import { useVuelidate } from '@vuelidate/core'

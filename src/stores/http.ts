@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { useUserStore, useSettingsStore } from '@/stores'
+import { useUserStore } from '@/stores/user'
+import { useSettingsStore } from '@/stores/settings/main'
 import { set } from './reusable/funcs'
 
 export const useHttpStore = defineStore('http', () => {
