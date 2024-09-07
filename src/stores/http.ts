@@ -3,9 +3,9 @@ import { useUserStore, useSettingsStore } from '@/stores'
 import { set } from '@/stores/reusable/funcs'
 
 export const useHttpStore = defineStore('http', () => {
-  const domain_name: string | null = null
-  const project_id: number | null = null
-  const component_id: number | null = null
+  const domain_name: string | undefined = undefined
+  const project_id: number | undefined = undefined
+  const component_id: number | undefined = undefined
 
   // С триггером авторизации
   function authorize_headers(): HeadersInit {

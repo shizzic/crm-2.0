@@ -1,6 +1,6 @@
 {
   "name": "isinda",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,9 +14,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/clone": "^2.1.4",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "bowser": "^2.11.0",
+    "clone": "^2.1.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^4.0.0",
     "vue": "^3.4.29",

@@ -8,17 +8,23 @@ const bowser: any = Bowser
 export const useDeviceStore = defineStore(
   'device',
   () => {
-    const current: Ref<string, string> = ref(
+    const current: Ref<string> = ref(
       bowser.default.getParser(window.navigator.userAgent).getBrowserName()
     )
-    const list: Ref<never[], never[]> = ref([])
+    const list: Ref<string[]> = ref([])
 
     return { current, list, set }
   },
   {
-    persist: {
-      storage: sessionStorage,
-      pick: ['current', 'list']
-    }
+    persist: [
+      {
+        storage: localStorage,
+        pick: ['current']
+      },
+      {
+        storage: sessionStorage,
+        pick: ['list']
+      }
+    ]
   }
 )

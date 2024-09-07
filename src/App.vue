@@ -1,26 +1,24 @@
 <script setup lang="ts">
-import { onBeforeMount, computed, provide, ref } from 'vue'
+import { onBeforeMount, computed, provide } from 'vue'
 import { useUserStore, useSettingsStore } from '@/stores'
 import { useRoute, useRouter } from 'vue-router'
 import { Lang_provide } from '@/assets/symbols'
-import type { Lang } from '@/assets/types'
 
 const $route = useRoute()
 const $router = useRouter()
 const $settings = useSettingsStore()
 $settings.$persist()
-const languages: Lang = ref({})
 const isLoggedIn = computed(() => {
   return useUserStore().id
 })
-
-provide(Lang_provide, computed(() => languages.value[$settings.locale]))
+const lang = computed(() => $settings.languages[$settings.locale])
+provide(Lang_provide, lang)
 onBeforeMount(() => {
+  $settings.get_lang()
   if (!isLoggedIn.value && $route?.name !== 'login') $router.replace({ name: "login" })
-  $settings.get_lang(languages)
 })
 </script>
 
 <template>
-  <RouterView v-if="languages[$settings.locale]" />
+  <RouterView v-if="lang" />
 </template>

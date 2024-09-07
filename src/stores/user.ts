@@ -1,7 +1,14 @@
 import { defineStore } from 'pinia'
 import { set } from '@/stores/reusable/funcs'
-import { useHttpStore, useDeviceStore } from '@/stores'
-import { inject } from 'vue'
+import {
+  resetAllStores,
+  useHttpStore,
+  useDeviceStore,
+  useProjectStore,
+  useAccessStore
+} from '@/stores'
+import { inject, ref } from 'vue'
+import type { Ref } from 'vue'
 
 declare global {
   interface Window {
@@ -9,61 +16,83 @@ declare global {
   }
 }
 
-export const useUserStore = defineStore('user', () => {
-  const $endpoint = inject('$endpoint')
-  const id: number | null = null
+export const useUserStore = defineStore(
+  'user',
+  () => {
+    const $endpoint = inject('$endpoint')
 
-  function login(invalid: boolean, form: { phone: string; email: string; password: string }): void {
-    if (invalid) return
+    const version: Ref<number> = ref(1)
+    const id: Ref<number | undefined> = ref(undefined)
+    const username: Ref<string | undefined> = ref(undefined)
+    const avatar: Ref<string | undefined> = ref(undefined)
 
-    fetch($endpoint + 'user/user/login', {
-      method: 'POST',
-      headers: useHttpStore().non_authorize_headers(),
-      credentials: 'include',
-      body: JSON.stringify({
-        phone: form.phone,
-        email: form.email,
-        password: form.password,
-        device: useDeviceStore().current
+    function login(
+      invalid: boolean,
+      form: { phone: string; email: string; password: string }
+    ): void {
+      if (invalid) return
+
+      fetch($endpoint + 'user/user/login', {
+        method: 'POST',
+        headers: useHttpStore().non_authorize_headers(),
+        credentials: 'include',
+        body: JSON.stringify({
+          phone: form.phone,
+          email: form.email,
+          password: form.password,
+          device: useDeviceStore().current
+        })
       })
-    })
-      .then((data) => {
-        return data.json()
+        .then((data) => {
+          return data.json()
+        })
+        .then((r) => {
+          if (!(r?.status === 200 && r?.data)) return logout()
+          add_login_credential(form.phone.length > 0 ? form.phone : form.email, form.password)
+
+          // выполняю вход, только если у юзера есть доступ к домену с которого был выполнен вход
+          if (r.data.domain_access) {
+            username.value = r.data.username
+            avatar.value = r.data.avatar
+            useDeviceStore().list = r.data.devices
+
+            if (r.data.projects?.length > 0) {
+              useProjectStore().list = r.data.projects
+              useProjectStore().id = r.data.projects[0].id
+              useProjectStore().title = r.data.projects[0].title
+            }
+
+            if (r.data.access) useAccessStore().list = r.data.access
+            id.value = r.data.id
+          } else {
+            logout()
+          }
+
+          // this.http(data)
+        })
+    }
+
+    function logout(): void {
+      console.trace()
+      resetAllStores(['settings'])
+    }
+
+    // save_password prompt in browser
+    function add_login_credential(id: string, password: string): void {
+      const loginCredential = new window.PasswordCredential({
+        id: id,
+        password: password
       })
-      .then((r) => {
-        if (!(r?.status === 200 && r?.data)) return
-        add_login_credential(form.phone.length > 0 ? form.phone : form.email, form.password)
 
-        // if (data.status !== 404 && data.data && data.data.domain_access) {
-        //     this.$store.commit("SET_USERNAME", data.data.username)
-        //     this.$store.commit("SET_AVATAR", data.data.avatar)
-        //     this.$store.commit("DEVICES", { key: "devices", value: data.data.devices })
+      navigator.credentials.store(loginCredential)
+    }
 
-        //     if (data.data.projects && data.data.projects.length > 0) {
-        //         this.$store.commit("SET_PROJECT_ID", data.data.projects[0].id)
-        //         this.$store.commit("SET_PROJECT_TITLE", data.data.projects[0].title)
-        //     }
-
-        //     if (data.data.access)
-        //         this.$store.commit("SET_ACCESS", data.data.access)
-
-        //     this.$store.commit("SET_ID", data.data.id)
-        // } else
-        //     this.$store.commit("LOGOUT")
-
-        // this.http(data)
-      })
+    return { version, id, username, avatar, set, login, logout }
+  },
+  {
+    persist: {
+      storage: localStorage,
+      pick: ['version', 'id', 'username', 'avatar']
+    }
   }
-
-  // save_password prompt in browser
-  function add_login_credential(id: string, password: string): void {
-    const loginCredential = new window.PasswordCredential({
-      id: id,
-      password: password
-    })
-
-    navigator.credentials.store(loginCredential)
-  }
-
-  return { id, set, login }
-})
+)

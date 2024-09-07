@@ -8,11 +8,12 @@ import type { Lang } from '@/assets/types'
 export const useSettingsStore = defineStore(
   'settings',
   () => {
-    const version: Ref<number, number> = ref(1)
-    const locale: Ref<string, string> = ref('RU')
+    const version: Ref<number> = ref(1)
+    const locale: Ref<string> = ref('RU')
+    const languages: Ref<Lang> = ref({})
 
     // Получение всех переводов на выбранный язык
-    function get_lang(languages: Lang): void {
+    function get_lang(): void {
       if (!(locale.value in languages.value))
         fetch(inject('$endpoint') + 'user/user/get-lang?file=web', {
           headers: useHttpStore().non_authorize_headers(),
@@ -21,17 +22,24 @@ export const useSettingsStore = defineStore(
           .then((data) => {
             return data.json()
           })
-          .then((data) => {
-            languages.value[locale.value] = data.data
+          .then((r) => {
+            if (!r?.data) return
+            languages.value[locale.value] = r.data
           })
     }
 
-    return { version, locale, set, get_lang }
+    return { version, locale, languages, set, get_lang }
   },
   {
-    persist: {
-      storage: localStorage,
-      pick: ['version', 'locale']
-    }
+    persist: [
+      {
+        storage: localStorage,
+        pick: ['version', 'locale']
+      },
+      {
+        storage: sessionStorage,
+        pick: ['languages']
+      }
+    ]
   }
 )
