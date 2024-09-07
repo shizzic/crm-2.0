@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { inject, computed } from 'vue'
 import type { Merge } from '@/assets/types'
-import type { Props } from './ts'
+import type { Props } from './'
 import { Merge_provide } from '@/assets/symbols'
-import { DefaultCSS } from './ts/defaults'
-import States from './States.vue'
+import { DefaultCSS } from './'
+import Range from './components/Range.vue'
+import Errors from './components/Errors.vue'
 
 const model: any = defineModel()
 const props = withDefaults(defineProps<Props>(), {
@@ -19,7 +20,7 @@ const props = withDefaults(defineProps<Props>(), {
 const $merge = inject(Merge_provide) as Merge
 const css = $merge(DefaultCSS, props.css)
 const errors = computed(() => {
-    let r = []
+    let r: string[] = []
     for (let item of props.v.$silentErrors)
         r.push(item.$validator)
     return r
@@ -33,8 +34,11 @@ const errors = computed(() => {
             :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
             :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly" :pattern="props.pattern">
 
-        <States v-bind="{ v: errors, id: props.id, minlength: props.minlength, maxlength: props.maxlength }"
-            v-model="model" />
+        <p>
+            <Range v-if="props.minlength || props.maxlength" v-model="model"
+                v-bind="{ v: {}, id: props.id, minlength: props.minlength, maxlength: props.maxlength }" />
+            <Errors v-memo="errors" v-bind="{ v: errors, id: props.id }" />
+        </p>
     </div>
 </template>
 
@@ -63,5 +67,19 @@ input:-webkit-autofill:focus {
     /* -webkit-text-fill-color: #000; */
     -webkit-box-shadow: 0 0 0px 30px #fff inset;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+p {
+    margin-left: 22px;
+}
+
+label {
+    font-family: Metropolis, sans-serif;
+    font-weight: Medium;
+    font-size: 13px;
+
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 10px;
 }
 </style>

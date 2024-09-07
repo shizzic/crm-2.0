@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { set } from '@/stores/reusable/funcs'
-import { useHttpStore } from '@/stores'
+import { useHttpStore, useDeviceStore } from '@/stores'
 import { inject } from 'vue'
 
 declare global {
@@ -23,8 +23,8 @@ export const useUserStore = defineStore('user', () => {
       body: JSON.stringify({
         phone: form.phone,
         email: form.email,
-        password: form.password
-        // device: this.$store.getters.DEVICES({ key: "device" })
+        password: form.password,
+        device: useDeviceStore().current
       })
     })
       .then((data) => {

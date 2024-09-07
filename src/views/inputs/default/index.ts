@@ -1,3 +1,5 @@
+import type { CSS } from '@/assets/types'
+
 export interface Props {
   // required
   v: { [k: string]: any } // валидатор vuelidate
@@ -20,7 +22,22 @@ export interface Props {
   css?: CSS
 }
 
-// recursive
-export interface CSS {
-  [k: string]: CSS | string | number
+export const DefaultCSS: CSS = {
+  default: {
+    width: '100%',
+    color: '#000',
+    fontFamily: 'Metropolis, sans-serif',
+    fontWeight: 'Medium',
+    fontSize: '13.75px',
+    border: '2px solid',
+    borderColor: '#C4C4C4',
+    borderRadius: '110px',
+    backgroundColor: '#ffffff',
+
+    padding: '7px 21px'
+  },
+
+  placeholder: {
+    color: '#676767'
+  }
 }

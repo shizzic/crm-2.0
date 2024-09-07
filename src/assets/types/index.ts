@@ -3,3 +3,8 @@ export interface Lang {
 }
 
 export type Merge = (obj1: any, obj2: any) => any
+
+// recursive
+export interface CSS {
+  [k: string]: CSS | string | number
+}

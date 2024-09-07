@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
 import { useUserStore } from '@/stores'
-import type { Lang } from '@/assets/types'
 import { Lang_provide } from '@/assets/symbols'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, email, minLength, maxLength, helpers } from "@vuelidate/validators"
@@ -9,7 +8,7 @@ import { phone, password } from "@/assets/patterns"
 import Input from '@/views/inputs/default/Main.vue'
 import Submit from '@/views/inputs/submit/Main.vue'
 
-const lang = inject(Lang_provide) as Lang
+const lang = inject(Lang_provide)
 const form = ref({
     phone: '',
     email: '',
@@ -45,13 +44,13 @@ const input_css = {
     <section>
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
-            <h2>{{ lang.auth.title }}</h2>
+            <h2>{{ lang?.auth?.title }}</h2>
 
             <Input v-if="form.email.length === 0" v-model="form.phone" v-bind="{
                 v: v$.phone,
                 name: 'phone',
                 type: 'tel',
-                placeholder: lang.auth.number,
+                placeholder: lang?.auth?.number,
                 id: 'tel',
                 autocomplete: 'tel',
                 autocorrect: 'on',
@@ -77,7 +76,7 @@ const input_css = {
                 v: v$.password,
                 name: 'password',
                 type: 'password',
-                placeholder: lang.auth.password,
+                placeholder: lang?.auth?.password,
                 minlength: 8,
                 maxlength: 16,
                 pattern: String.raw`^(\S){8,16}$`,
@@ -89,7 +88,7 @@ const input_css = {
             }" class="item" />
 
             <Submit v-bind="{
-                text: lang.auth.submit,
+                text: lang?.auth?.submit,
                 css: {
                     default: {
                         color: '#ffffff',

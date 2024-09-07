@@ -3,7 +3,7 @@ import type { Merge } from '@/assets/types'
 import { Merge_provide } from '@/assets/symbols'
 import { inject, ref } from 'vue'
 import type { Props } from './'
-import { DefaultCSS } from './css'
+import { DefaultCSS } from './'
 
 const $merge = inject(Merge_provide) as Merge
 const props = withDefaults(defineProps<Props>(), {
