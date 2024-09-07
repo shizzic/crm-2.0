@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { set } from './reusable/funcs'
-import { useHttpStore } from './http'
+import { useHttpStore } from '@/stores'
 import { inject } from 'vue'
 
 declare global {
