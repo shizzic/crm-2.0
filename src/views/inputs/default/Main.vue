@@ -4,7 +4,7 @@ import type { Merge } from '@/assets/types'
 import type { Props } from './ts'
 import { Merge_provide } from '@/assets/symbols'
 import { DefaultCSS } from './ts/defaults'
-import States from './states/Main.vue'
+import States from './States.vue'
 
 const model: any = defineModel()
 const props = withDefaults(defineProps<Props>(), {
