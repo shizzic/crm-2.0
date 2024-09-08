@@ -80,7 +80,7 @@ p {
 label {
     font-family: Metropolis, sans-serif;
     font-weight: Medium;
-    font-size: 13px;
+    font-size: 13rem;
 
     display: inline-block;
     margin-top: 5px;

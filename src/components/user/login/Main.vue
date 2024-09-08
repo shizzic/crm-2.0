@@ -33,7 +33,7 @@ const rules = {
 const v$ = useVuelidate(rules, form)
 const input_css = {
     default: {
-        fontSize: '19.75px',
+        fontSize: '19.75rem',
         padding: '10px 21px',
     },
 }
@@ -41,6 +41,7 @@ const input_css = {
 
 <template>
     <section>
+        <div>som text here</div>
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
             <h2>{{ lang?.auth?.title }}</h2>
@@ -145,14 +146,14 @@ form {
 h2 {
     font-family: Metropolis, sans-serif;
     font-weight: Bold;
-    font-size: 41.88px;
+    font-size: 41.88rem;
 
     margin-bottom: 50px;
 }
 
 @media screen and (max-width: 360px) {
     h2 {
-        font-size: 35px;
+        font-size: 35rem;
 
         margin-bottom: 25px;
     }

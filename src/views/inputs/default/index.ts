@@ -28,7 +28,7 @@ export const DefaultCSS: CSS = {
     color: '#000',
     fontFamily: 'Metropolis, sans-serif',
     fontWeight: 'Medium',
-    fontSize: '13.75px',
+    fontSize: '13rem',
     border: '2px solid',
     borderColor: '#C4C4C4',
     borderRadius: '110px',
