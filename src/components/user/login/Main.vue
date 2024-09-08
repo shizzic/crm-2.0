@@ -17,7 +17,7 @@ const form = ref({
 const rules = {
     phone: {
         required: requiredIf(() => form.value.email.length === 0),
-        phone: helpers.regex(new RegExp(phone)),
+        phone: helpers.withParams({ pattern: phone }, helpers.regex(new RegExp(phone)))
     },
     email: {
         required: requiredIf(() => form.value.phone.length === 0),
@@ -25,12 +25,11 @@ const rules = {
     },
     password: {
         required,
-        no_spaces: helpers.regex(new RegExp(password)),
         min: minLength(8),
         max: maxLength(16),
+        no_spaces: helpers.withParams({ pattern: password }, helpers.regex(new RegExp(password))),
     },
 }
-
 const v$ = useVuelidate(rules, form)
 const input_css = {
     default: {
@@ -54,7 +53,6 @@ const input_css = {
                 id: 'tel',
                 autocomplete: 'tel',
                 autocorrect: 'on',
-                pattern: phone,
 
                 label: false,
                 css: input_css,
@@ -79,7 +77,6 @@ const input_css = {
                 placeholder: lang?.auth?.password,
                 minlength: 8,
                 maxlength: 16,
-                pattern: String.raw`^(\S){8,16}$`,
                 id: 'current-password',
                 autocomplete: 'current-password',
 

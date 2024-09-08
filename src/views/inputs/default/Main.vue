@@ -20,10 +20,13 @@ const props = withDefaults(defineProps<Props>(), {
 const $merge = inject(Merge_provide) as Merge
 const css = $merge(DefaultCSS, props.css)
 const errors = computed(() => {
-    let r: string[] = []
-    for (let item of props.v.$silentErrors)
-        r.push(item.$validator)
+    const r: string[] = []
+    for (const item of props.v.$silentErrors) r.push(item.$validator)
     return r
+})
+const pattern = computed(() => {
+    for (const item of props.v.$silentErrors) if (item.$params?.pattern) return item.$params.pattern
+    return undefined
 })
 </script>
 
@@ -32,7 +35,8 @@ const errors = computed(() => {
         <label v-if="props.label" :for="props.id">{{ props.labelText }}</label>
         <input :type="props.type" :name="props.name" v-model.trim="model" :required="props.v.required"
             :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
-            :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly" :pattern="props.pattern">
+            :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"
+            :pattern="pattern ? pattern : props.pattern">
 
         <p>
             <Range v-if="props.minlength || props.maxlength" v-model="model"
