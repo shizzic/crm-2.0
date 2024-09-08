@@ -1,5 +1,4 @@
 import { fileURLToPath } from 'node:url'
-import * as path from 'path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -15,16 +14,14 @@ export default defineConfig({
     __VUE_OPTIONS_API__: false
   },
   resolve: {
-    // alias: {
-    //   // '@': path.resolve(__dirname, './src'),
-    //   // '@stores': path.resolve(__dirname, './src/stores')
-
-    //   '@': fileURLToPath(new URL('./src', import.meta.url)),
-    //   '@stores': fileURLToPath(new URL('./src/stores', import.meta.url))
-    // }
     alias: {
-      '@': '/src',
-      '@stores': '/src/stores'
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+
+      '@stores': fileURLToPath(new URL('./src/stores', import.meta.url)),
+      '@types': fileURLToPath(new URL('./src/assets/types', import.meta.url)),
+      '@symbols': fileURLToPath(new URL('./src/assets/symbols', import.meta.url)),
+      '@patterns': fileURLToPath(new URL('./src/assets/patterns', import.meta.url))
     }
   }
 })

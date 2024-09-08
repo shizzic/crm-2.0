@@ -2,7 +2,7 @@
 import { onBeforeMount, computed, provide } from 'vue'
 import { useUserStore, useSettingsStore } from '@stores'
 import { useRoute, useRouter } from 'vue-router'
-import { Lang_provide } from '@/assets/symbols'
+import { Lang_provide } from '@symbols'
 
 const $route = useRoute()
 const $router = useRouter()

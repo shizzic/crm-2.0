@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { set } from '@/stores/reusable/funcs'
+import { set } from '@stores/reusable/funcs'
 import {
   resetAllStores,
   useHttpStore,
   useDeviceStore,
   useProjectStore,
   useAccessStore
-} from '@/stores'
+} from '@stores'
 import { inject, ref } from 'vue'
 import type { Ref } from 'vue'
 

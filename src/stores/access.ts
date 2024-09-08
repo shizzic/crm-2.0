@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import { set } from '@/stores/reusable/funcs'
+import { set } from '@stores/reusable/funcs'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
-import type { List } from '@/assets/types'
+import type { List } from '@types'
 
 interface Access {
   [k: number]: number

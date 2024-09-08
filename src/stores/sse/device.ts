@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { set } from '@/stores/reusable/funcs'
+import { set } from '@stores/reusable/funcs'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import * as Bowser from 'bowser'

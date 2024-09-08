@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { inject, computed, defineAsyncComponent } from 'vue'
-import type { Merge } from '@/assets/types'
+import type { Merge } from '@types'
 import type { Props } from './'
-import { Merge_provide } from '@/assets/symbols'
+import { Merge_provide } from '@symbols'
 import { DefaultCSS } from './'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))

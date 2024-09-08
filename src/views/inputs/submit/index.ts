@@ -1,4 +1,4 @@
-import type { CSS } from '@/assets/types'
+import type { CSS } from '@types'
 
 export interface Props {
   text: string

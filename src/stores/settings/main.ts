@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { set } from '@/stores/reusable/funcs'
-import { useHttpStore } from '@/stores'
+import { set } from '@stores/reusable/funcs'
+import { useHttpStore } from '@stores'
 import { inject, ref } from 'vue'
 import type { Ref } from 'vue'
-import type { Lang } from '@/assets/types'
+import type { Lang } from '@types'
 
 export const useSettingsStore = defineStore(
   'settings',

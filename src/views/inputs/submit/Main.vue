@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Merge } from '@/assets/types'
-import { Merge_provide } from '@/assets/symbols'
+import type { Merge } from '@types'
+import { Merge_provide } from '@symbols'
 import { inject, ref } from 'vue'
 import type { Props } from './'
 import { DefaultCSS } from './'

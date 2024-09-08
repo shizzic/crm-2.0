@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import type { Props } from '..'
-import { Lang_provide } from '@/assets/symbols'
+import { Lang_provide } from '@symbols'
 
 const lang = inject(Lang_provide)
 const props = defineProps<Props>()

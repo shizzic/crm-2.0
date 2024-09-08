@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
-import { useUserStore } from '@/stores'
-import { Lang_provide } from '@/assets/symbols'
+import { useUserStore } from '@stores'
+import { Lang_provide } from '@symbols'
 import { useVuelidate } from '@vuelidate/core'
-import { required, requiredIf, email, minLength, maxLength, helpers } from "@vuelidate/validators"
-import { phone, password } from "@/assets/patterns"
+import { required, requiredIf, email, minLength, maxLength, helpers } from '@vuelidate/validators'
+import { phone, password } from '@patterns'
 import Input from '@/views/inputs/default/Main.vue'
 import Submit from '@/views/inputs/submit/Main.vue'
 
