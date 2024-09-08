@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url'
+import * as path from 'path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -14,8 +15,16 @@ export default defineConfig({
     __VUE_OPTIONS_API__: false
   },
   resolve: {
+    // alias: {
+    //   // '@': path.resolve(__dirname, './src'),
+    //   // '@stores': path.resolve(__dirname, './src/stores')
+
+    //   '@': fileURLToPath(new URL('./src', import.meta.url)),
+    //   '@stores': fileURLToPath(new URL('./src/stores', import.meta.url))
+    // }
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': '/src',
+      '@stores': '/src/stores'
     }
   }
 })

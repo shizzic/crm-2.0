@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount, computed, provide } from 'vue'
-import { useUserStore, useSettingsStore } from '@/stores'
+import { useUserStore, useSettingsStore } from '@stores'
 import { useRoute, useRouter } from 'vue-router'
 import { Lang_provide } from '@/assets/symbols'
 
