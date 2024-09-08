@@ -78,7 +78,6 @@ p {
 }
 
 label {
-    font-family: Metropolis, sans-serif;
     font-weight: Medium;
     font-size: 13rem;
 

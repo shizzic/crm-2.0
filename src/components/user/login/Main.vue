@@ -41,7 +41,6 @@ const input_css = {
 
 <template>
     <section>
-        <div>som text here</div>
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
             <h2>{{ lang?.auth?.title }}</h2>
