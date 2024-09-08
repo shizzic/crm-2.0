@@ -62,7 +62,11 @@ export const useUserStore = defineStore(
               useProjectStore().title = r.data.projects[0].title
             }
 
-            if (r.data.access) useAccessStore().list = r.data.access
+            if (r.data.access) {
+              useAccessStore().list = r.data.access
+              useAccessStore().roles = r.data.roles
+            }
+
             id.value = r.data.id
           } else {
             logout()

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { set } from '@/stores/reusable/funcs'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
+import type { List } from '@/assets/types'
 
 interface Access {
   [k: number]: number
@@ -12,8 +13,9 @@ export const useAccessStore = defineStore(
   () => {
     const version: Ref<number> = ref(1)
     const list: Ref<Access> = ref({})
+    const roles: Ref<List[]> = ref([])
 
-    return { version, list, set }
+    return { version, list, roles, set }
   },
   {
     persist: [
@@ -23,7 +25,7 @@ export const useAccessStore = defineStore(
       },
       {
         storage: sessionStorage,
-        pick: ['list']
+        pick: ['list', 'roles']
       }
     ]
   }
