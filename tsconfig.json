@@ -11,15 +11,17 @@
     "noFallthroughCasesInSwitch": true,
 
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@views/*": ["./views/*"],
 
-      "@stores": ["./src/stores"],
-      "@stores/*": ["./src/stores/*"],
-      "@types": ["./src/assets/types"],
-      "@symbols": ["./src/assets/symbols"],
-      "@patterns": ["./src/assets/patterns"]
+      "@stores": ["./stores"],
+      "@stores/*": ["./stores/*"],
+      "@types": ["./assets/types"],
+      "@symbols": ["./assets/symbols"],
+      "@patterns": ["./assets/patterns"]
     }
   },
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],

@@ -5,8 +5,8 @@ import { Lang_provide } from '@symbols'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 import { phone, password } from '@patterns'
-import Input from '@/views/inputs/default/Main.vue'
-import Submit from '@/views/inputs/submit/Main.vue'
+import Input from '@views/inputs/default/Main.vue'
+import Submit from '@views/inputs/submit/Main.vue'
 
 const lang = inject(Lang_provide)
 const form = ref({
