@@ -7,6 +7,7 @@ import { required, requiredIf, email, minLength, maxLength, helpers } from '@vue
 import { phone, password } from '@patterns'
 import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
+// import Select from '@views/selects/default/Main.vue'
 
 const lang = inject(Lang_provide)
 const form = ref({
@@ -37,6 +38,8 @@ const input_css = {
         padding: '10px 21px',
     },
 }
+
+// const select = ref(1)
 </script>
 
 <template>
@@ -44,6 +47,8 @@ const input_css = {
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
             <h2>{{ lang?.auth?.title }}</h2>
+
+            <!-- <Select v-model="select" /> -->
 
             <Input v-if="form.email.length === 0" v-model="form.phone" v-bind="{
                 v: v$.phone,
@@ -124,7 +129,6 @@ form {
     border-radius: 20px;
 
     padding: 60px;
-    margin: right;
 }
 
 @media screen and (max-width: 550px) {
@@ -160,5 +164,28 @@ h2 {
 
 .item:not(:last-of-type) {
     margin-bottom: 25px;
+}
+
+select {
+    width: 100%;
+    border-radius: none !important;
+    /* width: 1px;
+    max-width: 1px;
+    height: 1px;
+    max-height: 1px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    right: 0;
+    top: 0; */
+}
+
+option {
+    border-radius: none !important;
 }
 </style>

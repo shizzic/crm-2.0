@@ -10,6 +10,7 @@ export interface Props {
   placeholder?: string | undefined
   maxlength?: number | undefined
   minlength?: number | undefined
+  autofocus?: boolean
   autocomplete?: string | undefined
   autocorrect?: string | undefined
   id?: string | undefined

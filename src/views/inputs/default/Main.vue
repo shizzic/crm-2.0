@@ -36,7 +36,7 @@ const pattern = computed(() => {
         <input :type="props.type" :name="props.name" v-model.trim="model" :required="props.v.required"
             :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
             :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"
-            :pattern="pattern ? pattern : props.pattern">
+            :pattern="pattern ? pattern : props.pattern" :autofocus="props.autofocus">
 
         <p>
             <Range v-if="props.minlength || props.maxlength" v-model="model"
