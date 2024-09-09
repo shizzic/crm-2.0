@@ -7,6 +7,7 @@ import {
   useProjectStore,
   useAccessStore
 } from '@stores'
+import { events as cancel } from '@views/other/cancel'
 import { inject, ref } from 'vue'
 import type { Ref } from 'vue'
 
@@ -91,7 +92,22 @@ export const useUserStore = defineStore(
       navigator.credentials.store(loginCredential)
     }
 
-    return { version, id, username, avatar, set, login, logout }
+    function request_new_password(invalid: boolean, email: string): void {
+      if (invalid) return
+
+      fetch($endpoint + 'user/user/request-reset', {
+        method: 'PUT',
+        headers: useHttpStore().non_authorize_headers(),
+        credentials: 'include',
+        body: JSON.stringify({
+          email: email
+        })
+      })
+
+      cancel.emit('default')
+    }
+
+    return { version, id, username, avatar, set, login, logout, request_new_password }
   },
   {
     persist: {

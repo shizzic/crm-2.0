@@ -1,24 +1,24 @@
 import type { CSS } from '@types'
 
 export interface Props {
-  text: string
+  text?: string
   css?: CSS
 }
 
 export const DefaultCSS: CSS = {
   default: {
     cursor: 'pointer',
-    width: '100%',
-    color: '#000',
+    width: 'max-content',
+    color: '#ffffff',
     fontFamily: 'Metropolis, sans-serif',
-    fontWeight: 'Medium',
-    fontSize: '13.75px',
+    fontWeight: '500',
+    fontSize: '16.44px',
     border: 'none',
     borderColor: 'transparent',
     borderRadius: '110px',
     backgroundColor: '#4D5DFA',
 
-    padding: '7px 21px',
+    padding: '10px 21px',
     margin: '0'
   },
 

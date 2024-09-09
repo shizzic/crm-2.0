@@ -1,5 +1,4 @@
-import type { InjectionKey } from 'vue'
-import type { Lang, Merge } from '@types'
+// import type { InjectionKey } from 'vue'
+// import type { Merge } from '@types'
 
-export const Lang_provide: InjectionKey<Lang> = Symbol('lang')
-export const Merge_provide: InjectionKey<Merge> = Symbol('$merge')
+// export const Merge_provide: InjectionKey<Merge> = Symbol('$merge')

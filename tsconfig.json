@@ -21,6 +21,8 @@
       "@stores/*": ["./stores/*"],
       "@types": ["./assets/types"],
       "@symbols": ["./assets/symbols"],
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"],
       "@patterns": ["./assets/patterns"]
     }
   },

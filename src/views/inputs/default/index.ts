@@ -29,13 +29,13 @@ export const DefaultCSS: CSS = {
     color: '#000',
     fontFamily: 'Metropolis, sans-serif',
     fontWeight: 'Medium',
-    fontSize: '13rem',
+    fontSize: '16.44rem',
     border: '2px solid',
     borderColor: '#C4C4C4',
     borderRadius: '110px',
     backgroundColor: '#ffffff',
 
-    padding: '7px 21px'
+    padding: '10px 21px'
   },
 
   placeholder: {

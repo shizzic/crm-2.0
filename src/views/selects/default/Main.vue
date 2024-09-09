@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import type { Merge } from '@types'
+import { $merge } from '@assets/funcs'
 import type { Props } from './'
-import { Merge_provide } from '@symbols'
 import { DefaultCSS } from './'
 
 const model: any = defineModel()
@@ -13,7 +11,6 @@ const props = withDefaults(defineProps<Props>(), {
     labelText: '',
     css: () => { return {} }
 })
-const $merge = inject(Merge_provide) as Merge
 const css = $merge(DefaultCSS, props.css)
 </script>
 

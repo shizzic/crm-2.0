@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { set } from '@stores/reusable/funcs'
 import { useHttpStore } from '@stores'
-import { inject, ref } from 'vue'
-import type { Ref } from 'vue'
+import { inject, ref, computed } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import type { Lang } from '@types'
 
 export const useSettingsStore = defineStore(
@@ -11,6 +11,7 @@ export const useSettingsStore = defineStore(
     const version: Ref<number> = ref(1)
     const locale: Ref<string> = ref('RU')
     const languages: Ref<Lang> = ref({})
+    const lang: ComputedRef<Lang> = computed(() => languages.value[locale.value])
 
     // Получение всех переводов на выбранный язык
     function get_lang(): void {
@@ -28,7 +29,7 @@ export const useSettingsStore = defineStore(
           })
     }
 
-    return { version, locale, languages, set, get_lang }
+    return { version, locale, languages, lang, set, get_lang }
   },
   {
     persist: [

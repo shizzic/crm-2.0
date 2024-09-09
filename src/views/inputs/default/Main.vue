@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { inject, computed, defineAsyncComponent } from 'vue'
-import type { Merge } from '@types'
+import { computed, defineAsyncComponent } from 'vue'
 import type { Props } from './'
-import { Merge_provide } from '@symbols'
 import { DefaultCSS } from './'
+import { $merge } from '@assets/funcs'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 
@@ -17,7 +16,6 @@ const props = withDefaults(defineProps<Props>(), {
     labelText: '',
     css: () => { return {} }
 })
-const $merge = inject(Merge_provide) as Merge
 const css = $merge(DefaultCSS, props.css)
 const errors = computed(() => {
     const r: string[] = []
@@ -40,8 +38,9 @@ const pattern = computed(() => {
 
         <p>
             <Range v-if="props.minlength || props.maxlength" v-model="model"
-                v-bind="{ v: {}, id: props.id, minlength: props.minlength, maxlength: props.maxlength }" />
-            <Errors v-memo="errors" v-bind="{ v: errors, id: props.id }" />
+                v-bind="{ v: errors, id: props.id, minlength: props.minlength, maxlength: props.maxlength }" />
+            <Errors v-memo="errors"
+                v-bind="{ v: errors, id: props.id, minlength: props.minlength, maxlength: props.maxlength }" />
         </p>
     </div>
 </template>
@@ -71,10 +70,6 @@ input:-webkit-autofill:focus {
     /* -webkit-text-fill-color: #000; */
     -webkit-box-shadow: 0 0 0px 30px #fff inset;
     transition: background-color 5000s ease-in-out 0s;
-}
-
-p {
-    margin-left: 22px;
 }
 
 label {

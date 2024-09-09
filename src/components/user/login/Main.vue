@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { inject, ref } from 'vue'
-import { useUserStore } from '@stores'
-import { Lang_provide } from '@symbols'
+import { ref } from 'vue'
+import { useSettingsStore, useUserStore } from '@stores'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 import { phone, password } from '@patterns'
+import { events as cancel } from '@views/other/cancel'
 import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
-// import Select from '@views/selects/default/Main.vue'
+import Modal from '@views/modal/default/Main.vue'
+import RequestNewPassword from './RequestNewPassword.vue'
 
-const lang = inject(Lang_provide)
+const lang = useSettingsStore().lang
 const form = ref({
     phone: '',
     email: '',
@@ -38,17 +39,16 @@ const input_css = {
         padding: '10px 21px',
     },
 }
-
-// const select = ref(1)
+const isRequestPassword = ref(false)
+cancel.on("default", () => isRequestPassword.value = false)
 </script>
 
 <template>
     <section>
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
-            <h2>{{ lang?.auth?.title }}</h2>
-
-            <!-- <Select v-model="select" /> -->
+            <h2 v-html="lang.auth?.title" />
+            <h4 id="welcome" v-html="lang.auth?.welcome" />
 
             <Input v-if="form.email.length === 0" v-model="form.phone" v-bind="{
                 v: v$.phone,
@@ -87,13 +87,18 @@ const input_css = {
 
                 label: false,
                 css: input_css,
-            }" class="item" />
+            }" />
+
+            <span @click.stop="isRequestPassword = true" style="margin-top: 5px;">{{ lang?.auth?.forgot }}</span>
+            <Modal v-if="isRequestPassword">
+                <RequestNewPassword />
+            </Modal>
 
             <Submit v-bind="{
                 text: lang?.auth?.submit,
                 css: {
                     default: {
-                        color: '#ffffff',
+                        width: '100%',
                         backgroundColor: '#4D5DFA',
                         fontSize: '19.75px',
 
@@ -147,9 +152,16 @@ form {
 }
 
 h2 {
-    font-family: Metropolis, sans-serif;
-    font-weight: Bold;
+    font-weight: 700;
     font-size: 41.88rem;
+
+    margin-bottom: 12px;
+}
+
+h4 {
+    color: #252540;
+    font-weight: 500;
+    font-size: 15.64rem;
 
     margin-bottom: 50px;
 }
@@ -166,26 +178,20 @@ h2 {
     margin-bottom: 25px;
 }
 
-select {
-    width: 100%;
-    border-radius: none !important;
-    /* width: 1px;
-    max-width: 1px;
-    height: 1px;
-    max-height: 1px;
-    padding: 0;
-    margin: 0;
-    border: 0;
-    outline: 0;
-    font-size: 0;
-    line-height: 0;
-
-    position: absolute;
-    right: 0;
-    top: 0; */
+.item:last-of-type {
+    margin-bottom: 3px;
 }
 
-option {
-    border-radius: none !important;
+span {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12rem;
+    letter-spacing: -0.02em;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-align: right;
+    color: #252540;
+
+    float: right;
 }
 </style>

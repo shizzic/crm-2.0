@@ -8,8 +8,6 @@ import { addResetMethod } from '@stores'
 import App from './App.vue'
 import router from './router'
 
-import { Merge_provide } from '@symbols'
-
 const pinia = createPinia()
 pinia.use(addResetMethod)
 pinia.use(piniaPluginPersistedstate)
@@ -27,20 +25,5 @@ createApp(App)
           ? '/images' + filename
           : import.meta.env.VITE_API_ENDPOINT + endpoint + filename.split('?').shift()
       else return filename
-  })
-  .provide(Merge_provide, function merge(obj1: any, obj2: any): any {
-    const result = { ...obj1 }
-
-    for (const key in obj2) {
-      if (Object.prototype.hasOwnProperty.call(obj2, key)) {
-        if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
-          result[key] = merge(obj1[key], obj2[key])
-        } else {
-          result[key] = obj2[key]
-        }
-      }
-    }
-
-    return result
   })
   .mount('#app')
