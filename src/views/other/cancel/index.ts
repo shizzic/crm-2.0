@@ -1,5 +1,5 @@
 import type { CSS } from '@types'
-import { EventEmitter } from 'tseep'
+import { createNanoEvents } from 'nanoevents'
 
 export interface Props {
   event: string
@@ -27,6 +27,8 @@ export const DefaultCSS: CSS = {
   }
 }
 
-export const events = new EventEmitter<{
+type Events = {
   [k: string]: () => void
-}>()
+}
+
+export const emitter = createNanoEvents<Events>()

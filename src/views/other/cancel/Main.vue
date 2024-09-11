@@ -3,18 +3,17 @@ import { ref } from 'vue'
 import { $merge } from '@assets/funcs'
 import { useSettingsStore } from '@stores'
 import type { Props } from '.'
-import { DefaultCSS } from '.'
-import { events } from '.'
+import { DefaultCSS, emitter } from '.'
 
 let props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
 const text = ref(props.text ? props.text : useSettingsStore().lang.other?.cancel)
-const css = $merge(DefaultCSS, props.css)
+const css = ref($merge(DefaultCSS, props.css))
 </script>
 
 <template>
-    <button @click.prevent="events.emit(props.event)" v-text="text" />
+    <button @click.prevent="emitter.emit(props.event)" v-text="text" />
 </template>
 
 <style scoped>

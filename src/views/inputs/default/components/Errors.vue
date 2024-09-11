@@ -18,3 +18,13 @@ const props = defineProps<Props>()
         <label v-if="props.v.length === 0" :for="props.id" style="color: #34C759;">{{ lang?.validation?.valid }}</label>
     </span>
 </template>
+
+<style scoped>
+label {
+    font-weight: 500;
+
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+</style>

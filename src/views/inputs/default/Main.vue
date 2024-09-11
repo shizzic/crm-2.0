@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
+import { computed, ref, defineAsyncComponent } from 'vue'
 import type { Props } from './'
 import { DefaultCSS } from './'
 import { $merge } from '@assets/funcs'
@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
     labelText: '',
     css: () => { return {} }
 })
-const css = $merge(DefaultCSS, props.css)
+const css = ref($merge(DefaultCSS, props.css))
 const errors = computed(() => {
     const r: string[] = []
     for (const item of props.v.$silentErrors) r.push(item.$validator)
@@ -45,7 +45,7 @@ const pattern = computed(() => {
     </div>
 </template>
 
-<style>
+<style scoped>
 input {
     width: v-bind('css.default.width');
     color: v-bind('css.default.color');
@@ -70,14 +70,5 @@ input:-webkit-autofill:focus {
     /* -webkit-text-fill-color: #000; */
     -webkit-box-shadow: 0 0 0px 30px #fff inset;
     transition: background-color 5000s ease-in-out 0s;
-}
-
-label {
-    font-weight: Medium;
-    font-size: 13rem;
-
-    display: inline-block;
-    margin-top: 5px;
-    margin-right: 10px;
 }
 </style>

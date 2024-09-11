@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { $merge } from '@assets/funcs'
 import type { Props } from './'
 import { DefaultCSS } from './'
@@ -11,7 +12,7 @@ const props = withDefaults(defineProps<Props>(), {
     labelText: '',
     css: () => { return {} }
 })
-const css = $merge(DefaultCSS, props.css)
+const css = ref($merge(DefaultCSS, props.css))
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const css = $merge(DefaultCSS, props.css)
     </div>
 </template>
 
-<style>
+<style scoped>
 ul {
     width: v-bind('css.ul.default.width');
     color: v-bind('css.ul.default.color');

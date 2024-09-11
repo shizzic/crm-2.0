@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import vClickOutside from '@/views/other/vClickOutside'
-import { events as cancel } from '@views/other/cancel'
+import { emitter as cancel } from '@views/other/cancel'
 </script>
 
 <template>

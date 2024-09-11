@@ -18,3 +18,13 @@ const isMaximum = computed(() => props.maxlength && (!props.minlength || props.m
         </label>
     </span>
 </template>
+
+<style scoped>
+label {
+    font-weight: 500;
+
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+</style>

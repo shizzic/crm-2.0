@@ -7,7 +7,7 @@ import {
   useProjectStore,
   useAccessStore
 } from '@stores'
-import { events as cancel } from '@views/other/cancel'
+import { emitter as cancel } from '@views/other/cancel'
 import { inject, ref } from 'vue'
 import type { Ref } from 'vue'
 
