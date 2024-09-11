@@ -1,4 +1,6 @@
-import type { Merge } from '@types'
+import type { Merge, ImageLoader } from '@types'
+import { useHttpStore } from '@stores'
+const $endpoint = useHttpStore().$endpoint
 
 export const $merge: Merge = (obj1: any, obj2: any): any => {
   const result = { ...obj1 }
@@ -14,4 +16,17 @@ export const $merge: Merge = (obj1: any, obj2: any): any => {
   }
 
   return result
+}
+
+export const $img: ImageLoader = (name: string, model: string, media: string): string => {
+  if (name)
+    if (name.search('blob:') === -1) {
+      model += (!model ? media : '') + '/get-file?file='
+
+      return name.search('\\?') === -1
+        ? '/images' + name
+        : $endpoint + model + name.split('?').shift()
+    } else return name
+
+  return ''
 }

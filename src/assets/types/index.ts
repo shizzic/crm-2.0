@@ -9,6 +9,7 @@ export interface List {
 }
 
 export type Merge = (obj1: any, obj2: any) => any
+export type ImageLoader = (name: string, media: string, endpoint: string) => string
 
 // recursive
 export interface CSS {

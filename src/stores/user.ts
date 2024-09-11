@@ -8,7 +8,7 @@ import {
   useAccessStore
 } from '@stores'
 import { emitter as cancel } from '@views/other/cancel'
-import { inject, ref } from 'vue'
+import { ref } from 'vue'
 import type { Ref } from 'vue'
 
 declare global {
@@ -20,8 +20,7 @@ declare global {
 export const useUserStore = defineStore(
   'user',
   () => {
-    const $endpoint = inject('$endpoint')
-
+    const $endpoint = useHttpStore().$endpoint
     const version: Ref<number> = ref(1)
     const id: Ref<number | undefined> = ref(undefined)
     const username: Ref<string | undefined> = ref(undefined)

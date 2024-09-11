@@ -3,6 +3,7 @@ import { useUserStore, useSettingsStore } from '@stores'
 import { set } from '@stores/reusable/funcs'
 
 export const useHttpStore = defineStore('http', () => {
+  const $endpoint = import.meta.env.VITE_API_ENDPOINT
   const domain_name: string | undefined = undefined
   const project_id: number | undefined = undefined
   const component_id: number | undefined = undefined
@@ -23,10 +24,7 @@ export const useHttpStore = defineStore('http', () => {
       lang: useSettingsStore().locale
     }
 
-    // targetDomain добавляю только, если это не localhost
-    if (window.location.hostname === import.meta.env.VITE_SELF_DOMAIN_NAME)
-      headers.targetDomain = !domain_name ? window.location.hostname : domain_name
-
+    add_target_domain_if_needed(headers)
     return headers
   }
 
@@ -41,12 +39,22 @@ export const useHttpStore = defineStore('http', () => {
       viktoriaSecret: viktoriaSecret === 'test-client' ? 'localhost' : viktoriaSecret,
       lang: useSettingsStore().locale
     }
-    // targetDomain добавляю только, если это не localhost
-    if (window.location.hostname === import.meta.env.VITE_SELF_DOMAIN_NAME)
-      headers.targetDomain = !domain_name ? window.location.hostname : domain_name
 
+    add_target_domain_if_needed(headers)
     return headers
   }
 
-  return { domain_name, set, authorize_headers, non_authorize_headers }
+  function raw_headers(): HeadersInit {
+    const headers: any = authorize_headers()
+    headers['Content-Type'] = 'raw'
+    return headers
+  }
+
+  // targetDomain добавляю только, если это не localhost
+  function add_target_domain_if_needed(headers: any): void {
+    if (window.location.hostname === $endpoint)
+      headers.targetDomain = !domain_name ? window.location.hostname : domain_name
+  }
+
+  return { domain_name, $endpoint, set, authorize_headers, non_authorize_headers, raw_headers }
 })
