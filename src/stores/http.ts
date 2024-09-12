@@ -44,9 +44,11 @@ export const useHttpStore = defineStore('http', () => {
     return headers
   }
 
+  // header для файлов
   function raw_headers(): HeadersInit {
     const headers: any = authorize_headers()
     headers['Content-Type'] = 'raw'
+    headers['Cache-Control'] = 'private'
     return headers
   }
 

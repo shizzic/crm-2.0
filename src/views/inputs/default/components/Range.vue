@@ -10,17 +10,13 @@ const isMaximum = computed(() => props.maxlength && (!props.minlength || props.m
 
 <template>
     <span>
-        <label v-if="isMinimum" :for="props.id" style="color: #4D5DFA;">
-            {{ model?.length }}/{{ props.minlength }}
-        </label>
-        <label v-if="isMaximum" :for="props.id" style="color: #4D5DFA;">
-            {{ model?.length }}/{{ props.maxlength }}
-        </label>
+        <span v-if="isMinimum" data-state style="color: #4D5DFA;" v-text="`${model?.length}/${props.minlength}`" />
+        <span v-if="isMaximum" data-state style="color: #4D5DFA;" v-text="`${model?.length}/${props.maxlength}`" />
     </span>
 </template>
 
 <style scoped>
-label {
+[data-state] {
     font-weight: 500;
 
     display: inline-block;

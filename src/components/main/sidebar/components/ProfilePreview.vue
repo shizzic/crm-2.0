@@ -44,13 +44,11 @@ const $user = useUserStore()
 }
 
 [data-img] {
-    margin-right: 30px;
-}
-
-img {
     width: 110px;
     height: 110px;
     border-radius: 50%;
+
+    margin-right: 30px;
 }
 
 [data-text] {

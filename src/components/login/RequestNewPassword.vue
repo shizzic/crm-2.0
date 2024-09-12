@@ -22,7 +22,6 @@ const v$ = useVuelidate(rules, form)
         <Input v-bind="{
             v: v$,
             name: 'email_for_new_password',
-            id: 'email_for_new_password',
             placeholder: 'E-mail',
             label: false,
             css: { default: { fontSize: '19.75rem' } }

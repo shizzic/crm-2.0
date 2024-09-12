@@ -48,14 +48,13 @@ cancel.on("default", () => isRequestPassword.value = false)
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
             <h2 v-html="lang.auth?.title" />
-            <h4 id="welcome" v-html="lang.auth?.welcome" />
+            <h4 v-html="lang.auth?.welcome" />
 
             <Input v-if="form.email.length === 0" v-model="form.phone" v-bind="{
                 v: v$.phone,
                 name: 'phone',
                 type: 'tel',
                 placeholder: lang?.auth?.number,
-                id: 'tel',
                 autocomplete: 'tel',
                 autocorrect: 'on',
 
@@ -68,7 +67,6 @@ cancel.on("default", () => isRequestPassword.value = false)
                 name: 'email',
                 type: 'email',
                 placeholder: 'E-mail',
-                id: 'email',
                 autocomplete: 'username email',
 
                 label: false,

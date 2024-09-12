@@ -21,11 +21,11 @@ export const useAccessStore = defineStore(
     persist: [
       {
         storage: localStorage,
-        pick: ['version']
+        pick: ['version', 'roles']
       },
       {
         storage: sessionStorage,
-        pick: ['list', 'roles']
+        pick: ['list']
       }
     ]
   }

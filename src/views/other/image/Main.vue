@@ -2,6 +2,8 @@
 import { onBeforeMount, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useHttpStore } from '@stores'
+import { Skeletor } from 'vue-skeletor'
+import 'vue-skeletor/dist/vue-skeletor.css'
 
 var media: Ref<string | undefined> = ref(undefined)
 var isFetched: Ref<boolean> = ref(false)
@@ -21,6 +23,7 @@ const get = async function (src: string) {
         fetch(src, {
             headers: useHttpStore().raw_headers(),
             credentials: "include",
+            cache: 'force-cache',
         })
             .then(res => { return res.blob() })
             .then(blob => {
@@ -35,16 +38,21 @@ const get = async function (src: string) {
 </script>
 
 <template>
-    <img v-if="isFetched && media" :src="media" loading="lazy" />
-    <!-- <Skeletor v-else-if="!media && !isFetched" class="skeletor" /> -->
+    <img v-if="isFetched && media" :src="media" loading="eager" />
+    <Skeletor v-else-if="!media && !isFetched" data-skeletor />
 </template>
 
 <style scoped>
 img {
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
     object-fit: cover;
 }
 
-.skeletor {
+[data-skeletor] {
+    width: inherit;
+    height: inherit;
     border-radius: inherit;
 }
 </style>

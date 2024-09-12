@@ -38,9 +38,8 @@ const pattern = computed(() => {
 
         <p>
             <Range v-if="props.minlength || props.maxlength" v-model="model"
-                v-bind="{ v: errors, id: props.id, minlength: props.minlength, maxlength: props.maxlength }" />
-            <Errors v-memo="errors"
-                v-bind="{ v: errors, id: props.id, minlength: props.minlength, maxlength: props.maxlength }" />
+                v-bind="{ v: errors, minlength: props.minlength, maxlength: props.maxlength }" />
+            <Errors v-memo="errors" v-bind="{ v: errors, minlength: props.minlength, maxlength: props.maxlength }" />
         </p>
     </div>
 </template>

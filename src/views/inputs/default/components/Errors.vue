@@ -8,19 +8,19 @@ const props = defineProps<Props>()
 
 <template>
     <span>
-        <label v-if="props.minlength || props.maxlength" :for="props.id">|</label>
+        <span v-if="props.minlength || props.maxlength" data-state>|</span>
 
         <template v-for="(error, index) in props.v" :key="error">
-            <label :for="props.id" style="color: #FF3429;">{{ lang?.validation[error] }}</label>
-            <label v-if="index !== (props.v.length - 1)" :for="props.id">|</label>
+            <span style="color: #FF3429;" data-state v-text="lang?.validation[error]" />
+            <span v-if="index !== (props.v.length - 1)" data-state>|</span>
         </template>
 
-        <label v-if="props.v.length === 0" :for="props.id" style="color: #34C759;">{{ lang?.validation?.valid }}</label>
+        <span v-if="props.v.length === 0" data-state style="color: #34C759;" v-text="lang?.validation?.valid" />
     </span>
 </template>
 
 <style scoped>
-label {
+[data-state] {
     font-weight: 500;
 
     display: inline-block;
