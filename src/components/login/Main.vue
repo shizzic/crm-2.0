@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useSettingsStore, useUserStore } from '@stores'
+import { useUserStore } from '@stores'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 import { phone, password } from '@patterns'
@@ -9,8 +9,8 @@ import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
 import Modal from '@views/modal/default/Main.vue'
 import RequestNewPassword from './RequestNewPassword.vue'
+import { $lang } from '@/assets/composables'
 
-const lang = useSettingsStore().lang
 const form = ref({
     phone: '',
     email: '',
@@ -47,14 +47,14 @@ cancel.on("default", () => isRequestPassword.value = false)
     <section>
         <form id="login" name="login" autocomplete="on" action=""
             @submit.prevent="useUserStore().login(v$.$invalid, form)">
-            <h2 v-html="lang.auth?.title" />
-            <h4 v-html="lang.auth?.welcome" />
+            <h2 v-html="$lang.auth?.title" />
+            <h4 v-html="$lang.auth?.welcome" />
 
             <Input v-if="form.email.length === 0" v-model="form.phone" v-bind="{
                 v: v$.phone,
                 name: 'phone',
                 type: 'tel',
-                placeholder: lang?.auth?.number,
+                placeholder: $lang?.auth?.number,
                 autocomplete: 'tel',
                 autocorrect: 'on',
 
@@ -77,7 +77,7 @@ cancel.on("default", () => isRequestPassword.value = false)
                 v: v$.password,
                 name: 'password',
                 type: 'password',
-                placeholder: lang?.auth?.password,
+                placeholder: $lang?.auth?.password,
                 minlength: 8,
                 maxlength: 16,
                 id: 'current-password',
@@ -87,13 +87,13 @@ cancel.on("default", () => isRequestPassword.value = false)
                 css: input_css,
             }" />
 
-            <span @click.stop="isRequestPassword = true" style="margin-top: 5px;">{{ lang?.auth?.forgot }}</span>
+            <span @click.stop="isRequestPassword = true" style="margin-top: 5px;">{{ $lang?.auth?.forgot }}</span>
             <Modal v-if="isRequestPassword">
                 <RequestNewPassword />
             </Modal>
 
             <Submit v-bind="{
-                text: lang?.auth?.submit,
+                text: $lang?.auth?.submit,
                 css: {
                     default: {
                         width: '100%',

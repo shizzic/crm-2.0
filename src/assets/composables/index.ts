@@ -1,6 +1,10 @@
-import type { Merge, ImageLoader } from '@types'
-import { useHttpStore } from '@stores'
+import { computed } from 'vue'
+import type { Merge, ImageLoader, Lang } from '@types'
+import { useHttpStore, useSettingsStore } from '@stores'
 const $endpoint = useHttpStore().$endpoint
+
+// хранилище всех переводов
+export const $lang: Lang = computed(() => useSettingsStore().lang)
 
 export const $merge: Merge = (obj1: any, obj2: any): any => {
   const result = { ...obj1 }

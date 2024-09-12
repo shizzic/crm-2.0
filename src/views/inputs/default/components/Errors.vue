@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import { $lang } from '@/assets/composables'
 import type { Props } from '..'
-import { useSettingsStore } from '@stores'
 
-const lang = useSettingsStore().lang
 const props = defineProps<Props>()
 </script>
 
@@ -11,11 +10,11 @@ const props = defineProps<Props>()
         <span v-if="props.minlength || props.maxlength" data-state>|</span>
 
         <template v-for="(error, index) in props.v" :key="error">
-            <span style="color: #FF3429;" data-state v-text="lang?.validation[error]" />
+            <span style="color: #FF3429;" data-state v-text="$lang?.validation[error]" />
             <span v-if="index !== (props.v.length - 1)" data-state>|</span>
         </template>
 
-        <span v-if="props.v.length === 0" data-state style="color: #34C759;" v-text="lang?.validation?.valid" />
+        <span v-if="props.v.length === 0" data-state style="color: #34C759;" v-text="$lang?.validation?.valid" />
     </span>
 </template>
 

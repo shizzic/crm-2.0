@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { $merge } from '@/assets/composables'
+import { $merge, $lang } from '@/assets/composables'
 import type { Props } from './'
 import { DefaultCSS } from './'
-import { useSettingsStore } from '@/stores';
 
 const model: any = defineModel()
 const props = withDefaults(defineProps<Props>(), {
@@ -12,7 +11,7 @@ const props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
 const css = ref($merge(DefaultCSS, props.css))
-const text = ref(props.work.text ? props.work.text : useSettingsStore().lang?.table?.projects)
+const text = ref(props.work.text ? props.work.text : $lang.value?.table?.projects)
 const render = (li: any) => {
     return props.work.render ? li[props.work.render] : li
 }
