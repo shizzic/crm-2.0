@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { $merge } from '@assets/funcs'
+import { $merge } from '@/assets/composables'
 import { useSettingsStore } from '@stores'
 import type { Props } from '.'
 import { DefaultCSS, emitter } from '.'

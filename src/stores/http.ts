@@ -3,7 +3,7 @@ import { useUserStore, useSettingsStore } from '@stores'
 import { set } from '@stores/reusable/funcs'
 
 export const useHttpStore = defineStore('http', () => {
-  const $endpoint = import.meta.env.VITE_API_ENDPOINT
+  const $endpoint: string = import.meta.env.VITE_API_ENDPOINT
   const domain_name: string | undefined = undefined
   const project_id: number | undefined = undefined
   const component_id: number | undefined = undefined

@@ -2,7 +2,7 @@
 import { computed, ref, defineAsyncComponent } from 'vue'
 import type { Props } from './'
 import { DefaultCSS } from './'
-import { $merge } from '@assets/funcs'
+import { $merge } from '@/assets/composables'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 
@@ -30,7 +30,7 @@ const pattern = computed(() => {
 
 <template>
     <div>
-        <label v-if="props.label" :for="props.id">{{ props.labelText }}</label>
+        <h6 v-if="props.label" v-html="props.labelText" />
         <input :type="props.type" :name="props.name" v-model.trim="model" :required="props.v.required"
             :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
             :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"

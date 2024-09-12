@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUserStore, useAccessStore } from '@stores'
 import Image from '@views/other/image/Main.vue'
-import { $img } from '@assets/funcs'
+import { $img } from '@/assets/composables'
 
 const $user = useUserStore()
 </script>
@@ -38,14 +38,14 @@ const $user = useUserStore()
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 22px;
+    padding: 15px 15px;
 
     overflow: hidden;
 }
 
 [data-img] {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 
     margin-right: 30px;

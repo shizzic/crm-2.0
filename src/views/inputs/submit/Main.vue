@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { $merge } from '@assets/funcs'
+import { $merge } from '@/assets/composables'
 import { useSettingsStore } from '@stores'
 import { ref } from 'vue'
 import type { Props } from './'
