@@ -11,7 +11,7 @@ import { emitter as cancel } from '@views/other/cancel'
     </div>
 </template>
 
-<style>
+<style scoped>
 #modal {
     width: 100%;
     height: 100%;

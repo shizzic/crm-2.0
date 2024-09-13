@@ -31,10 +31,6 @@ const $user = useUserStore()
     background-color: #ffffff;
     border-radius: 20px;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -76,7 +72,7 @@ const $user = useUserStore()
     display: flex;
 
     white-space: nowrap;
-    overflow: hidden !important;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
