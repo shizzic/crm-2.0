@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@stores'
 import { ref } from 'vue'
-import { $lang, $merge } from '@/assets/composables'
+import { $merge } from '@/assets/composables'
 import type { Props } from '.'
 import { DefaultCSS, emitter } from '.'
 
+const lang = useSettingsStore().lang
 let props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
-const text = ref(props.text ? props.text : $lang.value?.other?.cancel)
+const text = ref(props.text ? props.text : lang?.other?.cancel)
 const css = ref($merge(DefaultCSS, props.css))
 </script>
 

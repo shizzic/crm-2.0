@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { $merge, $lang } from '@/assets/composables'
+import { useSettingsStore } from '@stores'
+import { $merge } from '@/assets/composables'
 import type { Props } from './'
 import { DefaultCSS } from './'
 
+const lang = useSettingsStore().lang
 const model: any = defineModel()
 const props = withDefaults(defineProps<Props>(), {
     label: true,
@@ -11,7 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
 const css = ref($merge(DefaultCSS, props.css))
-const text = ref(props.work.text ? props.work.text : $lang.value?.table?.projects)
+const text = ref(props.work.text ? props.work.text : lang?.table?.projects)
 const render = (li: any) => {
     return props.work.render ? li[props.work.render] : li
 }

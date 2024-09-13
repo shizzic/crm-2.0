@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useUserStore } from '@stores'
+import { useUserStore, useSettingsStore } from '@stores'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
 import Cancel from '@views/other/cancel/Main.vue'
-import { $lang } from '@/assets/composables'
 
+const lang = useSettingsStore().lang
 const form = ref({ email: '' })
 const rules = { email: { required, email } }
 const v$ = useVuelidate(rules, form)
@@ -16,8 +16,8 @@ const v$ = useVuelidate(rules, form)
 <template>
     <form id="request_password_reset" name="request_password_reset"
         @submit.prevent="useUserStore().request_new_password(v$.$invalid, form.email)">
-        <h3>{{ $lang?.auth?.request?.title }}</h3>
-        <span>{{ $lang?.auth?.request?.description }}</span>
+        <h3>{{ lang?.auth?.request?.title }}</h3>
+        <span>{{ lang?.auth?.request?.description }}</span>
 
         <Input v-bind="{
             v: v$,
