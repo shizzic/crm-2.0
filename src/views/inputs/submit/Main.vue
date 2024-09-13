@@ -4,13 +4,15 @@ import { $merge } from '@/assets/composables'
 import { ref } from 'vue'
 import type { Props } from './'
 import { DefaultCSS } from './'
+import type { Ref } from 'vue'
+import type { CSS } from '@/assets/types'
 
 const lang = useSettingsStore().lang
 const props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
-const text = ref(props.text ? props.text : lang?.other?.submit)
-const css = ref($merge(DefaultCSS, props.css))
+const text: Ref<string> = ref(props.text ? props.text : lang?.other?.submit)
+const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
 </script>
 
 <template>

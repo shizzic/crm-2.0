@@ -13,5 +13,5 @@ export type ImageLoader = (name: string, media: string, endpoint: string) => str
 
 // recursive
 export interface CSS {
-  [k: string]: CSS | string | number
+  [k: string]: any
 }

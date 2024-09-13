@@ -2,6 +2,8 @@
 import { computed, ref, defineAsyncComponent } from 'vue'
 import type { Props } from './'
 import { DefaultCSS } from './'
+import type { Ref } from 'vue'
+import type { CSS } from '@/assets/types'
 import { $merge } from '@/assets/composables'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
@@ -16,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
     labelText: '',
     css: () => { return {} }
 })
-const css = ref($merge(DefaultCSS, props.css))
+const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
 const errors = computed(() => {
     const r: string[] = []
     for (const item of props.v.$silentErrors) r.push(item.$validator)

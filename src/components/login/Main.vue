@@ -113,7 +113,7 @@ cancel.on("default", () => isRequestPassword.value = false)
 section {
     width: 100%;
     height: 100%;
-    background: url('/src/assets/images/login/guy.webp') left no-repeat, url('/src/assets/images/login/background.webp') right no-repeat;
+    background: url('@assets/images/login/guy.webp') left no-repeat, url('@assets/images/login/background.webp') right no-repeat;
 
     display: flex;
     justify-content: center;

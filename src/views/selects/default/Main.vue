@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Ref } from 'vue'
 import { useSettingsStore } from '@stores'
 import { $merge } from '@/assets/composables'
 import type { Props } from './'
 import { DefaultCSS } from './'
+import type { CSS } from '@types'
+import Active from './components/Active.vue'
 
 const lang = useSettingsStore().lang
 const model: any = defineModel()
@@ -12,21 +15,17 @@ const props = withDefaults(defineProps<Props>(), {
     labelText: '',
     css: () => { return {} }
 })
-const css = ref($merge(DefaultCSS, props.css))
-const text = ref(props.work.text ? props.work.text : lang?.table?.projects)
-const render = (li: any) => {
-    return props.work.render ? li[props.work.render] : li
-}
+const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
+const text: Ref<string> = ref(props.work.text ? props.work.text : lang?.other?.select)
+const active: Ref<boolean> = ref(false)
 </script>
 
 <template>
     <div data-select>
         <select v-model="model" :name="props.name" :form="props.form" :required="props.required"
             :multiple="props.multiple" :disabled="props.disabled" :autofocus="props.autofocus" />
-        <div data-default v-text="text" />
-        <ul>
-            <li v-for="(li, index) in props.work.list" :key="li.id ? li.id : index" v-html="render(li)" />
-        </ul>
+        <div data-default v-text="text" @click="active = !active" />
+        <Active v-bind="props" />
     </div>
 </template>
 
