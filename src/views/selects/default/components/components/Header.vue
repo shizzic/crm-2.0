@@ -1,6 +1,12 @@
+<script setup lang="ts">
+import { inject } from 'vue'
+
+const props: any = inject('$props')
+</script>
+
 <template>
     <div data-header>
-        <h6 v-text="'A list of employees'" />
+        <h6 v-text="props?.wrapper.description" />
         <button>Clear</button>
     </div>
 </template>
@@ -9,7 +15,7 @@
 [data-header] {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 15px 20px;
 }
 
 [data-header] h6 {

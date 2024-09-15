@@ -1,21 +1,20 @@
 import type { CSS } from '@types'
 
 export interface Props {
-  // required
-  v: { [k: string]: any } // валидатор vuelidate
+  v?: { [k: string]: any } // валидатор vuelidate
 
   // input attributes
-  name?: string | undefined
-  type?: string | undefined
-  placeholder?: string | undefined
-  maxlength?: number | undefined
-  minlength?: number | undefined
+  name?: string
+  type?: string
+  placeholder?: string
+  maxlength?: number
+  minlength?: number
   autofocus?: boolean
-  autocomplete?: string | undefined
-  autocorrect?: string | undefined
-  id?: string | undefined
+  autocomplete?: string
+  autocorrect?: string
+  id?: string
   readonly?: boolean
-  pattern?: string | undefined
+  pattern?: string
 
   // other
   label?: boolean

@@ -12,7 +12,7 @@ import Projects from './components/Projects.vue';
 
 <style scoped>
 aside {
-    width: 500px;
+    width: 450px;
     height: 100%;
 
     padding: 20px;

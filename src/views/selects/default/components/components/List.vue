@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import type { Props } from '../..'
+import { inject } from 'vue'
 
-const props = withDefaults(defineProps<Props>(), {
-    label: true,
-    labelText: '',
-})
+const props: any = inject('$props')
 const render: (li: any) => any = (li: any) => {
-    return props.work.render ? li[props.work.render] : li
+    return props.value.wrapper.render ? li[props.value.wrapper.render] : li
 }
 </script>
 
 <template>
     <ul>
-        <li v-for="(li, index) in props.work.list" :key="li.id ? li.id : index">
+        <li v-for="(li, index) in props.wrapper.list" :key="li.id ? li.id : index"
+            v-show="props?.wrapper?.isVisible?.(render(li))">
             <img src="./assets/arrow.webp" loading="eager">
             {{ render(li) }}
         </li>
@@ -26,6 +24,7 @@ ul {
     list-style: none;
     position: relative;
 
+    padding-top: 15px;
     overflow-y: auto;
     overflow-x: hidden;
 }

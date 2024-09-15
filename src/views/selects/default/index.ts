@@ -1,11 +1,17 @@
 import type { CSS } from '@types'
+import { useSettingsStore } from '@stores'
 
 export interface Props {
-  work: {
+  wrapper: {
     list: any
-    render: string
-    text?: string
+    render?: string // ключ, на который нужно ссылаться для вывода текста li
+    text?: string // текст "кнопки" aka placeholder для select
+    description?: string // описание данных, которое выводится при раскрытии селекта (если не указано, берется text)
+    // isVisible?: (...arg: any) => any
+    isVisible?: any
+    flags?: string
   }
+
   // input attributes
   name?: string
   form?: string
@@ -18,6 +24,7 @@ export interface Props {
   label?: boolean
   labelText?: string
   css?: CSS
+  active?: boolean // открыт или нет wrapper
 }
 
 export const DefaultCSS: CSS = {
@@ -40,4 +47,19 @@ export const DefaultCSS: CSS = {
   hover: {
     backgroundColor: '#ffffff'
   }
+}
+
+export const defaultProps: Props = {
+  wrapper: {
+    list: undefined,
+    render: 'title',
+    text: useSettingsStore().lang?.other?.select,
+    description: useSettingsStore().lang?.other?.select,
+    flags: 'imu'
+  },
+
+  label: true,
+  labelText: '',
+  css: DefaultCSS,
+  active: false
 }

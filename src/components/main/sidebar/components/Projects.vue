@@ -7,7 +7,6 @@ import { useSettingsStore } from '@/stores'
 
 const lang = useSettingsStore().lang
 const list: Ref<undefined | null | any[] | {}> = ref(undefined)
-const render: string = 'title'
 const text = lang.table.projects
 fetcher.get('project/project-user/attached-projects')
     .then((res: any) => list.value = res?.data)
@@ -16,7 +15,7 @@ fetcher.get('project/project-user/attached-projects')
 <template>
     <Select v-bind="{
         name: 'projects',
-        work: { list, render, text },
+        wrapper: { list, text, description: text },
         css: {
             default: {
                 color: '#ffffff',

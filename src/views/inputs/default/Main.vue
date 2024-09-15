@@ -21,24 +21,26 @@ const props = withDefaults(defineProps<Props>(), {
 const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
 const errors = computed(() => {
     const r: string[] = []
-    for (const item of props.v.$silentErrors) r.push(item.$validator)
+    if (props?.v?.$silentErrors)
+        for (const item of props.v.$silentErrors) r.push(item.$validator)
     return r
 })
 const pattern = computed(() => {
-    for (const item of props.v.$silentErrors) if (item.$params?.pattern) return item.$params.pattern
+    if (props?.v?.$silentErrors)
+        for (const item of props.v.$silentErrors) if (item.$params?.pattern) return item.$params.pattern
     return undefined
 })
 </script>
 
 <template>
-    <div>
+    <div data-wrapper>
         <h6 v-if="props.label" v-html="props.labelText" />
-        <input :type="props.type" :name="props.name" v-model.trim="model" :required="props.v.required"
+        <input :type="props.type" :name="props.name" v-model.trim="model" :required="props?.v?.required"
             :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
             :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"
             :pattern="pattern ? pattern : props.pattern" :autofocus="props.autofocus">
 
-        <p>
+        <p v-if="props.v">
             <Range v-if="props.minlength || props.maxlength" v-model="model"
                 v-bind="{ v: errors, minlength: props.minlength, maxlength: props.maxlength }" />
             <Errors v-memo="errors" v-bind="{ v: errors, minlength: props.minlength, maxlength: props.maxlength }" />
