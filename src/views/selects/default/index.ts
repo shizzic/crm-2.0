@@ -24,7 +24,6 @@ export interface Props {
   label?: boolean
   labelText?: string
   css?: CSS
-  active?: boolean // открыт или нет wrapper
 }
 
 export const DefaultCSS: CSS = {
@@ -60,6 +59,5 @@ export const defaultProps: Props = {
 
   label: true,
   labelText: '',
-  css: DefaultCSS,
-  active: false
+  css: DefaultCSS
 }
