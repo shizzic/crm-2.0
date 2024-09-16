@@ -1,8 +1,11 @@
+import { unref } from 'vue'
 import type { Merge, ImageLoader } from '@types'
 import { useHttpStore } from '@stores'
 const $endpoint = useHttpStore().$endpoint
 
 export const $merge: Merge = (obj1: any, obj2: any): any => {
+  obj1 = unref(obj1) // делаю unref, чтобы избавиться от inner refs, так как данная функция не умеет работать с ними и хочет получить plain object
+  obj2 = unref(obj2) // делаю unref, чтобы избавиться от inner refs, так как данная функция не умеет работать с ними и хочет получить plain object
   const result = { ...obj1 }
 
   for (const key in obj2) {

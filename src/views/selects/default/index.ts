@@ -24,6 +24,7 @@ export interface Props {
   label?: boolean
   labelText?: string
   css?: CSS
+  active?: boolean
 }
 
 export const DefaultCSS: CSS = {
@@ -59,5 +60,6 @@ export const defaultProps: Props = {
 
   label: true,
   labelText: '',
-  css: DefaultCSS
+  css: DefaultCSS,
+  active: false
 }

@@ -20,13 +20,12 @@ const isVisible = (li: any) => {
     return pattern.test(li)
 }
 props.value.wrapper.isVisible = isVisible
-console.log(props.value.wrapper.isVisible)
 </script>
 
 <template>
     <div>
         <Transition name="slide-up" mode="out-in">
-            <div v-show="true" data-select v-click-outside="() => cancel.emit('close_select')">
+            <div v-show="props.active" data-select v-click-outside="() => cancel.emit('close_select')">
                 <Header />
                 <Search v-model="search" />
                 <Selected v-if="props.multiple" />
@@ -34,7 +33,7 @@ console.log(props.value.wrapper.isVisible)
             </div>
         </Transition>
 
-        <Modal v-show="true" />
+        <Modal v-show="props.active" />
     </div>
 </template>
 

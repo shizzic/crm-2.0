@@ -48,11 +48,11 @@ li {
 }
 
 li:hover {
-    padding-left: 50px;
+    padding-left: 30px;
 }
 
 img {
-    width: 40px;
+    width: 35px;
     position: absolute;
     left: -100px;
 
@@ -60,6 +60,6 @@ img {
 }
 
 li:hover img {
-    left: 0;
+    left: -25px;
 }
 </style>

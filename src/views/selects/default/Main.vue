@@ -8,32 +8,23 @@ import { defaultProps } from './'
 import Wrapper from './components/Wrapper.vue'
 import { emitter as cancel } from '@/views/other/cancel'
 
-const model: any = defineModel()
 const lang = useSettingsStore().lang
-
-const version = ref(0)
-const passedProps = defineProps<Props>()
-const merged = ref($merge(defaultProps, passedProps))
-watch(passedProps, () => {
-    merged.value = $merge(defaultProps, passedProps)
-    ++version.value
-})
-const props: any = ref(merged)
-
+const passedProps: any = defineModel()
+const props = ref(passedProps.value)
+props.value = $merge(defaultProps, passedProps.value)
+watch(passedProps, (value) => props.value = $merge(props.value, value), { deep: true })
 provide('$props', props)
 const text: Ref<string> = ref(props.value.wrapper.text ? props.value.wrapper.text : lang?.other?.select)
-cancel.on('close_select', () => active.value = false)
-const active = ref(false)
+cancel.on('close_select', () => props.value.active = false)
 </script>
 
 <template>
     <div>
-        {{ props.wrapper.isVisible }}<br>
-        {{ props.wrapper.list }}
-        <select v-model="model" :name="props.name" :form="props.form" :required="props.required"
-            :multiple="props.multiple" :disabled="props.disabled" :autofocus="props.autofocus" />
-        <div data-default :data-default-active="active" v-text="text" @click.stop="active = !active" />
-        <Wrapper v-show="active" :key="version" />
+        <select :name="props.name" :form="props.form" :required="props.required" :multiple="props.multiple"
+            :disabled="props.disabled" :autofocus="props.autofocus" />
+        <div data-default :data-default-active="props.active" v-text="text"
+            @click.stop="props.active = !props.active" />
+        <Wrapper v-show="props.active" />
     </div>
 </template>
 
