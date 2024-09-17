@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, defineAsyncComponent } from 'vue'
+import { computed, ref, defineAsyncComponent, onMounted, onActivated, useTemplateRef } from 'vue'
 import type { Props } from './'
 import { DefaultCSS } from './'
 import type { Ref } from 'vue'
@@ -30,6 +30,12 @@ const pattern = computed(() => {
         for (const item of props.v.$silentErrors) if (item.$params?.pattern) return item.$params.pattern
     return undefined
 })
+const input = useTemplateRef('input')
+const focus = () => {
+    if (props.autofocus) input.value?.focus()
+}
+onMounted(focus)
+onActivated(focus)
 </script>
 
 <template>
@@ -38,7 +44,7 @@ const pattern = computed(() => {
         <input :type="props.type" :name="props.name" v-model.trim="model" :required="props?.v?.required"
             :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
             :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"
-            :pattern="pattern ? pattern : props.pattern" :autofocus="props.autofocus">
+            :pattern="pattern ? pattern : props.pattern" ref="input">
 
         <p v-if="props.v">
             <Range v-if="props.minlength || props.maxlength" v-model="model"

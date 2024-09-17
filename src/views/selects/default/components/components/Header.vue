@@ -1,13 +1,28 @@
 <script setup lang="ts">
 import { inject } from 'vue'
+import type { Ref } from 'vue'
+import type { Props } from '../..'
+import { useSettingsStore } from '@stores'
+import { emitter as cancel } from '@/views/other/cancel'
 
-const props: any = inject('$props')
+const lang = useSettingsStore().lang
+const props = inject('$props') as Ref<Props>
+const model: any = inject('$model')
+const clear = (): void => {
+    if (!props.value.multiple) {
+        const old = model.value
+        model.value = undefined
+
+        if (old)
+            cancel.emit('close_select')
+    }
+}
 </script>
 
 <template>
     <div data-header>
         <h6 v-text="props?.wrapper.description" />
-        <button>Clear</button>
+        <button @click.stop="clear" v-text="lang?.other?.clear" />
     </div>
 </template>
 

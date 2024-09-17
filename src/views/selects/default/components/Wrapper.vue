@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue'
 import type { Ref } from 'vue'
-import { DefaultCSS } from '..'
-import type { CSS } from '@types'
-import { $merge } from '@/assets/composables'
+import type { Props } from '../'
 import vClickOutside from '@/views/other/vClickOutside'
 import { emitter as cancel } from '@/views/other/cancel'
 import Modal from '@views/modal/default/Main.vue'
@@ -12,12 +10,11 @@ import Search from './components/Search.vue'
 import Selected from './components/Selected.vue'
 import List from './components/List.vue'
 
-const props: any = inject('$props')
-const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
+const props = inject('$props') as Ref<Props>
 const search = ref('')
-const isVisible = (li: any) => {
+const isVisible = (render: string): boolean => {
     const pattern = new RegExp(search.value, props.value.wrapper.flags)
-    return pattern.test(li)
+    return pattern.test(render)
 }
 props.value.wrapper.isVisible = isVisible
 </script>
@@ -25,11 +22,11 @@ props.value.wrapper.isVisible = isVisible
 <template>
     <div>
         <Transition name="slide-up" mode="out-in">
-            <div v-show="props.active" data-select v-click-outside="() => cancel.emit('close_select')">
+            <div v-if="props.active" data-select v-click-outside="() => cancel.emit('close_select')">
                 <Header />
                 <Search v-model="search" />
                 <Selected v-if="props.multiple" />
-                <List v-if="props?.wrapper?.list" />
+                <List v-if="props.wrapper.list" />
             </div>
         </Transition>
 
@@ -52,7 +49,7 @@ props.value.wrapper.isVisible = isVisible
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-    transition: all .15s ease-out;
+    transition: all .2s ease-out;
 }
 
 .slide-up-enter-from {

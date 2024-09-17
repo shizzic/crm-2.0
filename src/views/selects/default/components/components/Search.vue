@@ -15,13 +15,14 @@ const input_css = {
 </script>
 
 <template>
-    <Input v-model="model" v-bind="{
+    <Input v-model="model" ref="search" v-bind="{
         name: props.name,
         placeholder: lang?.other?.search,
-        autocomplete: 'on',
+        autocomplete: 'off',
         autocorrect: 'off',
+        autofocus: true,
 
         label: false,
         css: input_css,
-    }" class="item" style="padding: 0 20px;" />
+    }" class="item" style="padding: 0 20px 10px 20px;" />
 </template>
