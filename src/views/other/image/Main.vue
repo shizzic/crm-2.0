@@ -25,7 +25,7 @@ const get = async function (src: string) {
             credentials: "include",
             cache: 'force-cache',
         })
-            .then(res => { return res.blob() })
+            .then(r => { return r.blob() })
             .then(blob => {
                 media.value = URL.createObjectURL(blob)
                 isFetched.value = true

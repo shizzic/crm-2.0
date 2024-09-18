@@ -21,6 +21,8 @@ props.value.wrapper.isVisible = isVisible
 
 <template>
     <div>
+        <Modal v-show="props.active" style="z-index: 2" />
+
         <Transition name="slide-up" mode="out-in">
             <div v-if="props.active" data-select v-click-outside="() => cancel.emit('close_select')">
                 <Header v-if="props.wrapper.description || !props.hideClear" />
@@ -29,14 +31,12 @@ props.value.wrapper.isVisible = isVisible
                 <List v-if="props.wrapper.list" />
             </div>
         </Transition>
-
-        <Modal v-show="props.active" />
     </div>
 </template>
 
 <style scoped>
 [data-select] {
-    z-index: 2;
+    z-index: 3;
     position: v-bind('props.css?.wrapper.position');
     width: 100%;
 

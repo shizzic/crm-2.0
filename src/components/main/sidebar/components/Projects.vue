@@ -6,7 +6,7 @@ import { fetcher } from '@/assets/composables/fetcher'
 import { useProjectStore, useSettingsStore } from '@stores'
 
 const lang = useSettingsStore().lang
-const list: Ref<undefined | null | any[] | {}> = ref(undefined)
+const list: Ref<undefined | null | any[]> = ref(undefined)
 const text: string = lang.table.projects
 const description: string = lang.sidebar.selects?.projects?.description
 const select: any = useTemplateRef('select')
@@ -28,18 +28,16 @@ const model: any = {
         hover: {
             backgroundColor: '#3045ff'
         },
-        wrapper: {
-
-        }
     }
 }
 
 fetcher.get('project/project-user/attached-projects')
-    .then((res: any) => list.value = res?.data)
+    .then((r: any) => list.value = r?.data)
 watch(() => select?.value?.model, (data: any) => {
     useProjectStore().id = data?.id
     useProjectStore().title = data?.title
 })
+watch(() => useProjectStore().id, (value: undefined | number) => { if (!value) select.value.model = undefined })
 onMounted(() => {
     if (useProjectStore().id && useProjectStore().title)
         select.value.model = { id: useProjectStore().id, title: useProjectStore().title }

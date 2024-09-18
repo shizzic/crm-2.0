@@ -3,6 +3,7 @@ export * from './http'
 export * from './settings/main'
 export * from './sse/device'
 export * from './project'
+export * from './domain'
 export * from './access'
 
 import clone from 'clone'
