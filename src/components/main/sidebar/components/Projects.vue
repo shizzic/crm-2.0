@@ -7,11 +7,13 @@ import { useProjectStore, useSettingsStore } from '@stores'
 
 const lang = useSettingsStore().lang
 const list: Ref<undefined | null | any[] | {}> = ref(undefined)
-const text = lang.table.projects
+const text: string = lang.table.projects
+const description: string = lang.sidebar.selects?.projects?.description
 const select: any = useTemplateRef('select')
 const model: any = {
     name: 'projects',
-    wrapper: { list, text, description: text },
+    hideClear: true,
+    wrapper: { list, text, description },
     css: {
         default: {
             color: '#ffffff',
@@ -25,6 +27,9 @@ const model: any = {
         },
         hover: {
             backgroundColor: '#3045ff'
+        },
+        wrapper: {
+
         }
     }
 }

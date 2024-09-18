@@ -16,18 +16,18 @@ export const useSettingsStore = defineStore(
 
     // Получение всех переводов на выбранный язык
     function get_lang(): void {
-      if (!(locale.value in languages.value))
-        fetch($endpoint + 'user/user/get-lang?file=web', {
-          headers: useHttpStore().non_authorize_headers(),
-          credentials: 'include'
+      // if (!(locale.value in languages.value))
+      fetch($endpoint + 'user/user/get-lang?file=web', {
+        headers: useHttpStore().non_authorize_headers(),
+        credentials: 'include'
+      })
+        .then((data) => {
+          return data.json()
         })
-          .then((data) => {
-            return data.json()
-          })
-          .then((r) => {
-            if (!r?.data) return
-            languages.value[locale.value] = r.data
-          })
+        .then((r) => {
+          if (!r?.data) return
+          languages.value[locale.value] = r.data
+        })
     }
 
     return { version, locale, languages, lang, set, get_lang }

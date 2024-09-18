@@ -30,7 +30,7 @@ defineExpose({ model })
 </script>
 
 <template>
-    <div>
+    <div data-root>
         <select :name="props.name" :form="props.form" :required="props.required" :multiple="props.multiple"
             :disabled="props.disabled" :autofocus="props.autofocus" v-model="model" />
         <div data-default :data-default-active="props.active" v-text="text"
@@ -43,6 +43,10 @@ defineExpose({ model })
 </template>
 
 <style scoped>
+[data-root] {
+    position: relative;
+}
+
 select {
     height: 0;
     width: 0;
@@ -53,9 +57,9 @@ select {
 }
 
 [data-default] {
-    position: relative;
     z-index: 2;
     line-height: 1;
+    position: relative;
     cursor: v-bind('props.css?.default.cursor');
     text-align: v-bind('props.css?.default.textAlign');
     width: v-bind('props.css?.default.width');

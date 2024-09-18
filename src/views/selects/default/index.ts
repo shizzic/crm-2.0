@@ -13,7 +13,7 @@ export interface Props {
     flags?: string
   }
 
-  // input attributes
+  // select attributes
   name?: string
   form?: string
   autofocus?: boolean
@@ -26,6 +26,7 @@ export interface Props {
   labelText?: string
   css?: CSS
   active?: boolean
+  hideClear?: boolean
 }
 
 export const DefaultCSS: CSS = {
@@ -47,6 +48,23 @@ export const DefaultCSS: CSS = {
 
   hover: {
     backgroundColor: '#ffffff'
+  },
+
+  wrapper: {
+    position: 'relative',
+    backgroundColor: '#F9F9F9',
+
+    Header: {
+      description: {
+        color: '#252540'
+      },
+      clear: {
+        color: '#4D5DFA'
+      }
+    },
+    List: {
+      color: '#252540'
+    }
   }
 }
 
@@ -60,7 +78,8 @@ export const defaultProps: Props = {
   },
 
   label: true,
-  labelText: '',
+  labelText: undefined,
   css: DefaultCSS,
-  active: false
+  active: false,
+  hideClear: false
 }

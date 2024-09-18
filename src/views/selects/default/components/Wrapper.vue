@@ -23,7 +23,7 @@ props.value.wrapper.isVisible = isVisible
     <div>
         <Transition name="slide-up" mode="out-in">
             <div v-if="props.active" data-select v-click-outside="() => cancel.emit('close_select')">
-                <Header />
+                <Header v-if="props.wrapper.description || !props.hideClear" />
                 <Search v-model="search" />
                 <Selected v-if="props.multiple" />
                 <List v-if="props.wrapper.list" />
@@ -37,11 +37,12 @@ props.value.wrapper.isVisible = isVisible
 <style scoped>
 [data-select] {
     z-index: 2;
-    position: relative;
+    position: v-bind('props.css?.wrapper.position');
     width: 100%;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: #F9F9F9;
+
+    border-bottom-left-radius: v-bind('props.css?.default.borderRadius');
+    border-bottom-right-radius: v-bind('props.css?.default.borderRadius');
+    background-color: v-bind('props.css?.wrapper.backgroundColor');
 
     display: flex;
     flex-direction: column;

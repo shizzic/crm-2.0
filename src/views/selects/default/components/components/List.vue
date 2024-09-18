@@ -62,11 +62,10 @@ ul {
 
 li {
     width: 100%;
-    min-width: 0;
     position: relative;
     cursor: pointer;
-    color: #252540;
-    font-size: 18rem;
+    color: v-bind('props.css?.wrapper.List.color');
+    font-size: calc(v-bind('props.css?.default.fontSize') - 4rem);
     font-weight: 600;
     letter-spacing: -0.02em;
 
@@ -93,7 +92,7 @@ i {
     width: 0;
     height: 0;
     border-top: 6px solid transparent;
-    border-left: 10px solid #555;
+    border-left: 10px solid #707fff;
     border-bottom: 6px solid transparent;
 
     position: absolute;

@@ -24,5 +24,12 @@ const input_css = {
 
         label: false,
         css: input_css,
-    }" class="item" style="padding: 0 20px 10px 20px;" />
+    }" class="item" data-search />
 </template>
+
+<style scoped>
+[data-search] {
+    padding: 0 20px;
+    margin: 15px 0 15px;
+}
+</style>
