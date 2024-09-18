@@ -6,11 +6,11 @@ import { fetcher } from '@/assets/composables/fetcher'
 import { useProjectStore, useSettingsStore, useDomainStore } from '@stores'
 
 const lang = useSettingsStore().lang
-const list: Ref<undefined | null | any[]> = ref(undefined)
+const list: Ref<undefined | null | any[]> = ref(useDomainStore().list)
 const text: string = lang.table.domains
 const description: string = lang.sidebar.selects?.domains?.description
 const select: any = useTemplateRef('select')
-const model: any = {
+let model: any = {
     name: 'projects',
     hideClear: true,
     wrapper: { list, text, description },
@@ -34,6 +34,7 @@ const model: any = {
 fetcher.get('domain')
     .then((r: any) => {
         list.value = r?.data?.data
+        useDomainStore().list = r?.data?.data
 
         if (list.value) {
             if (list.value.length > 0 && !useDomainStore().id)

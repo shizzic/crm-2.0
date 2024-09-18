@@ -33,9 +33,10 @@ defineExpose({ model })
     <div data-root>
         <select :name="props.name" :form="props.form" :required="props.required" :multiple="props.multiple"
             :disabled="props.disabled" :autofocus="props.autofocus" v-model="model" />
-        <div data-default :data-default-active="props.active" v-text="text" @click.stop="props.active = !props.active" :style="{
-            zIndex: props.active ? '3' : '1'
-        }" />
+        <div data-default :data-default-active="props.active" v-text="text" @click.stop="props.active = !props.active"
+            :style="{
+                zIndex: props.active ? '3' : '1'
+            }" />
 
         <KeepAlive>
             <Wrapper v-if="props.active" />

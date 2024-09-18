@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { ref } from 'vue'
 import type { Ref } from 'vue'
 import { useHttpStore } from '@stores'
 import { Skeletor } from 'vue-skeletor'
 import 'vue-skeletor/dist/vue-skeletor.css'
 
-var media: Ref<string | undefined> = ref(undefined)
-var isFetched: Ref<boolean> = ref(false)
+const media: Ref<string | undefined> = ref(undefined)
+const isFetched: Ref<boolean> = ref(false)
 
 interface Props {
     src: string
 }
 const props = defineProps<Props>()
-
-onBeforeMount(() => {
-    props.src ? get(props.src) : isFetched.value = true
-})
 
 // если это ссылка, то я делаю подгрузку raw данных фотографии, если нет, то подгружаю с локальных ассетов
 const get = async function (src: string) {
@@ -35,10 +31,12 @@ const get = async function (src: string) {
         isFetched.value = true
     }
 }
+
+props.src ? get(props.src) : isFetched.value = true
 </script>
 
 <template>
-    <img v-if="isFetched && media" :src="media" loading="eager" />
+    <img v-if="isFetched && media" :src="media" loading="eager">
     <Skeletor v-else-if="!media && !isFetched" data-skeletor />
 </template>
 

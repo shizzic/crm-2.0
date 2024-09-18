@@ -20,6 +20,7 @@ export interface Props {
   label?: boolean
   labelText?: string
   css?: CSS
+  icon?: string
 }
 
 export const DefaultCSS: CSS = {

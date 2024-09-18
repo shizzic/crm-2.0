@@ -5,6 +5,8 @@ import { DefaultCSS } from './'
 import type { Ref } from 'vue'
 import type { CSS } from '@/assets/types'
 import { $merge } from '@/assets/composables'
+import { hexToCSSFilter } from 'hex-to-css-filter'
+import type { HexToCssConfiguration } from 'hex-to-css-filter'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 
@@ -19,6 +21,9 @@ const props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
 const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
+const icon: string = `url(${props.icon})`
+const colorFilter: HexToCssConfiguration = { acceptanceLossPercentage: 1, maxChecks: 10, forceFilterRecalculation: true }
+const hexFilter = hexToCSSFilter(css.value.placeholder.color, colorFilter)
 const errors = computed(() => {
     const r: string[] = []
     if (props?.v?.$silentErrors)
@@ -39,12 +44,15 @@ onActivated(focus)
 </script>
 
 <template>
-    <div data-wrapper>
+    <div data-wrapper @click.stop="input?.focus()">
         <h6 v-if="props.label" v-html="props.labelText" />
-        <input :type="props.type" :name="props.name" v-model.trim="model" :required="props?.v?.required"
-            :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
-            :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"
-            :pattern="pattern ? pattern : props.pattern" ref="input">
+
+        <div data-input :data-input-icon="props.icon">
+            <input :type="props.type" :name="props.name" v-model.trim="model" :required="props?.v?.required"
+                :placeholder="props.placeholder" :maxlength="props.maxlength" :minlength="props.minlength"
+                :autocomplete="props.autocomplete" :id="props.id" :readonly="props.readonly"
+                :pattern="pattern ? pattern : props.pattern" ref="input">
+        </div>
 
         <p v-if="props.v">
             <Range v-if="props.minlength || props.maxlength" v-model="model"
@@ -55,22 +63,58 @@ onActivated(focus)
 </template>
 
 <style scoped>
-input {
+[data-input] {
+    position: relative;
+    cursor: text;
     width: v-bind('css.default.width');
-    color: v-bind('css.default.color');
-    font-family: v-bind('css.default.fontFamily');
-    font-weight: v-bind('css.default.fontWeight');
-    font-size: v-bind('css.default.fontSize');
     border: v-bind('css.default.border');
     border-color: v-bind('css.default.borderColor');
     border-radius: v-bind('css.default.borderRadius');
     background-color: v-bind('css.default.backgroundColor');
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+[data-input-icon]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: v-bind(icon) left no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: 5.5% 50%;
+    background-position: 15px;
+    filter: v-bind("`${hexFilter.filter.slice(0, -1)}`");
+}
+
+input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    line-height: 1;
+    background-color: inherit;
+    border-radius: inherit;
+    background-color: inherit;
+
+    color: v-bind('css.default.color');
+    font-family: v-bind('css.default.fontFamily');
+    font-weight: v-bind('css.default.fontWeight');
+    font-size: v-bind('css.default.fontSize');
 
     padding: v-bind('css.default.padding');
 }
 
 input::placeholder {
     color: v-bind('css.placeholder.color');
+}
+
+[data-input]:focus-within {
+    border-color: #000;
 }
 
 input:-webkit-autofill,

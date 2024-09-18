@@ -21,14 +21,14 @@ export const $merge: Merge = (obj1: any, obj2: any): any => {
   return result
 }
 
-export const $img: ImageLoader = (name: string, model: string, media: string): string => {
+export const $img: ImageLoader = (name: string, controller_model?: string): string => {
   if (name)
     if (name.search('blob:') === -1) {
-      model += (!model ? media : '') + '/get-file?file='
+      const url = (controller_model ? controller_model : '') + '/get-file?file='
 
       return name.search('\\?') === -1
-        ? '/images' + name
-        : $endpoint + model + name.split('?').shift()
+        ? '/src/assets/images' + name
+        : $endpoint + url + name.split('?').shift()
     } else return name
 
   return ''

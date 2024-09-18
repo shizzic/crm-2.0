@@ -9,7 +9,7 @@ const $user = useUserStore()
 <template>
     <div id="profile_preview" :to="{ name: 'profile', params: { id: 3 } }" :title="$user.username">
         <div data-img>
-            <Image :src="$img(String($user.avatar), '', 'user/user')" />
+            <Image :src="$img(String($user.avatar), 'user/user')" />
         </div>
 
         <div data-text>

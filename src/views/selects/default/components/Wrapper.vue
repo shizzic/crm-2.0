@@ -10,6 +10,7 @@ import Search from './components/Search.vue'
 import Selected from './components/Selected.vue'
 import List from './components/List.vue'
 
+const mouseUp: Ref<boolean> = ref(false)
 const props = inject('$props') as Ref<Props>
 const search = ref('')
 const isVisible = (render: string): boolean => {
@@ -24,7 +25,8 @@ props.value.wrapper.isVisible = isVisible
         <Modal v-show="props.active" style="z-index: 2" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="props.active" data-select v-click-outside="() => cancel.emit('close_select')">
+            <div v-if="props.active" data-select v-click-outside="() => { if (!mouseUp) cancel.emit('close_select') }"
+                @mousedown="mouseUp = true" @mouseup="mouseUp = true" @click.stop="mouseUp = false">
                 <Header v-if="props.wrapper.description || !props.hideClear" />
                 <Search v-model="search" />
                 <Selected v-if="props.multiple" />

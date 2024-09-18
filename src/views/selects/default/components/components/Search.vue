@@ -9,8 +9,8 @@ const props: any = inject('$props')
 const input_css = {
     default: {
         fontSize: '19.75rem',
-        padding: '9px 21px',
-    },
+        padding: '9px 21px 9px 45px',
+    }
 }
 </script>
 
@@ -24,6 +24,7 @@ const input_css = {
 
         label: false,
         css: input_css,
+        icon: 'src/assets/images/lib/search.webp'
     }" class="item" data-search />
 </template>
 

@@ -6,11 +6,11 @@ import { fetcher } from '@/assets/composables/fetcher'
 import { useProjectStore, useSettingsStore } from '@stores'
 
 const lang = useSettingsStore().lang
-const list: Ref<undefined | null | any[]> = ref(undefined)
+const list: Ref<undefined | null | any[]> = ref(useProjectStore().list)
 const text: string = lang.table.projects
 const description: string = lang.sidebar.selects?.projects?.description
 const select: any = useTemplateRef('select')
-const model: any = {
+let model: any = {
     name: 'projects',
     hideClear: true,
     wrapper: { list, text, description },
@@ -32,7 +32,10 @@ const model: any = {
 }
 
 fetcher.get('project/project-user/attached-projects')
-    .then((r: any) => list.value = r?.data)
+    .then((r: any) => {
+        list.value = r?.data
+        useProjectStore().list = r?.data
+    })
 watch(() => select?.value?.model, (data: any) => {
     useProjectStore().id = data?.id
     useProjectStore().title = data?.title
