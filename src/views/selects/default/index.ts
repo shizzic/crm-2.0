@@ -63,7 +63,8 @@ export const DefaultCSS: CSS = {
       }
     },
     List: {
-      color: '#252540'
+      color: '#252540',
+      maxHeight: '200px'
     }
   }
 }

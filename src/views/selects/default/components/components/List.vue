@@ -51,7 +51,7 @@ const click = (li: any): void => {
 <style scoped>
 ul {
     width: 100%;
-    max-height: 200px;
+    max-height: v-bind('props.css?.wrapper.List.maxHeight');
     list-style: none;
     position: relative;
 
