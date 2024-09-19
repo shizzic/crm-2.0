@@ -31,6 +31,7 @@ export interface Props {
 
 export const DefaultCSS: CSS = {
   default: {
+    zIndex: '1',
     cursor: 'pointer',
     textAlign: 'left',
     width: '100%',

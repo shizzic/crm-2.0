@@ -21,10 +21,11 @@ props.value.wrapper.isVisible = isVisible
 
 <template>
     <div>
-        <Modal v-show="props.active" style="z-index: 2" />
+        <Modal v-show="props.active" :style="{ zIndex: props.css?.default.zIndex + 1 }" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="props.active" data-select v-click-outside="() => { cancel.emit('close_select') }">
+            <div v-if="props.active" :style="{ zIndex: props.css?.default.zIndex + 2 }" data-select
+                v-click-outside="() => { cancel.emit('close_select') }">
                 <Header v-if="props.wrapper.description || !props.hideClear" />
                 <Search v-model="search" />
                 <Selected v-if="props.multiple" />
@@ -36,7 +37,6 @@ props.value.wrapper.isVisible = isVisible
 
 <style scoped>
 [data-select] {
-    z-index: 3;
     position: v-bind('props.css?.wrapper.position');
     width: 100%;
 
