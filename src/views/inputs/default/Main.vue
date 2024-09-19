@@ -77,7 +77,7 @@ onActivated(focus)
     background: v-bind(icon);
     width: 100%;
     height: 100%;
-    background-size: 5.5% 50%;
+    background-size: 20px 50%;
     background-position: 15px;
     filter: v-bind("`${hexFilter.filter.slice(0, -1)}`");
 }

@@ -12,7 +12,7 @@ import { useUserStore } from '@stores'
 
 <style scoped>
 nav {
-    width: 82px;
+    min-width: 82px;
     height: 100%;
     background-color: #FFFFFF;
     border-top-right-radius: 24px;

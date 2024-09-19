@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const c = {
-  some: () => import('@components/Some.vue'),
   login: () => import('@components/login/Main.vue'),
   wrap: () => import('@/components/main/Wrap.vue'),
-  home: () => import('@components/main/home/Main.vue')
+  home: () => import('@components/main/home/Main.vue'),
+  settings: () => import('@components/main/settings/Main.vue')
 }
 
 const main_children = [
@@ -14,9 +14,9 @@ const main_children = [
     component: c.home
   },
   {
-    path: '/some',
-    name: 'some',
-    component: c.some
+    path: '/settings',
+    name: 'settings',
+    component: c.settings
   }
 ]
 
