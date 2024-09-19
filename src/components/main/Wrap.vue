@@ -18,5 +18,7 @@ import Sidebar from './sidebar/Main.vue'
     height: 100%;
 
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 </style>

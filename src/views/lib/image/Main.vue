@@ -43,7 +43,9 @@ props.src ? get(props.src) : isFetched.value = true
 <style scoped>
 img {
     width: inherit;
+    max-width: inherit;
     height: inherit;
+    max-height: inherit;
     border-radius: inherit;
     object-fit: cover;
 }

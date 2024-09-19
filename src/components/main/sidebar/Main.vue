@@ -23,9 +23,11 @@ aside {
     max-width: var(--sidebar-width);
     height: 100%;
 
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    transition: width .2s ease-out, max-width .2s ease-out, min-width .2s ease-out;
 }
 
 aside>* {

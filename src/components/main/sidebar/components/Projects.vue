@@ -48,5 +48,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <Select v-model="model" ref="select" />
+    <div data-parent>
+        <Select v-model="model" ref="select" />
+    </div>
 </template>
+
+<style scoped>
+[data-parent] {
+    width: 100%;
+
+    padding: 0 20px 0;
+}
+</style>

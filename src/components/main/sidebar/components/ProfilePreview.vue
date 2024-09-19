@@ -7,23 +7,30 @@ const $user = useUserStore()
 </script>
 
 <template>
-    <div id="profile_preview" :to="{ name: 'profile', params: { id: 3 } }" :title="$user.username">
-        <div data-img>
-            <Image :src="$img(String($user.avatar), 'user/user')" />
-        </div>
+    <div data-parent>
+        <div id="profile_preview" :to="{ name: 'profile', params: { id: 3 } }" :title="$user.username">
+            <div data-img>
+                <Image :src="$img(String($user.avatar), 'user/user')" />
+            </div>
 
-        <div data-text>
-            <span data-username v-text="$user.username" />
+            <div data-text>
+                <span data-username v-text="$user.username" />
 
-            <div data-roles>
-                <span v-for="(role, index) in useAccessStore().roles" :key="role.id" data-role
-                    v-text="role.title + (useAccessStore().roles.length === (index + 1) ? '' : ', ')" />
+                <div data-roles>
+                    <span v-for="(role, index) in useAccessStore().roles" :key="role.id" data-role
+                        v-text="role.title + (useAccessStore().roles.length === (index + 1) ? '' : ', ')" />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+[data-parent] {
+    width: 100%;
+    padding: 20px 20px 0;
+}
+
 #profile_preview {
     cursor: pointer;
     width: 100%;
@@ -34,7 +41,7 @@ const $user = useUserStore()
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 15px;
+    padding: 15px;
 
     overflow: hidden;
 }

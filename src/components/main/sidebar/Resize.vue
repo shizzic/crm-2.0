@@ -15,7 +15,7 @@ onMounted(() => {
     const mouseDownHandler = function (e: any) {
         updateSelectionState('none') // предотвращаю выборку текста и блоков во время изменения ширины
         x = e.clientX
-        w = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width').slice(0, -2), 10)
+        w = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width'))
         document.addEventListener('mousemove', mouseMoveHandler)
         document.addEventListener('mouseup', mouseUpHandler)
     }
@@ -47,7 +47,7 @@ const updateSelectionState = (value: string): void => {
 
 <style scoped>
 div {
-    cursor: ew-resize;
+    cursor: var(--resizer-cursor, ew-resize);
     width: 7px;
     height: 100%;
 
