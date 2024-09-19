@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useSettingsStore } from '@stores'
 import { $img } from '@assets/composables'
+import Popper from "vue3-popper"
 import Image from '@views/lib/image/Main.vue'
 
+const lang = useSettingsStore().lang
 const oldWidth = ref(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width')))
 const sidebarWidth = ref(oldWidth.value)
 const expandHandler = (): void => {
@@ -14,19 +17,23 @@ const expandHandler = (): void => {
 </script>
 
 <template>
-    <div data-icon @click="expandHandler">
-        <Image :src="$img('/lib/expand.webp')" />
-    </div>
+    <Popper hover arrow :content="lang?.other?.expand">
+        <button data-button @click="expandHandler">
+            <Image :src="$img('/lib/expand.webp')" />
+        </button>
+    </Popper>
 </template>
 
 <style scoped>
-[data-icon] {
+[data-button] {
     user-select: none;
     cursor: pointer;
     max-width: 35px;
     max-height: 35px;
     background-color: #4D5DFA;
     border-radius: 50%;
+    outline: none;
+    border: none;
 
     display: flex;
     align-items: center;
@@ -34,8 +41,8 @@ const expandHandler = (): void => {
     padding: 9px;
 }
 
-[data-icon]:hover {
-    background-color: #384bf7;
+[data-button]:hover {
+    background-color: #2135ec;
 }
 
 img {
