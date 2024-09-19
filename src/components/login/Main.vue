@@ -41,6 +41,38 @@ const input_css = {
 }
 const isRequestPassword = ref(false)
 cancel.on("default", () => isRequestPassword.value = false)
+
+let phoneProps = {
+    v: v$.value.phone,
+    name: 'phone',
+    type: 'tel',
+    placeholder: lang?.auth?.number,
+    autocomplete: 'tel',
+    autocorrect: 'on',
+
+    css: input_css,
+}
+let emailProps = {
+    v: v$.value.email,
+    name: 'email',
+    type: 'email',
+    placeholder: 'E-mail',
+    autocomplete: 'username email',
+
+    css: input_css,
+}
+let passwordProps = {
+    v: v$.value.password,
+    name: 'password',
+    type: 'password',
+    placeholder: lang?.auth?.password,
+    minlength: 8,
+    maxlength: 16,
+    id: 'current-password',
+    autocomplete: 'current-password',
+
+    css: input_css,
+}
 </script>
 
 <template>
@@ -50,42 +82,9 @@ cancel.on("default", () => isRequestPassword.value = false)
             <h2 v-html="lang.auth?.title" />
             <h4 v-html="lang.auth?.welcome" />
 
-            <Input v-if="form.email.length === 0" v-model="form.phone" v-bind="{
-                v: v$.phone,
-                name: 'phone',
-                type: 'tel',
-                placeholder: lang?.auth?.number,
-                autocomplete: 'tel',
-                autocorrect: 'on',
-
-                label: false,
-                css: input_css,
-            }" class="item" />
-
-            <Input v-if="form.phone.length === 0" v-model="form.email" v-bind="{
-                v: v$.email,
-                name: 'email',
-                type: 'email',
-                placeholder: 'E-mail',
-                autocomplete: 'username email',
-
-                label: false,
-                css: input_css,
-            }" class="item" />
-
-            <Input v-model="form.password" v-bind="{
-                v: v$.password,
-                name: 'password',
-                type: 'password',
-                placeholder: lang?.auth?.password,
-                minlength: 8,
-                maxlength: 16,
-                id: 'current-password',
-                autocomplete: 'current-password',
-
-                label: false,
-                css: input_css,
-            }" />
+            <Input v-if="form.email.length === 0" v-model:model="form.phone" v-model:props="phoneProps" class="item" />
+            <Input v-if="form.phone.length === 0" v-model:model="form.email" v-model:props="emailProps" class="item" />
+            <Input v-model:model="form.password" v-model:props="passwordProps" />
 
             <span @click.stop="isRequestPassword = true" style="margin-top: 5px;">{{ lang?.auth?.forgot }}</span>
             <Modal v-if="isRequestPassword">

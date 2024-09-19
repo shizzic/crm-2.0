@@ -1,4 +1,8 @@
+import type { ModelRef } from 'vue'
 import type { CSS } from '@types'
+import { useSettingsStore } from '@stores'
+
+export type Model = ModelRef<string>
 
 export interface Props {
   v?: { [k: string]: any } // валидатор vuelidate
@@ -41,4 +45,13 @@ export const DefaultCSS: CSS = {
   placeholder: {
     color: '#676767'
   }
+}
+
+export const defaultProps: Props = {
+  autocomplete: 'on',
+  autocorrect: 'on',
+  placeholder: useSettingsStore().lang?.other?.text,
+
+  label: false,
+  css: DefaultCSS
 }

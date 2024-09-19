@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Props } from '../'
+import type { Props, Model } from '../'
 
-const model: any = defineModel()
+const model: Model = defineModel('model', { default: '' })
 const props = defineProps<Props>()
 const isMinimum = computed(() => props.minlength && model?.value?.length < props.minlength)
 const isMaximum = computed(() => props.maxlength && (!props.minlength || props.minlength && props.minlength <= model?.value?.length) && model?.value?.length <= props.maxlength)

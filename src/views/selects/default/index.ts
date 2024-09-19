@@ -78,8 +78,7 @@ export const defaultProps: Props = {
     flags: 'imuy'
   },
 
-  label: true,
-  labelText: undefined,
+  label: false,
   css: DefaultCSS,
   active: false,
   hideClear: false

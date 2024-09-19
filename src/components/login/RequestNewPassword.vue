@@ -11,6 +11,13 @@ const lang = useSettingsStore().lang
 const form = ref({ email: '' })
 const rules = { email: { required, email } }
 const v$ = useVuelidate(rules, form)
+
+let props = {
+    v: v$,
+    name: 'email_for_new_password',
+    placeholder: 'E-mail',
+    css: { default: { fontSize: '19.75rem' } }
+}
 </script>
 
 <template>
@@ -19,13 +26,7 @@ const v$ = useVuelidate(rules, form)
         <h3>{{ lang?.auth?.request?.title }}</h3>
         <span>{{ lang?.auth?.request?.description }}</span>
 
-        <Input v-bind="{
-            v: v$,
-            name: 'email_for_new_password',
-            placeholder: 'E-mail',
-            label: false,
-            css: { default: { fontSize: '19.75rem' } }
-        }" v-model="form.email" style="margin-top: 20px;" />
+        <Input v-model:props="props" v-model:model="form.email" style="margin-top: 20px;" />
 
         <div id="btns" style="margin-top: 35px;">
             <Cancel v-bind="{ event: 'default', css: { default: { width: '100%' } } }" style="margin-right: 20px;" />
