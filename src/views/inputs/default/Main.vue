@@ -9,10 +9,10 @@ const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 
 const model: Model = defineModel('model', { default: '' })
-const passedProps = defineModel<Props>('props')
+const passedProps = defineModel<Props>('props', { default: defaultProps })
 const props = ref(passedProps.value)
 props.value = $merge(defaultProps, passedProps.value)
-const icon: string = `url(${props.value?.icon})`
+const icon: string = `url(${props.value?.icon}) left no-repeat`
 const colorFilter: HexToCssConfiguration = { acceptanceLossPercentage: 1, maxChecks: 10, forceFilterRecalculation: true }
 const hexFilter = hexToCSSFilter(props.value?.css?.placeholder.color, colorFilter)
 const errors = computed(() => {
@@ -57,11 +57,11 @@ onActivated(focus)
 [data-input] {
     position: relative;
     cursor: text;
-    width: v-bind('props?.css?.default.width');
-    border: v-bind('props?.css?.default.border');
-    border-color: v-bind('props?.css?.default.borderColor');
-    border-radius: v-bind('props?.css?.default.borderRadius');
-    background-color: v-bind('props?.css?.default.backgroundColor');
+    width: v-bind('props.css?.default.width');
+    border: v-bind('props.css?.default.border');
+    border-color: v-bind('props.css?.default.borderColor');
+    border-radius: v-bind('props.css?.default.borderRadius');
+    background-color: v-bind('props.css?.default.backgroundColor');
 
     display: flex;
     justify-content: start;
@@ -74,7 +74,7 @@ onActivated(focus)
     top: 0;
     left: 0;
 
-    background: v-bind(icon) left no-repeat;
+    background: v-bind(icon);
     width: 100%;
     height: 100%;
     background-size: 5.5% 50%;
@@ -92,16 +92,16 @@ input {
     border-radius: inherit;
     background-color: inherit;
 
-    color: v-bind('props?.css?.default.color');
-    font-family: v-bind('props?.css?.default.fontFamily');
-    font-weight: v-bind('props?.css?.default.fontWeight');
-    font-size: v-bind('props?.css?.default.fontSize');
+    color: v-bind('props.css?.default.color');
+    font-family: v-bind('props.css?.default.fontFamily');
+    font-weight: v-bind('props.css?.default.fontWeight');
+    font-size: v-bind('props.css?.default.fontSize');
 
-    padding: v-bind('props?.css?.default.padding');
+    padding: v-bind('props.css?.default.padding');
 }
 
 input::placeholder {
-    color: v-bind('props?.css?.placeholder.color');
+    color: v-bind('props.css?.placeholder.color');
 }
 
 [data-input]:focus-within {
