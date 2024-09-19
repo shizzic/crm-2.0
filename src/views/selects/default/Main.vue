@@ -6,7 +6,7 @@ import { $merge } from '@/assets/composables'
 import type { Props } from './'
 import { defaultProps } from './'
 import Wrapper from './components/Wrapper.vue'
-import { emitter as cancel } from '@/views/other/cancel'
+import { emitter as cancel } from '@/views/lib/cancel'
 
 const lang = useSettingsStore().lang
 const passedProps = defineModel<Props>({ required: true })

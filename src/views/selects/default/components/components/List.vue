@@ -2,7 +2,7 @@
 import { inject } from 'vue'
 import type { Ref } from 'vue'
 import type { Props } from '../..'
-import { emitter as cancel } from '@/views/other/cancel'
+import { emitter as cancel } from '@/views/lib/cancel'
 
 const props = inject('$props') as Ref<Props>
 const model = inject('$model') as Ref<any>

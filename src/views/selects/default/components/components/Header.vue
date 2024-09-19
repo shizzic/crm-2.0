@@ -3,7 +3,7 @@ import { inject } from 'vue'
 import type { Ref } from 'vue'
 import type { Props } from '../..'
 import { useSettingsStore } from '@stores'
-import { emitter as cancel } from '@/views/other/cancel'
+import { emitter as cancel } from '@/views/lib/cancel'
 
 const lang = useSettingsStore().lang
 const props = inject('$props') as Ref<Props>

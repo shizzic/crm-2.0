@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUserStore, useAccessStore } from '@stores'
-import Image from '@views/other/image/Main.vue'
+import Image from '@/views/lib/image/Main.vue'
 import { $img } from '@/assets/composables'
 
 const $user = useUserStore()
