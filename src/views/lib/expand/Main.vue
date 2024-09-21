@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useSettingsStore } from '@stores'
 import { $img } from '@assets/composables'
-import Popper from "vue3-popper"
+import Poppers from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
 
 const lang = useSettingsStore().lang
@@ -14,14 +14,15 @@ const expandHandler = (): void => {
     document.documentElement.style.setProperty('--sidebar-width', `${sidebarWidth.value ? 0 : oldWidth.value}px`)
     document.documentElement.style.setProperty('--resizer-cursor', `${sidebarWidth.value ? 'default' : 'ew-resize'}`)
 }
+let popper = { content: lang?.other?.expand }
 </script>
 
 <template>
-    <Popper hover arrow :content="lang?.other?.expand">
+    <Poppers v-model:props="popper">
         <button data-button @click="expandHandler">
             <Image :src="$img('/lib/expand.webp')" />
         </button>
-    </Popper>
+    </Poppers>
 </template>
 
 <style scoped>

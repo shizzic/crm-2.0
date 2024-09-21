@@ -11,7 +11,7 @@ const lang = useSettingsStore().lang
 const props = withDefaults(defineProps<Props>(), {
     css: () => { return {} }
 })
-const text: Ref<string> = ref(props.text ? props.text : lang?.other?.submit)
+const text: Ref<string> = ref(props.text || lang?.other?.submit)
 const css: Ref<CSS> = ref($merge(DefaultCSS, props.css))
 </script>
 

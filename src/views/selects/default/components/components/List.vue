@@ -1,48 +1,16 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import type { Ref } from 'vue'
-import type { Props } from '../..'
-import { emitter as cancel } from '@/views/lib/cancel'
+import { useStore } from '../../store'
 
-const props = inject('$props') as Ref<Props>
-const model = inject('$model') as Ref<any>
-const render: any = inject('$render')
-const isSelected = (li: any): boolean => {
-    if (model.value) {
-        const str = JSON.stringify(li)
-
-        if (props.value.multiple)
-            for (let key in model.value)
-                if (str === JSON.stringify(model.value[key]))
-                    return true
-
-        if (str === JSON.stringify(model.value)) return true
-    }
-
-    return false
-}
-const click = (li: any): void => {
-    model.value = li
-
-    if (!props.value.wrapper.list)
-        return
-
-    if (!props.value.multiple)
-        cancel.emit('close_select')
-    else {
-        const length = Array.isArray(props.value.wrapper.list) ? props.value.wrapper.list.length : Object.keys(props.value.wrapper.list).length
-
-        if (model.value && model.value.length === length)
-            cancel.emit('close_select')
-    }
-}
+const $store = useStore(inject('$id') as string)()
 </script>
 
 <template>
     <ul>
-        <template v-for="(li, index) in props.wrapper.list as any" :key="li?.id ? li.id : index">
-            <li v-if="li && props.wrapper.isVisible(render(li)) && !isSelected(li)" @click.stop="click(li)">
-                <i /> {{ render(li) }}
+        <template v-for="(li, index) in $store.props.wrapper.list as any" :key="li?.id || index">
+            <li v-if="li && $store.isVisible($store.render(li)) && !$store.isSelected(li)"
+                @click.stop="$store.selectItem(li)">
+                <i /> {{ $store.render(li) }}
             </li>
         </template>
     </ul>
@@ -51,7 +19,7 @@ const click = (li: any): void => {
 <style scoped>
 ul {
     width: 100%;
-    max-height: v-bind('props.css?.wrapper.List.maxHeight');
+    max-height: v-bind('$store.props.css?.wrapper.List.maxHeight');
     list-style: none;
     position: relative;
 
@@ -64,8 +32,8 @@ li {
     width: 100%;
     position: relative;
     cursor: pointer;
-    color: v-bind('props.css?.wrapper.List.color');
-    font-size: calc(v-bind('props.css?.default.fontSize') - 4rem);
+    color: v-bind('$store.props.css?.wrapper.List.color');
+    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 4rem);
     font-weight: 600;
     letter-spacing: -0.02em;
 
@@ -92,7 +60,7 @@ i {
     width: 0;
     height: 0;
     border-top: 6px solid transparent;
-    border-left: 10px solid #707fff;
+    border-left: 10px solid #4D5DFA;
     border-bottom: 6px solid transparent;
 
     position: absolute;
@@ -115,7 +83,7 @@ ul::-webkit-scrollbar-track {
 
 ul::-webkit-scrollbar-thumb {
     border-radius: 12px;
-    background-color: #707fff;
+    background-color: #4D5DFA;
 
     background-clip: content-box;
     border: 6px solid transparent;

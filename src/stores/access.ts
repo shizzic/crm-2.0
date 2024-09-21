@@ -13,7 +13,7 @@ export const useAccessStore = defineStore(
   () => {
     const version: Ref<number> = ref(1)
     const list: Ref<Access> = ref({})
-    const roles: Ref<List[]> = ref([])
+    const roles: Ref<List> = ref([])
 
     return { version, list, roles, set }
   },

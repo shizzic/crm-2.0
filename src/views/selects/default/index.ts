@@ -1,15 +1,12 @@
 import type { CSS, List } from '@types'
 import { useSettingsStore } from '@stores'
 
-export type SelectList = undefined | List[] | List
 export interface Props {
   wrapper: {
-    list: SelectList
+    list: List
     render?: string // ключ, на который нужно ссылаться для вывода текста li
     text?: string // текст "кнопки" aka placeholder для select
     description?: string // описание данных, которое выводится при раскрытии селекта (если не указано, берется text)
-    // isVisible?: (...arg: any) => any
-    isVisible?: any
     flags?: string
   }
 

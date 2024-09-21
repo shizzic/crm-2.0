@@ -1,12 +1,10 @@
-import type { ModelRef } from 'vue'
+import type { ModelRef, Ref } from 'vue'
 import type { CSS } from '@types'
 import { useSettingsStore } from '@stores'
 
-export type Model = ModelRef<string>
+export type InputModel = ModelRef<string> | Ref<string>
 
 export interface Props {
-  v?: { [k: string]: any } // валидатор vuelidate
-
   // input attributes
   name?: string
   type?: string

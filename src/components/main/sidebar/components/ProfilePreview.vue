@@ -18,7 +18,7 @@ const $user = useUserStore()
 
                 <div data-roles>
                     <span v-for="(role, index) in useAccessStore().roles" :key="role.id" data-role
-                        v-text="role.title + (useAccessStore().roles.length === (index + 1) ? '' : ', ')" />
+                        v-text="role.title + (useAccessStore().roles?.length === (index + 1) ? '' : ', ')" />
                 </div>
             </div>
         </div>

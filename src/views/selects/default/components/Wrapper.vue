@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
-import type { Ref } from 'vue'
-import type { Props } from '../'
+import { inject } from 'vue'
 import vClickOutside from '@/views/lib/vClickOutside'
 import { emitter as cancel } from '@/views/lib/cancel'
 import Modal from '@views/modal/default/Main.vue'
@@ -9,27 +7,22 @@ import Header from './components/Header.vue'
 import Search from './components/Search.vue'
 import Selected from './components/Selected.vue'
 import List from './components/List.vue'
+import { useStore } from '../store'
 
-const props = inject('$props') as Ref<Props>
-const search = ref('')
-const isVisible = (render: string): boolean => {
-    const pattern = new RegExp(search.value, props.value.wrapper.flags)
-    return pattern.test(render)
-}
-props.value.wrapper.isVisible = isVisible
+const $store = useStore(inject('$id') as string)()
 </script>
 
 <template>
     <div>
-        <Modal v-show="props.active" :style="{ zIndex: props.css?.default.zIndex + 1 }" />
+        <Modal v-show="$store.props.active" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="props.active" :style="{ zIndex: props.css?.default.zIndex + 2 }" data-select
-                v-click-outside="() => { cancel.emit('close_select') }">
-                <Header v-if="props.wrapper.description || !props.hideClear" />
-                <Search v-model="search" />
-                <Selected v-if="props.multiple" />
-                <List v-if="props.wrapper.list" />
+            <div v-if="$store.props.active" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }"
+                data-select v-click-outside="() => { cancel.emit('close_select') }">
+                <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />
+                <Search />
+                <Selected v-if="$store.props.multiple" />
+                <List v-if="$store.props.wrapper.list" />
             </div>
         </Transition>
     </div>
@@ -37,12 +30,12 @@ props.value.wrapper.isVisible = isVisible
 
 <style scoped>
 [data-select] {
-    position: v-bind('props.css?.wrapper.position');
+    position: v-bind('$store.props.css?.wrapper.position');
     width: 100%;
 
-    border-bottom-left-radius: v-bind('props.css?.default.borderRadius');
-    border-bottom-right-radius: v-bind('props.css?.default.borderRadius');
-    background-color: v-bind('props.css?.wrapper.backgroundColor');
+    border-bottom-left-radius: v-bind('$store.props.css?.default.borderRadius');
+    border-bottom-right-radius: v-bind('$store.props.css?.default.borderRadius');
+    background-color: v-bind('$store.props.css?.wrapper.backgroundColor');
 
     display: flex;
     flex-direction: column;

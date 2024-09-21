@@ -1,28 +1,16 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import type { Ref } from 'vue'
-import type { Props } from '../..'
 import { useSettingsStore } from '@stores'
-import { emitter as cancel } from '@/views/lib/cancel'
+import { useStore } from '../../store'
 
+const $store = useStore(inject('$id') as string)()
 const lang = useSettingsStore().lang
-const props = inject('$props') as Ref<Props>
-const model: any = inject('$model')
-const clear = (): void => {
-    if (!props.value.multiple) {
-        const old = model.value
-        model.value = undefined
-
-        if (old)
-            cancel.emit('close_select')
-    }
-}
 </script>
 
 <template>
     <div data-header>
-        <h6 v-text="props?.wrapper.description" />
-        <button v-if="!props.hideClear" @click.stop="clear" v-text="lang?.other?.clear" />
+        <h6 v-text="$store.props?.wrapper.description" />
+        <button v-if="!$store.props.hideClear" @click.stop="$store.clearModel" v-text="lang?.other?.clear" />
     </div>
 </template>
 
@@ -34,8 +22,8 @@ const clear = (): void => {
 }
 
 [data-header] h6 {
-    color: v-bind('props.css?.wrapper.Header.description.color');
-    font-size: calc(v-bind('props.css?.default.fontSize') - 4rem);
+    color: v-bind('$store.props.css?.wrapper.Header.description.color');
+    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 4rem);
     font-weight: 600;
 
     margin-right: 15px;
@@ -44,8 +32,8 @@ const clear = (): void => {
 [data-header] button {
     cursor: pointer;
     align-self: flex-start;
-    color: v-bind('props.css?.wrapper.Header.clear.color');
-    font-size: calc(v-bind('props.css?.default.fontSize') - 4rem);
+    color: v-bind('$store.props.css?.wrapper.Header.clear.color');
+    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 4rem);
     font-weight: 500;
     outline: none;
     border: none;

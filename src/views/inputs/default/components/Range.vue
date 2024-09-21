@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { Props, Model } from '../'
+import { computed, inject } from 'vue'
+import { useStore } from '../store'
 
-const model: Model = defineModel('model', { default: '' })
-const props = defineProps<Props>()
-const isMinimum = computed(() => props.minlength && model?.value?.length < props.minlength)
-const isMaximum = computed(() => props.maxlength && (!props.minlength || props.minlength && props.minlength <= model?.value?.length) && model?.value?.length <= props.maxlength)
+const $store = useStore(String(inject('$id')))()
+const isMinimum = computed(() => {
+    return $store.props.minlength && $store.model.length < $store.props.minlength
+})
+const isMaximum = computed(() => {
+    return $store.props.maxlength && (!$store.props.minlength || $store.props.minlength && $store.props.minlength <= $store.model.length) &&
+        $store.model.length <= $store.props.maxlength
+})
 </script>
 
 <template>
     <span>
-        <span v-if="isMinimum" data-state style="color: #4D5DFA;" v-text="`${model?.length}/${props.minlength}`" />
-        <span v-if="isMaximum" data-state style="color: #4D5DFA;" v-text="`${model?.length}/${props.maxlength}`" />
+        <span v-if="isMinimum" data-state style="color: #4D5DFA;"
+            v-text="`${$store.model?.length}/${$store.props.minlength}`" />
+        <span v-if="isMaximum" data-state style="color: #4D5DFA;"
+            v-text="`${$store.model?.length}/${$store.props.maxlength}`" />
     </span>
 </template>
 

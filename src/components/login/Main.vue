@@ -42,8 +42,8 @@ const input_css = {
 const isRequestPassword = ref(false)
 cancel.on("default", () => isRequestPassword.value = false)
 
+let phoneV = v$.value.phone
 let phoneProps = {
-    v: v$.value.phone,
     name: 'phone',
     type: 'tel',
     placeholder: lang?.auth?.number,
@@ -52,8 +52,8 @@ let phoneProps = {
 
     css: input_css,
 }
+let emailV = v$.value.email
 let emailProps = {
-    v: v$.value.email,
     name: 'email',
     type: 'email',
     placeholder: 'E-mail',
@@ -61,8 +61,8 @@ let emailProps = {
 
     css: input_css,
 }
+let passwordV = v$.value.password
 let passwordProps = {
-    v: v$.value.password,
     name: 'password',
     type: 'password',
     placeholder: lang?.auth?.password,
@@ -82,9 +82,15 @@ let passwordProps = {
             <h2 v-html="lang.auth?.title" />
             <h4 v-html="lang.auth?.welcome" />
 
-            <Input v-if="form.email.length === 0" v-model:model="form.phone" v-model:props="phoneProps" class="item" />
-            <Input v-if="form.phone.length === 0" v-model:model="form.email" v-model:props="emailProps" class="item" />
-            <Input v-model:model="form.password" v-model:props="passwordProps" />
+            <KeepAlive>
+                <Input v-if="form.email.length === 0" v-model:model="form.phone" v-model:props="phoneProps"
+                    v-model:v="phoneV" class="item" />
+            </KeepAlive>
+            <KeepAlive>
+                <Input v-if="form.phone.length === 0" v-model:model="form.email" v-model:props="emailProps"
+                    v-model:v="emailV" class="item" />
+            </KeepAlive>
+            <Input v-model:model="form.password" v-model:props="passwordProps" v-model:v="passwordV" class="item" />
 
             <span @click.stop="isRequestPassword = true" style="margin-top: 5px;">{{ lang?.auth?.forgot }}</span>
             <Modal v-if="isRequestPassword">

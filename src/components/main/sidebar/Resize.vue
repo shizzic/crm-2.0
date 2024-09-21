@@ -6,6 +6,7 @@ const max = Math.round(window.outerWidth * 0.30)
 const minWidth: number = min < 400 ? 400 : min
 const maxWidth: number = max < 600 ? 600 : max
 document.documentElement.style.setProperty('--sidebar-width', `${minWidth + (Math.trunc((maxWidth - minWidth) / 2))}px`)
+document.documentElement.style.setProperty('--sidebar-width-transition', 'width .15s ease-out, max-width .15s ease-out, min-width .15s ease-out')
 
 onMounted(() => {
     // эти переменные изменяются только во время движения по зажатому resizer
@@ -13,6 +14,7 @@ onMounted(() => {
     let w = 0
 
     const mouseDownHandler = function (e: any) {
+        updateSidebarTransitionState('none')
         updateSelectionState('none') // предотвращаю выборку текста и блоков во время изменения ширины
         x = e.clientX
         w = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width'))
@@ -31,6 +33,7 @@ onMounted(() => {
         document.removeEventListener('mousemove', mouseMoveHandler)
         document.removeEventListener('mouseup', mouseUpHandler)
         updateSelectionState('auto') // разрешаю выбор текста после отжатой кнопки мыши
+        updateSidebarTransitionState('width .15s ease-out, max-width .15s ease-out, min-width .15s ease-out')
     }
 
     resizer.value?.addEventListener('mousedown', mouseDownHandler)
@@ -38,6 +41,9 @@ onMounted(() => {
 
 const updateSelectionState = (value: string): void => {
     document.getElementsByTagName("html")[0].style.userSelect = value
+}
+const updateSidebarTransitionState = (value: string): void => {
+    document.documentElement.style.setProperty('--sidebar-width-transition', value)
 }
 </script>
 

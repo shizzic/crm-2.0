@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import type { Model } from '@views/inputs/default'
-import type { Props } from '../..'
 import { inject } from 'vue'
-import type { Ref } from 'vue'
 import { useSettingsStore } from '@stores'
+import { useStore } from '../../store'
 import Input from '@views/inputs/default/Main.vue'
 
-const model: Model = defineModel({ default: '' })
+const $store = useStore(inject('$id') as string)()
 const lang = useSettingsStore().lang
-const props = inject('$props') as Ref<Props>
 const input_css = {
     default: {
         fontSize: '19.75rem',
@@ -16,7 +13,7 @@ const input_css = {
     }
 }
 let searchProps = {
-    name: props.value.name,
+    name: $store.props.name,
     placeholder: lang?.other?.search,
     autocomplete: 'off',
     autocorrect: 'off',
@@ -28,7 +25,7 @@ let searchProps = {
 </script>
 
 <template>
-    <Input v-model:model="model" ref="search" v-model:props="searchProps" class="item" data-search />
+    <Input v-model:model="$store.search" ref="search" v-model:props="searchProps" class="item" data-search />
 </template>
 
 <style scoped>

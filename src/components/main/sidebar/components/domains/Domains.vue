@@ -4,13 +4,14 @@ import type { Ref } from 'vue'
 import Select from '@views/selects/default/Main.vue'
 import { fetcher } from '@/assets/composables/fetcher'
 import { useProjectStore, useSettingsStore, useDomainStore } from '@stores'
+import type { List } from '@types'
 
 const lang = useSettingsStore().lang
-const list: Ref<undefined | null | any[]> = ref(useDomainStore().list)
+const list: Ref<List> = ref(useDomainStore().list)
 const text: string = lang.table.domains
 const description: string = lang.sidebar.selects?.domains?.description
 const select: any = useTemplateRef('select')
-let model: any = {
+let props: any = {
     name: 'projects',
     hideClear: true,
     wrapper: { list, text, description },
@@ -45,7 +46,7 @@ fetcher.get('domain')
                 }
         }
     })
-watch(() => select?.value?.model, (data: any, old: any) => {
+watch(() => select?.value?.$store.model, (data: any, old: any) => {
     if (old) {
         useProjectStore().$reset()
         useDomainStore().title = data.title
@@ -54,10 +55,18 @@ watch(() => select?.value?.model, (data: any, old: any) => {
 })
 onMounted(() => {
     if (useDomainStore().id && useDomainStore().title)
-        select.value.model = { id: useDomainStore().id, title: useDomainStore().title }
+        select.value.$store.model = { id: useDomainStore().id, title: useDomainStore().title }
 })
 </script>
 
 <template>
-    <Select v-model="model" ref="select" />
+    <div data-parent>
+        <Select v-model:props="props" ref="select" />
+    </div>
 </template>
+
+<style scoped>
+[data-parent] {
+    padding: 0 20px 0;
+}
+</style>

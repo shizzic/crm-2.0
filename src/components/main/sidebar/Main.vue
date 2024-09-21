@@ -27,7 +27,7 @@ aside {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    transition: width .2s ease-out, max-width .2s ease-out, min-width .2s ease-out;
+    transition: var(--sidebar-width-transition);
 }
 
 aside>* {

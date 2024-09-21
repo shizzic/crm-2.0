@@ -10,7 +10,7 @@ export const useProjectStore = defineStore(
     const version: Ref<number> = ref(1)
     const id: Ref<number | undefined> = ref(undefined)
     const title: Ref<string | undefined> = ref(undefined)
-    const list: Ref<List[] | undefined> = ref(undefined)
+    const list: Ref<List> = ref(undefined)
 
     return { version, id, title, list, set }
   },

@@ -1,43 +1,31 @@
 <script setup lang="ts">
-import { ref, provide, watch, computed } from 'vue'
-import type { Ref } from 'vue'
-import { useSettingsStore } from '@stores'
-import { $merge } from '@/assets/composables'
+import { provide, useId } from 'vue'
 import type { Props } from './'
-import { defaultProps } from './'
 import Wrapper from './components/Wrapper.vue'
 import { emitter as cancel } from '@/views/lib/cancel'
+import { useStore } from './store'
 
-const lang = useSettingsStore().lang
-const passedProps = defineModel<Props>({ required: true })
-const props: Ref<Props> = ref(passedProps.value)
-const model: Ref<any> = ref(undefined)
-props.value = $merge(defaultProps, passedProps.value)
-const render = (li: any) => props.value.wrapper.render ? li[props.value.wrapper.render] : li
-const text: Ref<string> = computed(() => {
-    if (model.value && !props.value.multiple)
-        return render(model.value)
+const $id = String(useId())
+const $store = useStore($id)()
+const passedProps = defineModel<Props>('props', { required: true })
+$store.setProps(passedProps)
 
-    return props.value.wrapper.text ? props.value.wrapper.text : lang?.other?.select
-})
-
-watch(passedProps, (value) => props.value = $merge(props.value, value), { deep: true })
-cancel.on('close_select', () => props.value.active = false)
-provide('$props', props)
-provide('$model', model)
-provide('$render', render)
-defineExpose({ model })
+cancel.on('close_select', () => $store.props.active = false)
+provide('$id', $id)
+defineExpose({ $store })
 </script>
 
 <template>
     <div data-root>
-        <select :name="props.name" :form="props.form" :required="props.required" :multiple="props.multiple"
-            :disabled="props.disabled" :autofocus="props.autofocus" v-model="model" />
-        <div data-default :data-default-active="props.active" v-text="text" @click.stop="props.active = !props.active"
-            :style="{ zIndex: props.active ? (props.css?.default.zIndex + 2) : props.css?.default.zIndex }" />
+        <select :name="$store.props.name" :form="$store.props.form" :required="$store.props.required"
+            :multiple="$store.props.multiple" :disabled="$store.props.disabled" :autofocus="$store.props.autofocus"
+            v-model="$store.model" />
+        <div data-default :data-default-active="$store.props.active" v-text="$store.text"
+            @click.stop="$store.props.active = !$store.props.active"
+            :style="{ zIndex: $store.props.active ? (+$store.props.css?.default.zIndex + 2) : +$store.props.css?.default.zIndex }" />
 
         <KeepAlive>
-            <Wrapper v-if="props.active" />
+            <Wrapper v-if="$store.props.active" />
         </KeepAlive>
     </div>
 </template>
@@ -59,28 +47,28 @@ select {
 [data-default] {
     line-height: 1;
     position: relative;
-    cursor: v-bind('props.css?.default.cursor');
-    text-align: v-bind('props.css?.default.textAlign');
-    width: v-bind('props.css?.default.width');
-    color: v-bind('props.css?.default.color');
-    font-family: v-bind('props.css?.default.fontFamily');
-    font-weight: v-bind('props.css?.default.fontWeight');
-    font-size: v-bind('props.css?.default.fontSize');
-    border: v-bind('props.css?.default.border');
-    border-color: v-bind('props.css?.default.borderColor');
-    border-radius: v-bind('props.css?.default.borderRadius');
-    background-color: v-bind('props.css?.default.backgroundColor');
+    cursor: v-bind('$store.props.css?.default.cursor');
+    text-align: v-bind('$store.props.css?.default.textAlign');
+    width: v-bind('$store.props.css?.default.width');
+    color: v-bind('$store.props.css?.default.color');
+    font-family: v-bind('$store.props.css?.default.fontFamily');
+    font-weight: v-bind('$store.props.css?.default.fontWeight');
+    font-size: v-bind('$store.props.css?.default.fontSize');
+    border: v-bind('$store.props.css?.default.border');
+    border-color: v-bind('$store.props.css?.default.borderColor');
+    border-radius: v-bind('$store.props.css?.default.borderRadius');
+    background-color: v-bind('$store.props.css?.default.backgroundColor');
 
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 
-    padding: v-bind('props.css?.default.padding');
+    padding: v-bind('$store.props.css?.default.padding');
     transition: border-bottom-left-radius .15s ease-out, border-bottom-right-radius .1s ease-out;
 }
 
 [data-default]:hover {
-    background-color: v-bind('props.css?.hover.backgroundColor');
+    background-color: v-bind('$store.props.css?.hover.backgroundColor');
 }
 
 [data-default-active="true"] {
