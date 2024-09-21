@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const c = {
   login: () => import('@components/login/Main.vue'),
+
   wrap: () => import('@/components/main/Wrap.vue'),
   home: () => import('@components/main/home/Main.vue'),
   settings: () => import('@components/main/settings/Main.vue')

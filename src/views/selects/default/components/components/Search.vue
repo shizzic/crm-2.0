@@ -20,7 +20,9 @@ let searchProps = {
     autofocus: true,
 
     css: input_css,
-    icon: 'src/assets/images/lib/search.webp'
+    icon: {
+        url: '/lib/search.webp',
+    }
 }
 </script>
 

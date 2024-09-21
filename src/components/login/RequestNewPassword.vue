@@ -5,7 +5,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
-import Cancel from '@/views/lib/cancel/Main.vue'
+import Cancel from '@views/lib/cancel/Main.vue'
 
 const lang = useSettingsStore().lang
 const form = ref({ email: '' })

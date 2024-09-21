@@ -11,5 +11,4 @@ import router from './router'
 const pinia = createPinia()
 pinia.use(addResetMethod)
 pinia.use(piniaPluginPersistedstate)
-
 createApp(App).use(pinia).use(router).mount('#app')

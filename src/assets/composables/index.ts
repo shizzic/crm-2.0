@@ -22,14 +22,11 @@ export const $merge: Merge = (obj1: any, obj2: any): any => {
 }
 
 export const $img: ImageLoader = (name: string, controller_model?: string): string => {
-  if (name)
-    if (name.search('blob:') === -1) {
-      const url = (controller_model ? controller_model : '') + '/get-file?file='
+  if (name.search('blob:') === -1) {
+    const url = (controller_model ? controller_model : '') + '/get-file?file='
 
-      return name.search('\\?') === -1
-        ? '/src/assets/images' + name
-        : $endpoint + url + name.split('?').shift()
-    } else return name
-
-  return ''
+    return name.search('\\?') === -1
+      ? 'src/assets/images' + name
+      : $endpoint + url + name.split('?').shift()
+  } else return name
 }

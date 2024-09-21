@@ -1,6 +1,7 @@
 import type { ModelRef, Ref } from 'vue'
 import type { CSS } from '@types'
 import { useSettingsStore } from '@stores'
+import type { Icon } from './store/icon'
 
 export type InputModel = ModelRef<string> | Ref<string>
 
@@ -22,7 +23,7 @@ export interface Props {
   label?: boolean
   labelText?: string
   css?: CSS
-  icon?: string
+  icon?: Icon
 }
 
 export const DefaultCSS: CSS = {
@@ -51,5 +52,10 @@ export const defaultProps: Props = {
   placeholder: useSettingsStore().lang?.other?.text,
 
   label: false,
-  css: DefaultCSS
+  css: DefaultCSS,
+  icon: {
+    size: '20px 50%',
+    position: 'left 15px center',
+    repeat: 'no-repeat'
+  }
 }

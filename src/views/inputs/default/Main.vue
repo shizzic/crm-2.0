@@ -24,7 +24,7 @@ onActivated(focus)
     <div data-wrapper @click.stop="input?.focus()">
         <h6 v-if="$store.props.label" v-html="$store.props.labelText" ref="input" />
 
-        <div data-input :data-input-icon="$store.props.icon">
+        <div data-input :data-input-icon="$store.props.icon?.url">
             <input v-model.trim="model" :type="$store.props.type" :name="$store.props.name"
                 :required="$store.v?.required" :placeholder="$store.props.placeholder"
                 :maxlength="$store.props.maxlength" :minlength="$store.props.minlength"
@@ -40,10 +40,14 @@ onActivated(focus)
 </template>
 
 <style scoped>
+[data-wrapper] {
+    width: v-bind('$store.props.css?.default.width');
+}
+
 [data-input] {
     position: relative;
     cursor: text;
-    width: v-bind('$store.props.css?.default.width');
+    width: 100%;
     border: v-bind('$store.props.css?.default.border');
     border-color: v-bind('$store.props.css?.default.borderColor');
     border-radius: v-bind('$store.props.css?.default.borderRadius');
@@ -60,11 +64,13 @@ onActivated(focus)
     top: 0;
     left: 0;
 
-    background: v-bind('$store.icon?.background');
     width: 100%;
     height: 100%;
-    background-size: 20px 50%;
-    background-position: 15px;
+
+    background-image: v-bind('$store.icon?.url');
+    background-size: v-bind('$store.icon?.size');
+    background-position: v-bind('$store.icon?.position');
+    background-repeat: v-bind('$store.icon?.repeat');
     filter: v-bind('$store.icon?.filter');
 }
 
