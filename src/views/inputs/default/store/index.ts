@@ -7,6 +7,7 @@ import type { Props, InputModel } from '..'
 import { $merge } from '@assets/composables'
 import { getIcon } from './icon'
 import type { Icon } from './icon'
+import clone from 'clone'
 
 export const useStore = (id: string | number) =>
   defineStore(`input/${id}`, () => {
@@ -24,26 +25,20 @@ export const useStore = (id: string | number) =>
       passedV: ModelRef<any>
     ): void {
       props.value = $merge(props.value, passedProps?.value)
-      icon.value = getIcon(props.value)
       model.value = passedModel.value
-      v.value = passedV.value
+      v.value = clone(passedV.value)
+      icon.value = getIcon(props.value)
+
       watch(
-        () => passedProps,
+        passedProps,
         (value) => {
-          props.value = $merge(props.value, value.value)
+          props.value = $merge(props.value, value)
           icon.value = getIcon(props.value)
         },
         { deep: true }
       )
-      watch(
-        () => passedModel,
-        (value) => (model.value = value.value)
-      )
-      watch(
-        () => passedV,
-        (value) => (v.value = Object.assign({}, value.value)),
-        { deep: true }
-      )
+      watch(passedModel, (value) => (model.value = value))
+      watch(passedV, (value) => (v.value = clone(value)), { deep: true })
     }
 
     // текст ошибок зависит от model (связь не очевидная, ошибки меняются снаружи инпут компонента)

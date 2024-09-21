@@ -17,6 +17,7 @@ nav {
     background-color: #FFFFFF;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
+    user-select: none;
 
     display: flex;
     justify-content: center;

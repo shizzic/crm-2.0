@@ -25,9 +25,7 @@ export const useStore = (id: string | number) =>
     // главный текст
     function getText(): string {
       if (model.value && !props.value.multiple) return render(model.value)
-      return props.value.wrapper.text
-        ? props.value.wrapper.text
-        : useSettingsStore().lang?.other?.select
+      return props.value.wrapper.text || useSettingsStore().lang?.other?.select
     }
 
     // получает текст, который нужно отобразить
