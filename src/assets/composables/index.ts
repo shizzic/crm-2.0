@@ -21,6 +21,7 @@ export const $merge: Merge = (obj1: any, obj2: any): any => {
   return result
 }
 
+// получаю полный путь до фотки (local | url | blob) -> indiferent
 export const $img: ImageLoader = (name: string, controller_model?: string): string => {
   if (name.search('blob:') === -1) {
     const url = (controller_model ? controller_model : '') + '/get-file?file='
