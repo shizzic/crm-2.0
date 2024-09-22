@@ -17,8 +17,9 @@ const $store = useStore(inject('$id') as string)()
         <Modal v-show="$store.props.active" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="$store.props.active" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }"
-                data-select v-click-outside="() => { cancel.emit('close_select') }">
+            <div v-if="$store.props.active" data-select data-select-active="$store.props.active"
+                :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }"
+                v-click-outside="() => { cancel.emit('close_select') }">
                 <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />
                 <Search />
                 <Selected v-if="$store.props.multiple" />
@@ -39,6 +40,11 @@ const $store = useStore(inject('$id') as string)()
 
     display: flex;
     flex-direction: column;
+}
+
+[data-select-active] {
+    border: v-bind('$store.props.css?.default.border');
+    border-color: v-bind('$store.props.css?.default.borderColor');
 }
 
 .slide-up-enter-active,

@@ -13,7 +13,8 @@ export const useStore = (id: string | number) =>
   defineStore(`select/${id}`, () => {
     const props: Ref<Props> = ref(defaultProps)
     const search: InputModel = ref('')
-    const model: Ref<any> = ref(undefined) // value
+    const model: Ref<any> = ref(undefined) // value: li
+    const index: Ref<undefined | string | number> = ref(undefined) // value: index
     const text = computed(() => getText()) // главный текст селекта
 
     // получение props через passedProps со слиянем вместе с дефолтными + отслеживание изменений
@@ -24,7 +25,9 @@ export const useStore = (id: string | number) =>
 
     // главный текст
     function getText(): string {
-      if (model.value && !props.value.multiple) return render(model.value)
+      if (model.value && !props.value.multiple)
+        return render(index.value ? props.value.wrapper.list?.[index.value] : model.value)
+
       return props.value.wrapper.text || useSettingsStore().lang?.other?.select
     }
 
@@ -43,17 +46,21 @@ export const useStore = (id: string | number) =>
       if (!props.value.multiple) {
         const old = model.value
         model.value = undefined
+        index.value = undefined
 
         if (old) cancel.emit('close_select')
       }
     }
 
-    function selectItem(li: any): void {
+    function selectItem(li: any, i: string | number): void {
       model.value = li
+      index.value = i
+
       if (!props.value.wrapper.list) return
 
       if (!props.value.multiple) cancel.emit('close_select')
       else {
+        // если выбронное кол-во элементов равно кол-ву элементов в списке, то закрыть селект
         const length = Array.isArray(props.value.wrapper.list)
           ? props.value.wrapper.list.length
           : Object.keys(props.value.wrapper.list).length
@@ -62,23 +69,16 @@ export const useStore = (id: string | number) =>
       }
     }
 
-    function isSelected(li: any): boolean {
-      if (model.value) {
-        const str = JSON.stringify(li)
-
-        if (props.value.multiple)
-          for (const key in model.value) if (str === JSON.stringify(model.value?.[key])) return true
-
-        if (str === JSON.stringify(model.value)) return true
-      }
-
-      return false
+    function isSelected(li: any, i: number | string): boolean {
+      if (index.value) return i == index.value
+      else return JSON.stringify(li) === JSON.stringify(model.value)
     }
 
     return {
       props,
       search,
       model,
+      index,
       text,
       setProps,
       render,

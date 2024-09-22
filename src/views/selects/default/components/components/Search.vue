@@ -1,25 +1,29 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, computed } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
 import Input from '@views/inputs/default/Main.vue'
+import type { Props } from '@views/inputs/default'
+import type { CSS } from '@types'
 
 const $store = useStore(inject('$id') as string)()
 const lang = useSettingsStore().lang
-const input_css = {
+const css: CSS = {
     default: {
-        fontSize: '19.75rem',
+        fontFamily: $store.props.css?.default.fontFamily,
+        fontWeight: 500,
+        fontSize: $store.props.css?.default.fontSize,
         padding: '9px 21px 9px 45px',
     }
 }
-let searchProps = {
+let props: Props = {
     name: $store.props.name,
-    placeholder: lang?.other?.search,
+    placeholder: computed(() => lang?.other?.search).value,
     autocomplete: 'off',
     autocorrect: 'off',
     autofocus: true,
 
-    css: input_css,
+    css: css,
     icon: {
         url: '/lib/search.webp',
     }
@@ -27,7 +31,7 @@ let searchProps = {
 </script>
 
 <template>
-    <Input v-model:model="$store.search" ref="search" v-model:props="searchProps" class="item" data-search />
+    <Input v-model:model="$store.search" v-model:props="props" class="item" data-search />
 </template>
 
 <style scoped>

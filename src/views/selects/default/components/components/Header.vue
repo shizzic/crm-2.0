@@ -23,7 +23,7 @@ const lang = useSettingsStore().lang
 
 [data-header] h6 {
     color: v-bind('$store.props.css?.wrapper.Header.description.color');
-    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 4rem);
+    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 5rem);
     font-weight: 600;
 
     margin-right: 15px;
@@ -33,7 +33,7 @@ const lang = useSettingsStore().lang
     cursor: pointer;
     align-self: flex-start;
     color: v-bind('$store.props.css?.wrapper.Header.clear.color');
-    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 4rem);
+    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 3rem);
     font-weight: 500;
     outline: none;
     border: none;

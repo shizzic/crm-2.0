@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import type { Props } from "."
-import { defaultProps, getProps } from "."
 import Popper from "vue3-popper"
+import { useStore } from "./store"
 
-const passedProps = defineModel<Props>('props', { default: defaultProps })
-const props = getProps(passedProps)
+const $store = useStore()
+const passedProps = defineModel<Props>('props')
+$store.setProps(passedProps)
 </script>
 
 <template>

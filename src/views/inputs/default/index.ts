@@ -54,7 +54,6 @@ export const defaultProps: Props = {
   label: false,
   css: DefaultCSS,
   icon: {
-    size: '20px 50%',
     position: 'left 15px center',
     repeat: 'no-repeat'
   }

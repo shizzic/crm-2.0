@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { set } from '@stores/reusable/funcs'
 import { ref, watch, computed } from 'vue'
-import type { ModelRef, Ref } from 'vue'
+import type { ModelRef, Ref, ShallowRef } from 'vue'
 import { defaultProps } from '..'
 import type { Props, InputModel } from '..'
 import { $merge } from '@assets/composables'
@@ -22,23 +22,29 @@ export const useStore = (id: string | number) =>
     function setProps(
       passedProps: ModelRef<Props | undefined>,
       passedModel: InputModel,
-      passedV: ModelRef<any>
+      passedV: ModelRef<any>,
+      passedInputTemplate: Readonly<ShallowRef<HTMLInputElement | null>>
     ): void {
       props.value = $merge(props.value, passedProps?.value)
       model.value = passedModel.value
       v.value = clone(passedV.value)
-      icon.value = getIcon(props.value)
 
       watch(
         passedProps,
         (value) => {
           props.value = $merge(props.value, value)
-          icon.value = getIcon(props.value)
+          icon.value = getIcon(props.value, passedInputTemplate.value?.clientHeight)
         },
         { deep: true }
       )
       watch(passedModel, (value) => (model.value = value))
       watch(passedV, (value) => (v.value = clone(value)), { deep: true })
+
+      // как только input отрисуется, я высчитываю размер иконки (если ее нужно отобразить)
+      watch(
+        () => passedInputTemplate.value?.clientHeight,
+        (value) => (icon.value = getIcon(props.value, value))
+      )
     }
 
     // текст ошибок зависит от model (связь не очевидная, ошибки меняются снаружи инпут компонента)

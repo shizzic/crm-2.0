@@ -23,6 +23,7 @@ export interface Props {
   labelText?: string
   css?: CSS
   active?: boolean
+  arrow?: boolean
   hideClear?: boolean
 }
 
@@ -32,16 +33,18 @@ export const DefaultCSS: CSS = {
     cursor: 'pointer',
     textAlign: 'left',
     width: '100%',
+    minWidth: 'none',
+    maxWidth: 'none',
     color: '#676767',
     fontFamily: 'Metropolis, sans-serif',
     fontWeight: '500',
-    fontSize: '13rem',
+    fontSize: '14rem',
     border: '2px solid',
     borderColor: '#C4C4C4',
-    borderRadius: '110px',
+    borderRadius: '20px',
     backgroundColor: '#ffffff',
 
-    padding: '7px 21px'
+    padding: '10px 21px'
   },
 
   hover: {
@@ -72,12 +75,12 @@ export const defaultProps: Props = {
     list: undefined,
     render: 'title',
     text: useSettingsStore().lang?.other?.select,
-    description: useSettingsStore().lang?.other?.select,
     flags: 'imuy'
   },
 
   label: false,
   css: DefaultCSS,
   active: false,
+  arrow: true,
   hideClear: false
 }

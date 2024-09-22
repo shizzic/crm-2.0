@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import { $img } from '@assets/composables'
 import Poppers from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
+import type { Props } from '@views/lib/popper'
 
-const lang = useSettingsStore().lang
 const oldWidth = ref(parseInt(getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width')))
 const sidebarWidth = ref(oldWidth.value)
 const expandHandler = (): void => {
@@ -14,7 +15,11 @@ const expandHandler = (): void => {
     document.documentElement.style.setProperty('--sidebar-width', `${sidebarWidth.value ? 0 : oldWidth.value}px`)
     document.documentElement.style.setProperty('--resizer-cursor', `${sidebarWidth.value ? 'default' : 'ew-resize'}`)
 }
-let popper = { content: lang?.other?.expand }
+const popper: ComputedRef<Props> = computed(() => {
+    return {
+        content: ref(useSettingsStore().lang?.other?.expand).value
+    }
+})
 </script>
 
 <template>

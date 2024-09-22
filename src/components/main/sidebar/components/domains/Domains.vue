@@ -1,36 +1,39 @@
 <script setup lang="ts">
-import { ref, useTemplateRef, watch, onMounted } from 'vue'
-import type { Ref } from 'vue'
+import { ref, useTemplateRef, watch, onMounted, computed } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import Select from '@views/selects/default/Main.vue'
 import { fetcher } from '@/assets/composables/fetcher'
 import { useProjectStore, useSettingsStore, useDomainStore } from '@stores'
-import type { List } from '@types'
+import type { List, CSS } from '@types'
+import type { Props } from '@views/selects/default'
 
-const lang = useSettingsStore().lang
 const list: Ref<List> = ref(useDomainStore().list)
-const text: string = lang.table.domains
-const description: string = lang.sidebar.selects?.domains?.description
+const text: ComputedRef<string> = computed(() => useSettingsStore().lang.table.domains)
+const description: ComputedRef<string> = computed(() => useSettingsStore().lang.sidebar.selects?.domains?.description)
 const select: any = useTemplateRef('select')
-let props: any = {
-    name: 'projects',
-    hideClear: true,
-    wrapper: { list, text, description },
-    css: {
-        default: {
-            color: '#ffffff',
-            fontSize: '22rem',
-            fontWeight: '600',
-            border: 'none',
-            backgroundColor: '#3F3F57',
-            borderRadius: '20px',
-            padding: '15px 20px',
-            textAlign: 'center'
-        },
-        hover: {
-            backgroundColor: '#23233E'
-        },
-    }
+const css: CSS = {
+    default: {
+        color: '#ffffff',
+        fontSize: '22rem',
+        fontWeight: '600',
+        border: 'none',
+        backgroundColor: '#3F3F57',
+        borderRadius: '20px',
+        padding: '15px 20px',
+        textAlign: 'center'
+    },
+    hover: {
+        backgroundColor: '#23233E'
+    },
 }
+const props: ComputedRef<Props> = computed(() => {
+    return {
+        name: 'projects',
+        hideClear: true,
+        wrapper: { list: list.value, text: text.value, description: description.value },
+        css: css
+    }
+})
 
 fetcher.get('domain')
     .then((r: any) => {

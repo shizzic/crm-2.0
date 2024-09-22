@@ -7,12 +7,11 @@ const $store = useStore(inject('$id') as string)()
 
 <template>
     <ul>
-        <template v-for="(li, index) in $store.props.wrapper.list as any" :key="li?.id || index">
-            <li v-if="li && $store.isVisible($store.render(li)) && !$store.isSelected(li)"
-                @click.stop="$store.selectItem(li)">
-                <i /> {{ $store.render(li) }}
-            </li>
-        </template>
+        <li v-for="(li, index) in $store.props.wrapper.list as any" :key="li?.id || index"
+            v-show="li && $store.isVisible($store.render(li)) && !$store.isSelected(li, index)"
+            @click.stop="$store.selectItem(li, index)">
+            <i /> {{ $store.render(li) }}
+        </li>
     </ul>
 </template>
 
@@ -33,7 +32,7 @@ li {
     position: relative;
     cursor: pointer;
     color: v-bind('$store.props.css?.wrapper.List.color');
-    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 4rem);
+    font-size: calc(v-bind('$store.props.css?.default.fontSize') - 3rem);
     font-weight: 600;
     letter-spacing: -0.02em;
 

@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@stores'
 import Search from './Search.vue'
 import Expand from '@views/lib/expand/Main.vue'
+import Item from './Item.vue'
+import Language from './components/Language.vue'
+
+const $settings = useSettingsStore()
 </script>
 
 <template>
@@ -11,8 +16,15 @@ import Expand from '@views/lib/expand/Main.vue'
         </div>
 
         <div data-title-wrapper>
-            <h2 v-text="'Settings'" />
-            <span data-description v-text="'description'" />
+            <h2 v-text="$settings.lang?.settings?.title" />
+            <span data-description v-text="$settings.lang?.settings?.description" />
+        </div>
+
+        <div data-items>
+            <Item :title="$settings.lang?.settings?.lang?.title"
+                :description="$settings.lang?.settings?.lang?.description">
+                <Language />
+            </Item>
         </div>
     </section>
 </template>
@@ -61,5 +73,15 @@ h2 {
     font-size: 12.23rem;
     font-weight: 600;
     color: #676767;
+}
+
+[data-items] {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 </style>

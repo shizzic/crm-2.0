@@ -10,9 +10,8 @@ const $store = useStore($id)()
 const passedProps = defineModel<Props>('props')
 const model: InputModel = defineModel('model', { default: '' })
 const v = defineModel('v')
-$store.setProps(passedProps, model, v)
-
 const input = useTemplateRef('input') // ref на настоящий input
+$store.setProps(passedProps, model, v, input)
 const focus = () => { if ($store.props.autofocus) input.value?.focus() }
 
 provide('$id', $id)
@@ -21,10 +20,10 @@ onActivated(focus)
 </script>
 
 <template>
-    <div data-wrapper @click.stop="input?.focus()">
-        <h6 v-if="$store.props.label" v-html="$store.props.labelText" ref="input" />
+    <div data-wrapper>
+        <h6 v-if="$store.props.label" v-html="$store.props.labelText" />
 
-        <div data-input :data-input-icon="$store.props.icon?.url">
+        <div data-input :data-input-icon="Boolean($store.props.icon?.url)">
             <input v-model.trim="model" :type="$store.props.type" :name="$store.props.name"
                 :required="$store.v?.required" :placeholder="$store.props.placeholder"
                 :maxlength="$store.props.maxlength" :minlength="$store.props.minlength"
@@ -58,14 +57,14 @@ onActivated(focus)
     align-items: center;
 }
 
-[data-input-icon]::before {
+[data-input-icon="true"]::before {
     content: "";
     position: absolute;
-    top: 0;
     left: 0;
-
+    top: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 
     background-image: v-bind('$store.icon?.url');
     background-size: v-bind('$store.icon?.size');
