@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useSettingsStore } from '@stores'
 
 const c = {
   login: () => import('@components/login/Main.vue'),
@@ -35,6 +36,14 @@ const router = createRouter({
       component: c.login
     }
   ]
+})
+
+// меняю title вкладок
+router.beforeEach((to) => {
+  document.title =
+    String(useSettingsStore().lang?.components?.[String(to.name)] ?? window.location.hostname) +
+    ' | isinda'
+  return true
 })
 
 export default router
