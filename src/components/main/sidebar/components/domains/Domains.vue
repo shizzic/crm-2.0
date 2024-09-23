@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useTemplateRef, watch, onMounted, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import Select from '@views/selects/default/Main.vue'
 import { fetcher } from '@/assets/composables/fetcher'
@@ -10,7 +10,6 @@ import type { Props } from '@views/selects/default'
 const list: Ref<List> = ref(useDomainStore().list)
 const text: ComputedRef<string> = computed(() => useSettingsStore().lang.table.domains)
 const description: ComputedRef<string> = computed(() => useSettingsStore().lang.sidebar.selects?.domains?.description)
-const select: any = useTemplateRef('select')
 const css: CSS = {
     default: {
         color: '#ffffff',
@@ -29,6 +28,7 @@ const css: CSS = {
 const props: ComputedRef<Props> = computed(() => {
     return {
         name: 'projects',
+        arrow: false,
         hideClear: true,
         wrapper: { list: list.value, text: text.value, description: description.value },
         css: css
@@ -38,33 +38,37 @@ const props: ComputedRef<Props> = computed(() => {
 fetcher.get('domain')
     .then((r: any) => {
         list.value = r?.data?.data
-        useDomainStore().list = r?.data?.data
+        useDomainStore().list = list.value
 
         if (list.value) {
             if (list.value.length > 0 && !useDomainStore().id)
                 for (let item of list.value) {
                     useDomainStore().title = item.title
                     useDomainStore().id = item.id
+                    initModel()
                     break
                 }
         }
     })
-watch(() => select?.value?.$store.model, (data: any, old: any) => {
+const model: Ref<any> = ref(null)
+watch(model, (data: any, old: any) => {
     if (old) {
         useProjectStore().$reset()
-        useDomainStore().title = data.title
-        useDomainStore().id = data.id
+        useDomainStore().title = data?.title
+        useDomainStore().id = data?.id
     }
 })
-onMounted(() => {
+
+const initModel = (): void => {
     if (useDomainStore().id && useDomainStore().title)
-        select.value.$store.model = { id: useDomainStore().id, title: useDomainStore().title }
-})
+        model.value = { id: useDomainStore().id, title: useDomainStore().title }
+}
+initModel()
 </script>
 
 <template>
     <div data-parent>
-        <Select v-model:props="props" ref="select" />
+        <Select v-model:props="props" v-model:model="model" />
     </div>
 </template>
 

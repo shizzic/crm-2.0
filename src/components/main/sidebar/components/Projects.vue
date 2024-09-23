@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useTemplateRef, watch, onMounted, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 import type { ComputedRef, Ref } from 'vue'
 import Select from '@views/selects/default/Main.vue'
 import { fetcher } from '@/assets/composables/fetcher'
@@ -10,7 +10,6 @@ import type { Props } from '@views/selects/default'
 const list: Ref<List> = ref(useProjectStore().list)
 const text: ComputedRef<string> = computed(() => (useSettingsStore().lang?.table?.projects))
 const description: ComputedRef<string> = computed(() => (useSettingsStore().lang?.sidebar?.selects?.projects?.description))
-const select: any = useTemplateRef('select')
 const css: CSS = {
     default: {
         color: '#ffffff',
@@ -38,22 +37,32 @@ const props: ComputedRef<Props> = computed(() => {
 fetcher.get('project/project-user/attached-projects')
     .then((r: any) => {
         list.value = r?.data
-        useProjectStore().list = r?.data
+        useProjectStore().list = list.value
+
+        if (!useProjectStore().id && list.value?.[0]) {
+            useProjectStore().id = list.value[0].id
+            useProjectStore().title = list.value[0].title
+            initModel()
+        }
     })
-watch(() => select?.value?.$store.model, (data: any) => {
+
+const model: Ref<any> = ref(null)
+watch(model, (data) => {
     useProjectStore().id = data?.id
     useProjectStore().title = data?.title
 })
-watch(() => useProjectStore().id, (value: undefined | number) => { if (!value && select?.value?.$store.model) select.value.$store.model = undefined })
-onMounted(() => {
+
+const initModel = (): void => {
     if (useProjectStore().id && useProjectStore().title)
-        select.value.$store.model = { id: useProjectStore().id, title: useProjectStore().title }
-})
+        model.value = { id: +String(useProjectStore().id), title: String(useProjectStore().title) }
+}
+
+initModel()
 </script>
 
 <template>
     <div data-parent>
-        <Select v-model:props="props" v-bind="props" ref="select" />
+        <Select v-model:props="props" v-model:model="model" />
     </div>
 </template>
 

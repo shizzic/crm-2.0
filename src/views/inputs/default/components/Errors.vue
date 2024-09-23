@@ -4,7 +4,7 @@ import { useSettingsStore } from '@stores'
 import { useStore } from '../store'
 
 const lang = useSettingsStore().lang
-const $store = useStore(String(inject('$id')))()
+const $store = useStore(inject('$id') as string)()
 </script>
 
 <template>

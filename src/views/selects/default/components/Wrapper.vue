@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, watch, ref } from 'vue'
+import type { Ref } from 'vue'
 import vClickOutside from '@/views/lib/vClickOutside'
 import { emitter as cancel } from '@/views/lib/cancel'
 import Modal from '@views/modal/default/Main.vue'
@@ -10,14 +11,18 @@ import List from './components/List.vue'
 import { useStore } from '../store'
 
 const $store = useStore(inject('$id') as string)()
+const wasOpenedFirstTime: Ref<boolean> = ref(false)
+watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean(value)), { once: true })
 </script>
 
 <template>
     <div>
-        <Modal v-show="$store.props.active" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
+        <Modal v-if="wasOpenedFirstTime" v-show="$store.props.active"
+            :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="$store.props.active" data-select data-select-active="$store.props.active"
+            <div v-if="wasOpenedFirstTime" v-show="$store.props.active" data-select
+                data-select-active="$store.props.active"
                 :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }"
                 v-click-outside="() => { cancel.emit('close_select') }">
                 <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />

@@ -22,7 +22,6 @@ ul {
     list-style: none;
     position: relative;
 
-    padding-top: 15px;
     overflow-y: auto;
     overflow-x: hidden;
 }

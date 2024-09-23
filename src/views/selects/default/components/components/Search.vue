@@ -17,7 +17,7 @@ const css: CSS = {
     }
 }
 let props: Props = {
-    name: $store.props.name,
+    name: $store.props.name || 'search',
     placeholder: computed(() => lang?.other?.search).value,
     autocomplete: 'off',
     autocorrect: 'off',

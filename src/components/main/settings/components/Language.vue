@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { watch, useTemplateRef, computed, ref } from 'vue'
+import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import Select from '@views/selects/default/Main.vue'
 import type { Props } from '@/views/selects/default'
 
-const model: any = ref(useSettingsStore().lang?.settings?.lang?.list[useSettingsStore().locale])
 const props: ComputedRef<Props> = computed(() => {
     return {
+        name: 'language',
         hideClear: true,
         wrapper: {
             list: computed(() => (useSettingsStore().lang?.settings?.lang?.list)).value,
@@ -28,12 +28,8 @@ const props: ComputedRef<Props> = computed(() => {
         }
     }
 })
-const select = useTemplateRef('select')
-watch(() => select.value?.$store.index, (value) => {
-    useSettingsStore().locale = String(value)
-})
 </script>
 
 <template>
-    <Select v-model:props="props" v-model:model="model" v-model:index="useSettingsStore().locale" ref="select" />
+    <Select v-model:props="props" v-model:index="useSettingsStore().locale" />
 </template>

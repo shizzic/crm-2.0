@@ -8,11 +8,10 @@ import { useStore } from './store'
 const $id = String(useId())
 const $store = useStore($id)()
 const passedProps = defineModel<Props>('props', { required: true })
-$store.setProps(passedProps)
 const passedModel = defineModel<any>('model')
-$store.model = passedModel.value
 const passedIndex = defineModel<any>('index')
-$store.index = passedIndex.value
+$store.setWatchers(passedModel, passedIndex)
+$store.setParams(passedProps, passedModel, passedIndex)
 
 cancel.on('close_select', () => $store.props.active = false)
 provide('$id', $id)
@@ -32,9 +31,7 @@ defineExpose({ $store })
             <i v-if="$store.props.arrow" data-arrow :data-arrow-active="$store.props.active" />
         </div>
 
-        <KeepAlive>
-            <Wrapper />
-        </KeepAlive>
+        <Wrapper />
     </div>
 </template>
 

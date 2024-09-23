@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import { ref, computed, watch } from 'vue'
 import type { Ref, ModelRef } from 'vue'
 import type { InputModel } from '@views/inputs/default'
@@ -17,10 +16,34 @@ export const useStore = (id: string | number) =>
     const index: Ref<undefined | string | number> = ref(undefined) // value: index
     const text = computed(() => getText()) // главный текст селекта
 
+    // отслеживаю изменения для родителя (если параметры вообще были переданы)
+    function setWatchers(
+      passedModel: ModelRef<any>,
+      passedIndex: ModelRef<undefined | string | number>
+    ): void {
+      if (passedModel) {
+        watch(passedModel, (value) => (model.value = value))
+        watch(model, (value) => (passedModel.value = value))
+      }
+
+      if (passedIndex) {
+        watch(passedIndex, (value) => (index.value = value))
+        watch(index, (value) => (passedIndex.value = value))
+      }
+    }
+
     // получение props через passedProps со слиянем вместе с дефолтными + отслеживание изменений
-    function setProps(passedProps: ModelRef<Props>): void {
+    function setParams(
+      passedProps: ModelRef<Props>,
+      passedModel: ModelRef<any>,
+      passedIndex: ModelRef<undefined | string | number>
+    ): void {
       props.value = $merge(props.value, passedProps.value)
       watch(passedProps, (value) => (props.value = $merge(props.value, value)), { deep: true })
+
+      // заполняю переданные параметры со старта
+      if (passedModel.value !== undefined) model.value = passedModel.value
+      if (passedIndex.value !== undefined) model.value = props.value.wrapper.list[passedIndex.value]
     }
 
     // главный текст
@@ -80,12 +103,12 @@ export const useStore = (id: string | number) =>
       model,
       index,
       text,
-      setProps,
+      setParams,
+      setWatchers,
       render,
       isVisible,
       clearModel,
       selectItem,
-      isSelected,
-      set
+      isSelected
     }
   })
