@@ -18,8 +18,19 @@ export const useStore = (id: string | number) =>
     const pattern = computed(() => getPattern()) // актуальный input pattern (зависит от ошибки или ее отсутствия)
     const icon: Ref<undefined | Icon> = ref(undefined)
 
-    // получение props через passedProps со слиянем вместе с дефолтными + отслеживание изменений
-    function setProps(
+    // отслеживаю изменения для родителя (если параметры вообще были переданы)
+    function setWatchers(passedModel: InputModel, passedV: ModelRef<any>): void {
+      if (passedModel.value !== undefined) {
+        watch(passedModel, (value) => (model.value = value))
+        watch(model, (value) => (passedModel.value = value))
+      }
+
+      if (passedV.value !== undefined)
+        watch(passedV, (value) => (v.value = clone(value)), { deep: true })
+    }
+
+    // получение props через passedProps со слиянем
+    function setParams(
       passedProps: ModelRef<Props | undefined>,
       passedModel: InputModel,
       passedV: ModelRef<any>,
@@ -37,8 +48,6 @@ export const useStore = (id: string | number) =>
         },
         { deep: true }
       )
-      watch(passedModel, (value) => (model.value = value))
-      watch(passedV, (value) => (v.value = clone(value)), { deep: true })
 
       // как только input отрисуется, я высчитываю размер иконки (если ее нужно отобразить)
       watch(
@@ -69,7 +78,8 @@ export const useStore = (id: string | number) =>
       errors,
       pattern,
       icon,
-      setProps,
+      setWatchers,
+      setParams,
       set
     }
   })

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineAsyncComponent, onMounted, onActivated, useTemplateRef, useId, provide } from 'vue'
 import type { Props, InputModel } from './'
+import type { Ref } from 'vue'
 import { useStore } from './store'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
@@ -8,12 +9,13 @@ const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 const $id = String(useId())
 const $store = useStore($id)()
 const passedProps = defineModel<Props>('props')
-const model: InputModel = defineModel('model', { default: '' })
-const v = defineModel('v')
-const input = useTemplateRef('input') // ref на настоящий input
-$store.setProps(passedProps, model, v, input)
-const focus = () => { if ($store.props.autofocus) input.value?.focus() }
+const passedModel: InputModel = defineModel('model', { default: '' })
+const passedV = defineModel<any>('v')
+const input: Ref<any> = useTemplateRef('input') // ref на настоящий input
+$store.setWatchers(passedModel, passedV)
+$store.setParams(passedProps, passedModel, passedV, input)
 
+const focus = () => { if ($store.props.autofocus) input.value?.focus() }
 provide('$id', $id)
 onMounted(focus)
 onActivated(focus)
@@ -24,7 +26,7 @@ onActivated(focus)
         <h6 v-if="$store.props.label" v-html="$store.props.labelText" />
 
         <div data-input :data-input-icon="Boolean($store.props.icon?.url)">
-            <input v-model.trim="model" :type="$store.props.type" :name="$store.props.name"
+            <input v-model.trim="$store.model" :type="$store.props.type" :name="$store.props.name"
                 :required="$store.v?.required" :placeholder="$store.props.placeholder"
                 :maxlength="$store.props.maxlength" :minlength="$store.props.minlength"
                 :autocomplete="$store.props.autocomplete" :id="$store.props.id" :readonly="$store.props.readonly"

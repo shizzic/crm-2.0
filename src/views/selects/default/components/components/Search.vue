@@ -31,7 +31,7 @@ let props: Props = {
 </script>
 
 <template>
-    <Input v-model:model="$store.search" v-model:props="props" class="item" data-search />
+    <Input v-model:props="props" v-model:model="$store.search" class="item" data-search />
 </template>
 
 <style scoped>

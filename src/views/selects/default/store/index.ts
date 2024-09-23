@@ -21,18 +21,18 @@ export const useStore = (id: string | number) =>
       passedModel: ModelRef<any>,
       passedIndex: ModelRef<undefined | string | number>
     ): void {
-      if (passedModel) {
+      if (passedModel.value !== undefined) {
         watch(passedModel, (value) => (model.value = value))
         watch(model, (value) => (passedModel.value = value))
       }
 
-      if (passedIndex) {
+      if (passedIndex.value !== undefined) {
         watch(passedIndex, (value) => (index.value = value))
         watch(index, (value) => (passedIndex.value = value))
       }
     }
 
-    // получение props через passedProps со слиянем вместе с дефолтными + отслеживание изменений
+    // получение props через passedProps со слиянем
     function setParams(
       passedProps: ModelRef<Props>,
       passedModel: ModelRef<any>,
