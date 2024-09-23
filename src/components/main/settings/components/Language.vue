@@ -5,12 +5,17 @@ import { useSettingsStore } from '@stores'
 import Select from '@views/selects/default/Main.vue'
 import type { Props } from '@/views/selects/default'
 
+const list: { [k: string]: { title: string } } = {
+    RU: { title: 'Русский' },
+    EN: { title: 'English' }
+}
+
 const props: ComputedRef<Props> = computed(() => {
     return {
         name: 'language',
         hideClear: true,
         wrapper: {
-            list: computed(() => (useSettingsStore().lang?.settings?.lang?.list)).value,
+            list: list,
             text: computed(() => (useSettingsStore().lang?.settings?.lang?.title)).value
         },
         css: {

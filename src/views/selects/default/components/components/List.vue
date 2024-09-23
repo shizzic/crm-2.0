@@ -45,11 +45,6 @@ li {
     transition: padding-left .2s ease-out;
 }
 
-li:first-of-type {
-    padding-top: 0;
-    margin-top: -7px;
-}
-
 li:hover {
     padding-left: 30px;
 }

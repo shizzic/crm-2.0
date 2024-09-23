@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import Search from './Search.vue'
 import Expand from '@views/lib/expand/Main.vue'
 import Item from './Item.vue'
 import Language from './components/Language.vue'
+import { useStore } from './store'
 
 const $settings = useSettingsStore()
+const $store = useStore()
+const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search, 'imu'))
 </script>
 
 <template>
@@ -21,7 +26,9 @@ const $settings = useSettingsStore()
         </div>
 
         <div data-items>
-            <Item :title="$settings.lang?.settings?.lang?.title"
+            <Item
+                v-show="searchPattern.test($settings.lang?.settings?.lang?.title) || searchPattern.test($settings.lang?.settings?.lang?.description)"
+                :title="$settings.lang?.settings?.lang?.title"
                 :description="$settings.lang?.settings?.lang?.description">
                 <Language />
             </Item>
@@ -80,7 +87,7 @@ h2 {
     height: 100%;
 
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
 }

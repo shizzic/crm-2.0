@@ -17,7 +17,7 @@ const { title, description } = defineProps<Props>()
 
 <style scoped>
 [data-item] {
-    width: 50%;
+    flex: 0 0 48%;
     min-width: 315px;
     background-color: #ffffff;
     border: 2px solid #C4C4C4;
