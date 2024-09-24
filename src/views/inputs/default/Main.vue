@@ -14,8 +14,8 @@ const passedV = defineModel<any>('v')
 const input: Ref<any> = useTemplateRef('input') // ref на настоящий input
 $store.setWatchers(passedModel, passedV)
 $store.setParams(passedProps, passedModel, passedV, input)
-
 const focus = () => { if ($store.props.autofocus) input.value?.focus() }
+
 provide('$id', $id)
 onMounted(focus)
 onActivated(focus)

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject, watch, ref, useTemplateRef } from 'vue'
-import type { Ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import Modal from '@views/modal/default/Main.vue'
 import Header from './components/Header.vue'
@@ -10,7 +9,7 @@ import List from './components/List.vue'
 import { useStore } from '../store'
 
 const $store = useStore(inject('$id') as string)()
-const wasOpenedFirstTime: Ref<boolean> = ref(false) // срабатывает ровно 1 раз, чтобы не перерендеривать компоненты каждый раз при открытии
+const wasOpenedFirstTime = ref(false) // срабатывает ровно 1 раз, чтобы не перерендеривать компоненты каждый раз при открытии
 const wrapper = useTemplateRef('wrapper')
 
 // использую any, потому что иначе EventTarget type не видет ключа id, хотя он там по факту есть :D
@@ -22,16 +21,14 @@ watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean
 </script>
 
 <template>
-    <div>
-        <Modal v-if="wasOpenedFirstTime" v-show="$store.props.active"
-            :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
+    <div v-show="$store.props.active">
+        <Modal v-if="wasOpenedFirstTime" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="wasOpenedFirstTime" v-show="$store.props.active" data-select
-                data-select-active="$store.props.active" ref="wrapper"
+            <div v-if="wasOpenedFirstTime" data-select data-select-active="$store.props.active" ref="wrapper"
                 :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }">
                 <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />
-                <Search />
+                <Search v-if="$store.props.active" />
                 <Selected v-if="$store.props.multiple" />
                 <List v-if="$store.props.wrapper.list" />
             </div>
