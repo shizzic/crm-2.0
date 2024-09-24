@@ -14,8 +14,6 @@ export const useSettingsStore = defineStore(
     const languages: Ref<Lang> = ref({})
     const lang: ComputedRef<Lang> = computed(() => languages.value[locale.value])
 
-    watch(locale, () => get_lang())
-
     // Получение всех переводов на выбранный язык (язык в headers)
     function get_lang(): void {
       // if (!(locale.value in languages.value))
@@ -31,6 +29,8 @@ export const useSettingsStore = defineStore(
           languages.value[locale.value] = r.data
         })
     }
+
+    watch(locale, () => get_lang())
 
     return { version, locale, languages, lang, set, get_lang }
   },

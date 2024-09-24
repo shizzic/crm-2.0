@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useSettingsStore } from '@stores'
+import { useSettingsStore, useUserStore } from '@stores'
 
 const c = {
   login: () => import('@components/login/Main.vue'),
@@ -38,8 +38,11 @@ const router = createRouter({
   ]
 })
 
-// меняю title вкладок
+// меняю title вкладок + блокирую переходы на страницы без доступа
 router.beforeEach((to) => {
+  if (!useUserStore().id && to.name !== 'login') return { name: 'login' }
+  if (useUserStore().id && to.name === 'login') return { name: 'home' }
+
   document.title =
     String(
       useSettingsStore().lang?.components?.[String(to.name)] ??
