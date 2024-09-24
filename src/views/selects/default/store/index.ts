@@ -38,7 +38,9 @@ export const useStore = (id: string | number) =>
       passedIndex: ModelRef<undefined | string | number>
     ): void {
       props.value = $merge(props.value, passedProps.value)
-      watch(passedProps, (value) => (props.value = $merge(props.value, value)), { deep: true })
+
+      if (passedProps.value)
+        watch(passedProps, (value) => (props.value = $merge(props.value, value)), { deep: true })
 
       // заполняю переданные параметры со старта
       if (passedModel.value !== undefined) model.value = passedModel.value

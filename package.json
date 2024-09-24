@@ -1,6 +1,6 @@
 {
   "name": "isinda",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "private": true,
   "type": "module",
   "scripts": {
@@ -25,6 +25,7 @@
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^4.0.0",
     "vue": "^3.4.29",
+    "vue-3-slider-component": "^1.0.1",
     "vue-router": "^4.3.3",
     "vue-skeletor": "^1.0.6",
     "vue3-popper": "^1.5.0"

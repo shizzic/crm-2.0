@@ -6,6 +6,7 @@ import Search from './Search.vue'
 import Expand from '@views/lib/expand/Main.vue'
 import Item from './Item.vue'
 import Language from './components/Language.vue'
+import Size from './components/Size.vue'
 import { useStore } from './store'
 
 const $settings = useSettingsStore()
@@ -32,6 +33,12 @@ const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.sear
                 :description="$settings.lang?.settings?.lang?.description">
                 <Language />
             </Item>
+            <Item
+                v-show="searchPattern.test($settings.lang?.settings?.zoom.title) || searchPattern.test($settings.lang?.settings?.zoom?.description)"
+                :title="$settings.lang?.settings?.zoom?.title"
+                :description="$settings.lang?.settings?.zoom?.description">
+                <Size />
+            </Item>
         </div>
     </section>
 </template>
@@ -48,7 +55,7 @@ section {
 
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 25rem;
 }
 
 [data-hat] {
@@ -65,7 +72,7 @@ section {
 
     display: flex;
     flex-direction: column;
-    margin: 40px 0;
+    margin: 40rem 0;
 }
 
 h2 {
@@ -73,7 +80,7 @@ h2 {
     font-weight: 700;
     color: #252540;
 
-    margin-bottom: 8px;
+    margin-bottom: 8rem;
 }
 
 [data-description] {
@@ -84,11 +91,10 @@ h2 {
 
 [data-items] {
     width: 100%;
-    height: 100%;
 
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch;
 }
 </style>

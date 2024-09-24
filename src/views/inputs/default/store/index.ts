@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import { ref, watch, computed } from 'vue'
 import type { ModelRef, Ref, ShallowRef } from 'vue'
 import { defaultProps } from '..'
@@ -40,14 +39,15 @@ export const useStore = (id: string | number) =>
       model.value = passedModel.value
       v.value = clone(passedV.value)
 
-      watch(
-        passedProps,
-        (value) => {
-          props.value = $merge(props.value, value)
-          icon.value = getIcon(props.value, passedInputTemplate.value?.clientHeight)
-        },
-        { deep: true }
-      )
+      if (passedProps.value !== undefined)
+        watch(
+          passedProps,
+          (value) => {
+            props.value = $merge(props.value, value)
+            icon.value = getIcon(props.value, passedInputTemplate.value?.clientHeight)
+          },
+          { deep: true }
+        )
 
       // как только input отрисуется, я высчитываю размер иконки (если ее нужно отобразить)
       watch(
@@ -79,7 +79,6 @@ export const useStore = (id: string | number) =>
       pattern,
       icon,
       setWatchers,
-      setParams,
-      set
+      setParams
     }
   })

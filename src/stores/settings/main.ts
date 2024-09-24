@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import { useHttpStore } from '@stores'
 import { ref, computed, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
@@ -10,6 +9,7 @@ export const useSettingsStore = defineStore(
   () => {
     const $endpoint = useHttpStore().$endpoint
     const version: Ref<number> = ref(1)
+    const size: Ref<string> = ref('1px') // font-size, padding, margin
     const locale: Ref<string> = ref('RU')
     const languages: Ref<Lang> = ref({})
     const lang: ComputedRef<Lang> = computed(() => languages.value[locale.value])
@@ -31,14 +31,15 @@ export const useSettingsStore = defineStore(
     }
 
     watch(locale, () => get_lang())
+    watch(size, (value) => document.documentElement.style.setProperty('--html-size', value))
 
-    return { version, locale, languages, lang, set, get_lang }
+    return { version, locale, languages, lang, size, get_lang }
   },
   {
     persist: [
       {
         storage: localStorage,
-        pick: ['version', 'locale']
+        pick: ['version', 'locale', 'size']
       },
       {
         storage: sessionStorage,
