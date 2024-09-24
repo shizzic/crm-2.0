@@ -6,7 +6,6 @@ import { useSettingsStore } from '@stores'
 import { defaultProps } from '..'
 import type { Props } from '..'
 import { $merge } from '@assets/composables'
-import { emitter as cancel } from '@/views/lib/cancel'
 
 export const useStore = (id: string | number) =>
   defineStore(`select/${id}`, () => {
@@ -71,7 +70,7 @@ export const useStore = (id: string | number) =>
         model.value = undefined
         index.value = undefined
 
-        if (old) cancel.emit('close_select')
+        if (old) props.value.active = false
       }
     }
 
@@ -81,14 +80,14 @@ export const useStore = (id: string | number) =>
 
       if (!props.value.wrapper.list) return
 
-      if (!props.value.multiple) cancel.emit('close_select')
+      if (!props.value.multiple) props.value.active = false
       else {
         // если выбронное кол-во элементов равно кол-ву элементов в списке, то закрыть селект
         const length = Array.isArray(props.value.wrapper.list)
           ? props.value.wrapper.list.length
           : Object.keys(props.value.wrapper.list).length
 
-        if (model.value?.length === length) cancel.emit('close_select')
+        if (model.value?.length === length) props.value.active = false
       }
     }
 

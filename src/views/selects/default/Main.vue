@@ -2,7 +2,6 @@
 import { provide, useId } from 'vue'
 import type { Props } from './'
 import Wrapper from './components/Wrapper.vue'
-import { emitter as cancel } from '@/views/lib/cancel'
 import { useStore } from './store'
 
 const $id = String(useId())
@@ -13,7 +12,6 @@ const passedIndex = defineModel<any>('index')
 $store.setWatchers(passedModel, passedIndex)
 $store.setParams(passedProps, passedModel, passedIndex)
 
-cancel.on('close_select', () => $store.props.active = false)
 provide('$id', $id)
 defineExpose({ $store })
 </script>
@@ -24,9 +22,9 @@ defineExpose({ $store })
             :multiple="$store.props.multiple" :disabled="$store.props.disabled" :autofocus="$store.props.autofocus"
             v-model="$store.model" />
 
-        <div data-default :data-default-active="$store.props.active"
-            @click.stop="$store.props.active = !$store.props.active"
-            :style="{ zIndex: $store.props.active ? (+$store.props.css?.default.zIndex + 2) : +$store.props.css?.default.zIndex }">
+        <div :data-default-active="$store.props.active" @click.stop="$store.props.active = !$store.props.active"
+            :style="{ zIndex: $store.props.active ? (+$store.props.css?.default.zIndex + 2) : +$store.props.css?.default.zIndex }"
+            data-default>
             {{ $store.text }}
             <i v-if="$store.props.arrow" data-arrow :data-arrow-active="$store.props.active" />
         </div>

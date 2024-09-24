@@ -2,7 +2,6 @@
 import { inject, watch, ref, useTemplateRef } from 'vue'
 import type { Ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { emitter as cancel } from '@/views/lib/cancel'
 import Modal from '@views/modal/default/Main.vue'
 import Header from './components/Header.vue'
 import Search from './components/Search.vue'
@@ -11,11 +10,15 @@ import List from './components/List.vue'
 import { useStore } from '../store'
 
 const $store = useStore(inject('$id') as string)()
-const wasOpenedFirstTime: Ref<boolean> = ref(false)
-watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean(value)), { once: true })
-
+const wasOpenedFirstTime: Ref<boolean> = ref(false) // срабатывает ровно 1 раз, чтобы не перерендеривать компоненты каждый раз при открытии
 const wrapper = useTemplateRef('wrapper')
-onClickOutside(wrapper, () => { if ($store.props.active) cancel.emit('close_select') })
+
+// использую any, потому что иначе EventTarget type не видет ключа id, хотя он там по факту есть :D
+onClickOutside(wrapper, (e: any) => {
+    if (e?.target?.id === 'modal')
+        $store.props.active = false
+})
+watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean(value)), { once: true })
 </script>
 
 <template>
