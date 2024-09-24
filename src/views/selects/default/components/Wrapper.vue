@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, watch, ref } from 'vue'
+import { inject, watch, ref, useTemplateRef } from 'vue'
 import type { Ref } from 'vue'
-import vClickOutside from '@/views/lib/vClickOutside'
+import { onClickOutside } from '@vueuse/core'
 import { emitter as cancel } from '@/views/lib/cancel'
 import Modal from '@views/modal/default/Main.vue'
 import Header from './components/Header.vue'
@@ -13,6 +13,9 @@ import { useStore } from '../store'
 const $store = useStore(inject('$id') as string)()
 const wasOpenedFirstTime: Ref<boolean> = ref(false)
 watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean(value)), { once: true })
+
+const wrapper = useTemplateRef('wrapper')
+onClickOutside(wrapper, () => { if ($store.props.active) cancel.emit('close_select') })
 </script>
 
 <template>
@@ -22,9 +25,8 @@ watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean
 
         <Transition name="slide-up" mode="out-in">
             <div v-if="wasOpenedFirstTime" v-show="$store.props.active" data-select
-                data-select-active="$store.props.active"
-                :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }"
-                v-click-outside="() => { cancel.emit('close_select') }">
+                data-select-active="$store.props.active" ref="wrapper"
+                :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }">
                 <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />
                 <Search />
                 <Selected v-if="$store.props.multiple" />

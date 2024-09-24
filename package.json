@@ -1,6 +1,6 @@
 {
   "name": "isinda",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,6 +17,7 @@
     "@types/clone": "^2.1.4",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "@vueuse/core": "^11.1.0",
     "bowser": "^2.11.0",
     "clone": "^2.1.2",
     "hex-to-css-filter": "^5.4.0",

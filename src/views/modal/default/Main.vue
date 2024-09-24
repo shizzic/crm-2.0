@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import vClickOutside from '@/views/lib/vClickOutside'
+import { useTemplateRef } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 import { emitter as cancel } from '@/views/lib/cancel'
+
+const content = useTemplateRef('content')
+onClickOutside(content, () => { cancel.emit('default') })
 </script>
 
 <template>
     <div id="modal">
-        <div v-click-outside="() => { cancel.emit('default') }">
+        <div ref="content">
             <slot />
         </div>
     </div>

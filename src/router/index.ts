@@ -41,8 +41,10 @@ const router = createRouter({
 // меняю title вкладок
 router.beforeEach((to) => {
   document.title =
-    String(useSettingsStore().lang?.components?.[String(to.name)] ?? window.location.hostname) +
-    ' | isinda'
+    String(
+      useSettingsStore().lang?.components?.[String(to.name)] ??
+        window.location.hostname.split('.').shift()
+    ) + ' | isinda'
   return true
 })
 
