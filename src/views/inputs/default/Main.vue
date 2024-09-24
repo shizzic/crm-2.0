@@ -22,7 +22,7 @@ onActivated(focus)
 </script>
 
 <template>
-    <div data-wrapper>
+    <div data-root>
         <h6 v-if="$store.props.label" v-html="$store.props.labelText" />
 
         <div data-input :data-input-icon="Boolean($store.props.icon?.url)">
@@ -41,7 +41,7 @@ onActivated(focus)
 </template>
 
 <style scoped>
-[data-wrapper] {
+[data-root] {
     width: v-bind('$store.props.css?.default.width');
 }
 

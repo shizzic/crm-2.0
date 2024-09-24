@@ -13,7 +13,17 @@ $store.setParams(passedProps, passedModel)
 </script>
 
 <template>
-    <VueSlider v-model="$store.model" v-bind="$store.props" />
+    <div data-root>
+        <h6 v-if="$store.props.label" v-html="$store.props.labelText" />
+        <VueSlider v-model="$store.model" v-bind="$store.props" />
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+[data-root] {
+    width: v-bind('$store.props.css?.default.width');
+
+    padding: v-bind('$store.props.css?.default.padding');
+    margin: v-bind('$store.props.css?.default.margin');
+}
+</style>
