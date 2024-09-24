@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import Select from '@views/selects/default/Main.vue'
@@ -32,6 +32,13 @@ const props: ComputedRef<Props> = computed(() => {
             }
         }
     }
+})
+watch(() => useSettingsStore().locale, () => {
+    document.title =
+        String(
+            useSettingsStore().lang?.components?.settings ??
+            window.location.hostname.split('.').shift()
+        ) + ' | isinda'
 })
 </script>
 
