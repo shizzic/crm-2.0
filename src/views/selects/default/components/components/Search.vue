@@ -4,9 +4,9 @@ import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
 import Input from '@views/inputs/default/Main.vue'
 import type { Props } from '@views/inputs/default'
-import type { CSS } from '@types'
+import type { CSS, StoreID } from '@types'
 
-const $store = useStore(inject('$id') as string)()
+const $store = useStore(inject('$id') as StoreID)()
 const lang = useSettingsStore().lang
 const css: CSS = {
     default: {
@@ -17,6 +17,7 @@ const css: CSS = {
     }
 }
 let props: Props = {
+    type: 'search',
     name: $store.props.name || 'search',
     placeholder: computed(() => lang?.other?.search).value,
     autocomplete: 'off',

@@ -2,15 +2,17 @@
 import { inject } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
+import type { StoreID } from '@types'
 
-const $store = useStore(inject('$id') as string)()
+const $id = inject('$id') as StoreID
+const $store = useStore($id)()
 const lang = useSettingsStore().lang
 </script>
 
 <template>
     <div data-header>
         <h6 v-text="$store.props?.wrapper.description" />
-        <button v-if="!$store.props.hideClear" @click.stop="$store.clearModel" v-text="lang?.other?.clear" />
+        <button v-if="!$store.props.hideClear" @click.stop="$store.clearModel($id)" v-text="lang?.other?.clear" />
     </div>
 </template>
 

@@ -2,23 +2,23 @@ import { defineStore } from 'pinia'
 import { ref, watch, computed } from 'vue'
 import type { ModelRef, Ref, ShallowRef } from 'vue'
 import { defaultProps } from '..'
-import type { Props, InputModel } from '..'
+import type { Props, Model } from '..'
 import { $merge } from '@assets/composables'
 import { getIcon } from './icon'
 import type { Icon } from './icon'
 import clone from 'clone'
 
-export const useStore = (id: string | number) =>
+export const useStore = (id: string) =>
   defineStore(`input/${id}`, () => {
     const props = ref(defaultProps)
-    const model: InputModel = ref('') // value
+    const model: Ref<Model> = ref('') // value
     const v: Ref<any> | ModelRef<any> = ref(undefined) // валидатор vuelidate
     const errors = computed(() => getErrors())
     const pattern = computed(() => getPattern()) // актуальный input pattern (зависит от ошибки или ее отсутствия)
     const icon: Ref<undefined | Icon> = ref(undefined)
 
     // отслеживаю изменения для родителя (если параметры вообще были переданы)
-    function setWatchers(passedModel: InputModel, passedV: ModelRef<any>): void {
+    function setWatchers(passedModel: ModelRef<Model>, passedV: ModelRef<any>): void {
       if (passedModel.value !== undefined) {
         watch(passedModel, (value) => (model.value = value))
         watch(model, (value) => (passedModel.value = value))
@@ -31,7 +31,7 @@ export const useStore = (id: string | number) =>
     // получение props через passedProps со слиянем
     function setParams(
       passedProps: ModelRef<Props | undefined>,
-      passedModel: InputModel,
+      passedModel: ModelRef<Model>,
       passedV: ModelRef<any>,
       passedInputTemplate: Readonly<ShallowRef<HTMLInputElement | null>>
     ): void {

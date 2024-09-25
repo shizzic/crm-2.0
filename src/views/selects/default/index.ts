@@ -1,10 +1,11 @@
-import type { CSS, List } from '@types'
+import type { CSS, List, Deep } from '@types'
 import { useSettingsStore } from '@stores'
 
+export type Model = any
 export interface Props {
   wrapper: {
     list: List
-    render?: string // ключ, на который нужно ссылаться для вывода текста li
+    deep?: Deep
     text?: string // текст "кнопки" aka placeholder для select
     description?: string // описание данных, которое выводится при раскрытии селекта (если не указано, берется text)
     flags?: string
@@ -73,7 +74,7 @@ export const DefaultCSS: CSS = {
 export const defaultProps: Props = {
   wrapper: {
     list: undefined,
-    render: 'title',
+    deep: ['title'],
     text: useSettingsStore().lang?.other?.select,
     flags: 'imuy'
   },

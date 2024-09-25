@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, watch, ref, useTemplateRef } from 'vue'
+import { inject, useTemplateRef } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import Modal from '@views/modal/default/Main.vue'
 import Header from './components/Header.vue'
@@ -7,28 +7,25 @@ import Search from './components/Search.vue'
 import Selected from './components/Selected.vue'
 import List from './components/List.vue'
 import { useStore } from '../store'
+import type { StoreID } from '@types'
 
-const $store = useStore(inject('$id') as string)()
-const wasOpenedFirstTime = ref(false) // срабатывает ровно 1 раз, чтобы не перерендеривать компоненты каждый раз при открытии
+const $id = inject('$id') as StoreID
+const $store = useStore($id)()
 const wrapper = useTemplateRef('wrapper')
 
 // использую any, потому что иначе EventTarget type не видет ключа id, хотя он там по факту есть :D
-onClickOutside(wrapper, (e: any) => {
-    if (e?.target?.id === 'modal')
-        $store.props.active = false
-})
-watch(() => $store.props?.active, (value) => (wasOpenedFirstTime.value = Boolean(value)), { once: true })
+onClickOutside(wrapper, (e: any) => { if (e?.target?.id === 'modal') $store.props.active = false })
 </script>
 
 <template>
-    <div v-show="$store.props.active">
-        <Modal v-if="wasOpenedFirstTime" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
+    <div>
+        <Modal v-if="$store.props.active" :style="{ zIndex: Number($store.props.css?.default.zIndex) + 1 }" />
 
         <Transition name="slide-up" mode="out-in">
-            <div v-if="wasOpenedFirstTime" data-select data-select-active="$store.props.active" ref="wrapper"
+            <div v-if="$store.props.active" data-select data-select-active="$store.props.active" ref="wrapper"
                 :style="{ zIndex: Number($store.props.css?.default.zIndex) + 2 }">
                 <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />
-                <Search v-if="$store.props.active" />
+                <Search />
                 <Selected v-if="$store.props.multiple" />
                 <List v-if="$store.props.wrapper.list" />
             </div>

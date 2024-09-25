@@ -25,6 +25,7 @@ export default defineConfig({
       '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
       '@stores': fileURLToPath(new URL('./src/stores', import.meta.url)),
       '@types': fileURLToPath(new URL('./src/assets/types', import.meta.url)),
+      '@composables': fileURLToPath(new URL('./src/assets/composables', import.meta.url)),
       '@symbols': fileURLToPath(new URL('./src/assets/symbols', import.meta.url)),
       '@patterns': fileURLToPath(new URL('./src/assets/patterns', import.meta.url))
     }

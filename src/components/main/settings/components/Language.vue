@@ -23,7 +23,7 @@ const props: ComputedRef<Props> = computed(() => {
                 width: '80%',
                 fontSize: '16rem',
                 fotnWeight: 600,
-                minWidth: '250px',
+                minWidth: '0',
                 maxWidth: '350px'
             },
 

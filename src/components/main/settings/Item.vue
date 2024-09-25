@@ -17,13 +17,20 @@ const { title, description } = defineProps<Props>()
 
 <style scoped>
 [data-item] {
-    flex: 0 0 48%;
-    min-width: 315px;
+    width: calc(50% - 35px);
     background-color: #ffffff;
     border: 2px solid #C4C4C4;
     border-radius: 8px;
 
     padding: 30px;
+    margin-bottom: 25rem;
+    margin-right: 30px;
+}
+
+[data-item]:nth-child(2) {
+    width: 50%;
+
+    margin-right: 0;
 }
 
 h3 {

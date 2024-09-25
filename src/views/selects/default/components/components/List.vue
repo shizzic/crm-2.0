@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import { useStore } from '../../store'
+import { $getDeep } from '@composables'
+import type { Index, StoreID } from '@types'
 
-const $store = useStore(inject('$id') as string)()
+const $id = inject('$id') as StoreID
+const $store = useStore($id)()
+const isShowable = (li: any, index: Index): boolean => {
+    return li
+        &&
+        $store.isSearched($id, $getDeep(li, $store.props.wrapper.deep || []))
+        &&
+        !$store.isSelected($id, index)
+}
 </script>
 
 <template>
     <ul>
         <li v-for="(li, index) in $store.props.wrapper.list as any" :key="li?.id || index"
-            v-show="li && $store.isVisible($store.render(li)) && !$store.isSelected(li, index)"
-            @click.stop="$store.selectItem(li, index)">
-            <i /> {{ $store.render(li) }}
+            v-show="isShowable(li, index)" @click.stop="$store.$select($id, li, index)">
+            <i /> {{ $getDeep(li, $store.props.wrapper.deep || []) }}
         </li>
     </ul>
 </template>

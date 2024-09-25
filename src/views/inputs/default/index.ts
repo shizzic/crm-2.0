@@ -1,9 +1,8 @@
-import type { ModelRef, Ref } from 'vue'
 import type { CSS } from '@types'
 import { useSettingsStore } from '@stores'
 import type { Icon } from './store/icon'
 
-export type InputModel = ModelRef<string> | Ref<string>
+export type Model = string
 
 export interface Props {
   // input attributes

@@ -2,9 +2,10 @@
 import { inject } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from '../store'
+import type { StoreID } from '@types'
 
 const lang = useSettingsStore().lang
-const $store = useStore(inject('$id') as string)()
+const $store = useStore(inject('$id') as StoreID)()
 </script>
 
 <template>

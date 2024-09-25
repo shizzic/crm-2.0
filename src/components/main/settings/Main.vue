@@ -2,12 +2,13 @@
 import { computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
+import { useStore } from './store'
 import Search from './Search.vue'
 import Expand from '@views/lib/expand/Main.vue'
 import Item from './Item.vue'
 import Language from './components/Language.vue'
 import Size from './components/Size.vue'
-import { useStore } from './store'
+import Theme from './components/Theme.vue'
 
 const $settings = useSettingsStore()
 const $store = useStore()
@@ -34,10 +35,16 @@ const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.sear
                 <Language />
             </Item>
             <Item
-                v-show="searchPattern.test($settings.lang?.settings?.zoom.title) || searchPattern.test($settings.lang?.settings?.zoom?.description)"
+                v-show="searchPattern.test($settings.lang?.settings?.zoom?.title) || searchPattern.test($settings.lang?.settings?.zoom?.description)"
                 :title="$settings.lang?.settings?.zoom?.title"
                 :description="$settings.lang?.settings?.zoom?.description">
                 <Size />
+            </Item>
+            <Item
+                v-show="searchPattern.test($settings.lang?.settings?.theme?.title) || searchPattern.test($settings.lang?.settings?.theme?.description)"
+                :title="$settings.lang?.settings?.theme?.title"
+                :description="$settings.lang?.settings?.theme?.description">
+                <Theme />
             </Item>
         </div>
     </section>

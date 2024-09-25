@@ -8,6 +8,7 @@ import { useStore } from './store'
 
 const props: ComputedRef<Props> = computed(() => {
     return {
+        type: 'search',
         name: 'search',
         autocomplete: 'on',
         placeholder: ref(useSettingsStore().lang?.other?.search).value,

@@ -1,21 +1,16 @@
 import { defineStore } from 'pinia'
-import { ref, computed, watch } from 'vue'
-import type { Ref, ModelRef } from 'vue'
-import type { Model as Search } from '@views/inputs/default'
+import { ref, watch } from 'vue'
+import type { ModelRef, Ref } from 'vue'
 import { defaultProps } from '..'
 import type { Props, Model } from '..'
-import type { Index, StoreID } from '@types'
-import { $merge } from '@composables'
-import { $getText, clearModel } from './default'
-import { isSearched, isSelected, $select } from './list'
+import { $merge } from '@assets/composables'
+import type { Index } from '@types'
 
-export const useStore = ($id: StoreID) =>
-  defineStore(`select/${$id}`, () => {
-    const props: Ref<Props> = ref(defaultProps)
-    const search: Ref<Search> = ref('')
-    const model: Ref<Model> = ref(undefined) // value: li
-    const index: Ref<Index> = ref(undefined) // value: index
-    const text = computed(() => $getText($id)) // главный текст селекта
+export const useStore = (id: string) =>
+  defineStore(`radio/${id}`, () => {
+    const props = ref(defaultProps)
+    const model: Ref<Model> = ref(undefined) // value
+    const index: Ref<Index> = ref(undefined) // value
 
     // отслеживаю изменения для родителя (если параметры вообще были переданы)
     function setWatchers(passedModel: ModelRef<Model>, passedIndex: ModelRef<Index>): void {
@@ -43,10 +38,11 @@ export const useStore = ($id: StoreID) =>
       passedIndex: ModelRef<Index>
     ): void {
       props.value = $merge(props.value, passedProps.value)
-      index.value = passedIndex.value
       model.value = passedModel.value
+      index.value = passedIndex.value
 
-      if (passedProps.value)
+      if (index.value) model.value = props.value.list[index.value]
+      if (passedProps.value !== undefined)
         watch(passedProps, (value) => (props.value = $merge(props.value, value)), { deep: true })
 
       mergeIndexWithModel(passedIndex, passedModel)
@@ -56,10 +52,10 @@ export const useStore = ($id: StoreID) =>
     // Нужно найти эту связь и подставить ее.
     function mergeIndexWithModel(passedIndex: Ref<Index>, passedModel: Ref<Model>): void {
       if (passedModel.value !== undefined && passedIndex.value === undefined) {
-        for (const i in props.value.wrapper.list)
+        for (const i in props.value.list)
           if (
             ('id' in model.value && model.value?.id == passedModel.value?.id) ||
-            JSON.stringify(props.value.wrapper.list[i]) === JSON.stringify(passedModel.value)
+            JSON.stringify(props.value.list[i]) === JSON.stringify(passedModel.value)
           ) {
             index.value = i
             break
@@ -67,25 +63,25 @@ export const useStore = ($id: StoreID) =>
       }
 
       if (passedIndex.value !== undefined && passedModel.value === undefined) {
-        for (const i in props.value.wrapper.list)
+        for (const i in props.value.list)
           if (JSON.stringify(i) === JSON.stringify(passedIndex.value)) {
-            model.value = props.value.wrapper.list[i]
+            model.value = props.value.list[i]
             break
           }
       }
     }
 
+    function set(item: Model, i: Index): void {
+      model.value = item
+      index.value = i
+    }
+
     return {
       props,
-      search,
       model,
       index,
-      text,
-      setParams,
       setWatchers,
-      clearModel,
-      isSearched,
-      $select,
-      isSelected
+      setParams,
+      set
     }
   })

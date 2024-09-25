@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { useStore } from '../store'
+import type { StoreID } from '@types'
 
-const $store = useStore(inject('$id') as string)()
+const $store = useStore(inject('$id') as StoreID)()
 const isMinimum = computed(() => {
     return $store.props.minlength && $store.model.length < $store.props.minlength
 })
