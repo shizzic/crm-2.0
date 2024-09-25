@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import * as Bowser from 'bowser'
@@ -13,7 +12,7 @@ export const useDeviceStore = defineStore(
     )
     const list: Ref<string[]> = ref([])
 
-    return { current, list, set }
+    return { current, list }
   },
   {
     persist: [

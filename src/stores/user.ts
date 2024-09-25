@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import {
   resetAllStores,
   useHttpStore,
@@ -106,7 +105,7 @@ export const useUserStore = defineStore(
       cancel.emit('default')
     }
 
-    return { version, id, username, avatar, set, login, logout, request_new_password }
+    return { version, id, username, avatar, login, logout, request_new_password }
   },
   {
     persist: {

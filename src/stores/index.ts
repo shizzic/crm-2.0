@@ -1,6 +1,6 @@
 export * from './user'
 export * from './http'
-export * from './settings/main'
+export * from './settings'
 export * from './sse/device'
 export * from './project'
 export * from './domain'

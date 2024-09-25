@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import type { List } from '@types'
@@ -15,7 +14,7 @@ export const useAccessStore = defineStore(
     const list: Ref<Access> = ref({})
     const roles: Ref<List> = ref([])
 
-    return { version, list, roles, set }
+    return { version, list, roles }
   },
   {
     persist: [

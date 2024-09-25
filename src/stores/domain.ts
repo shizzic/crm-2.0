@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { set } from '@stores/reusable/funcs'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import type { List } from '@types'
@@ -12,7 +11,7 @@ export const useDomainStore = defineStore(
     const title: Ref<string | undefined> = ref(undefined)
     const list: Ref<List> = ref(undefined)
 
-    return { version, id, title, list, set }
+    return { version, id, title, list }
   },
   {
     persist: [

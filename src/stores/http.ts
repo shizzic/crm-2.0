@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { useUserStore, useSettingsStore } from '@stores'
-import { set } from '@stores/reusable/funcs'
 
 export const useHttpStore = defineStore('http', () => {
   const $endpoint: string = import.meta.env.VITE_API_ENDPOINT
@@ -58,5 +57,5 @@ export const useHttpStore = defineStore('http', () => {
       headers.targetDomain = !domain_name ? window.location.hostname : domain_name
   }
 
-  return { domain_name, $endpoint, set, authorize_headers, non_authorize_headers, raw_headers }
+  return { domain_name, $endpoint, authorize_headers, non_authorize_headers, raw_headers }
 })

@@ -35,7 +35,7 @@ const $user = useUserStore()
     cursor: pointer;
     width: 100%;
     min-width: 0;
-    background-color: #ffffff;
+    background-color: var(--color-1);
     border-radius: 20px;
 
     display: flex;
@@ -63,6 +63,7 @@ const $user = useUserStore()
 }
 
 [data-username] {
+    color: var(--color-6);
     font-weight: 700;
     font-size: 22rem;
     line-height: 0.95;
@@ -86,7 +87,7 @@ const $user = useUserStore()
 [data-role] {
     font-weight: 500;
     font-size: 17rem;
-    color: #676767;
+    color: var(--color-3);
     letter-spacing: -0.02em;
 
     text-overflow: ellipsis;
