@@ -51,15 +51,20 @@ export const useStore = (id: string) =>
     // Связываю index с model. Так как к переданному списку может быть передана только model без index и наоборот.\n
     // Нужно найти эту связь и подставить ее.
     function mergeIndexWithModel(passedIndex: Ref<Index>, passedModel: Ref<Model>): void {
+      if (!props.value.list) return
+
       if (passedModel.value !== undefined && passedIndex.value === undefined) {
-        for (const i in props.value.list)
+        for (const i in props.value.list) {
+          const item = props.value.list[i]
+
           if (
-            ('id' in model.value && model.value?.id == passedModel.value?.id) ||
-            JSON.stringify(props.value.list[i]) === JSON.stringify(passedModel.value)
+            (passedModel.value?.id && passedModel.value.id == item.id) ||
+            JSON.stringify(item) === JSON.stringify(passedModel.value)
           ) {
             index.value = i
             break
           }
+        }
       }
 
       if (passedIndex.value !== undefined && passedModel.value === undefined) {

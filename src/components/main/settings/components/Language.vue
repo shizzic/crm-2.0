@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, watch, ref } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import Select from '@views/selects/default/Main.vue'
@@ -9,7 +9,7 @@ const list: { [k: string]: { title: string } } = {
     RU: { title: 'Русский' },
     EN: { title: 'English' }
 }
-
+const index = ref(useSettingsStore().locale)
 const props: ComputedRef<Props> = computed(() => {
     return {
         name: 'language',
@@ -33,6 +33,7 @@ const props: ComputedRef<Props> = computed(() => {
         }
     }
 })
+watch(index, (value) => { if (value) useSettingsStore().locale = value })
 watch(() => useSettingsStore().locale, () => {
     document.title =
         String(
@@ -43,5 +44,5 @@ watch(() => useSettingsStore().locale, () => {
 </script>
 
 <template>
-    <Select v-model:props="props" v-model:index="useSettingsStore().locale" />
+    <Select v-model:props="props" v-model:index="index" />
 </template>
