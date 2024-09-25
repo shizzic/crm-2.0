@@ -43,7 +43,14 @@ export const useStore = (id: StoreID) =>
 
       if (index.value) model.value = props.value.list[index.value]
       if (passedProps.value !== undefined)
-        watch(passedProps, (value) => (props.value = $merge(props.value, value)), { deep: true })
+        watch(
+          passedProps,
+          (value) => {
+            props.value = $merge(props.value, value)
+            mergeIndexWithModel(passedIndex, passedModel)
+          },
+          { deep: true }
+        )
 
       mergeIndexWithModel(passedIndex, passedModel)
     }

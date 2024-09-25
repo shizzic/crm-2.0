@@ -47,7 +47,14 @@ export const useStore = ($id: StoreID) =>
       model.value = passedModel.value
 
       if (passedProps.value)
-        watch(passedProps, (value) => (props.value = $merge(props.value, value)), { deep: true })
+        watch(
+          passedProps,
+          (value) => {
+            props.value = $merge(props.value, value)
+            mergeIndexWithModel(passedIndex, passedModel)
+          },
+          { deep: true }
+        )
 
       mergeIndexWithModel(passedIndex, passedModel)
     }

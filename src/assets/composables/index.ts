@@ -1,6 +1,7 @@
 import { unref } from 'vue'
 import type { Merge, ImageLoader, GetDeep, Deep } from '@types'
 import { useHttpStore } from '@stores'
+import clone from 'clone'
 const $endpoint = useHttpStore().$endpoint
 
 export const $merge: Merge = (obj1: any, obj2: any): any => {
@@ -33,12 +34,15 @@ export const $img: ImageLoader = (name: string, controller_model?: string): stri
 }
 
 // иду в глубину до искомого ключа или возвращаю максимально доступную глубину
-// так как возможно, что нам потребуется получить еще 1 глубину с помощью ключа, но применить этот ключ на не итерируемые значения нельзя
-// поэтому возвращаю допустимый макисмум
+//  так как возможно, что нам потребуется получить еще 1 глубину с помощью ключа, но применить этот ключ на не итерируемые значения нельзя
+//  поэтому возвращаю допустимый макисмум
 export const $getDeep: GetDeep = (data: any, deep: Deep): any => {
   data = unref(data)
+  deep = clone(deep)
+
   if (!data || (data && !data?.[deep?.[0]])) return data
 
-  if (deep.length > 1) deep.shift()
-  return $getDeep(data[deep[0]], deep)
+  const deeper = data[deep[0]]
+  deep.shift()
+  return deep.length === 0 ? deeper : $getDeep(deeper, deep)
 }

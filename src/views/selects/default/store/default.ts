@@ -7,11 +7,19 @@ import type { StoreID } from '@types'
 export const $getText = ($id: StoreID): string => {
   const $store = useStore($id)()
 
-  if (!$store.props.multiple)
+  if (!$store.props.multiple) {
+    if (
+      !$store.props.wrapper.list ||
+      $store.props.wrapper.list?.length === 0 ||
+      Object.keys($store.props.wrapper.list)?.length === 0
+    )
+      return useSettingsStore().lang?.other?.select
+
     return $getDeep(
       $store.props.wrapper.list?.[String($store.index)],
       $store.props.wrapper.deep || []
     )
+  }
 
   return $store.props.wrapper.text || useSettingsStore().lang?.other?.select
 }
