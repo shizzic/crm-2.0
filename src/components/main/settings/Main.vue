@@ -12,7 +12,7 @@ import Theme from './components/Theme.vue'
 
 const $settings = useSettingsStore()
 const $store = useStore()
-const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search, 'imu'))
+const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'imu'))
 </script>
 
 <template>
@@ -62,7 +62,7 @@ section {
 
     display: flex;
     flex-direction: column;
-    padding: 25rem;
+    padding: 25px;
 }
 
 [data-hat] {

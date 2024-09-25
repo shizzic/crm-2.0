@@ -22,7 +22,7 @@ const { title, description } = defineProps<Props>()
     border: 2px solid #C4C4C4;
     border-radius: 8px;
 
-    padding: 30px;
+    padding: 30rem 30px;
     margin-bottom: 25rem;
     margin-right: 30px;
 }
@@ -38,7 +38,7 @@ h3 {
     font-weight: 600;
     color: #252540;
 
-    padding-bottom: 12px;
+    padding-bottom: 12rem;
 }
 
 h4 {
@@ -46,6 +46,6 @@ h4 {
     font-weight: 600;
     color: #3F3F57;
 
-    padding-bottom: 20px;
+    padding-bottom: 20rem;
 }
 </style>

@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import { useId } from "vue"
 import type { Props } from "."
 import Popper from "vue3-popper"
 import { useStore } from "./store"
 
-const $store = useStore()
+const $id = String(useId())
+const $store = useStore($id)()
 const passedProps = defineModel<Props>('props')
-$store.setProps(passedProps)
+$store.setParams(passedProps)
 </script>
 
 <template>
-    <Popper v-bind="props">
+    <Popper v-bind="$store.props">
         <slot />
     </Popper>
 </template>

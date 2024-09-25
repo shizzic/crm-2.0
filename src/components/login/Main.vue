@@ -92,7 +92,7 @@ let passwordProps = {
             </KeepAlive>
             <Input v-model:model="form.password" v-model:props="passwordProps" v-model:v="passwordV" class="item" />
 
-            <span @click.stop="isRequestPassword = true" style="margin-top: 5px;">{{ lang?.auth?.forgot }}</span>
+            <span @click.stop="isRequestPassword = true" style="margin-top: -20px;">{{ lang?.auth?.forgot }}</span>
             <Modal v-if="isRequestPassword">
                 <RequestNewPassword />
             </Modal>
@@ -125,9 +125,10 @@ section {
     align-items: center;
 
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     padding: 5%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 form {
@@ -177,12 +178,8 @@ h4 {
     }
 }
 
-.item:not(:last-of-type) {
+.item {
     margin-bottom: 25px;
-}
-
-.item:last-of-type {
-    margin-bottom: 3px;
 }
 
 span {

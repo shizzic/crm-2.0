@@ -22,7 +22,7 @@ $store.setParams(passedProps, passedModel, passedIndex)
         <div v-for="(item, index) in $store.props?.list" :key="index" data-item @click="$store.set(item, index)">
             <label :for="`radio/${$id}/${index}`">
                 <input type="radio" :id="`radio/${$id}/${index}`" :value="item" v-model="$store.model"
-                    :checked="$store.index == index">
+                    :checked="$store.index === index">
 
                 {{ $getDeep(item, $store.props.deep || []) }}
             </label>

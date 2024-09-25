@@ -9,7 +9,7 @@ onClickOutside(content, () => { cancel.emit('default') })
 
 <template>
     <div id="modal">
-        <div ref="content">
+        <div data-modal-wrapper ref="content">
             <slot />
         </div>
     </div>
@@ -28,5 +28,12 @@ onClickOutside(content, () => { cancel.emit('default') })
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+[data-modal-wrapper] {
+    height: max-content;
+    width: max-content;
 }
 </style>

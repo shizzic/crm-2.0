@@ -21,7 +21,9 @@ export const $select = ($id: StoreID, li: any, i: Index): void => {
 // проверить элемент на сходство с поиском
 export const isSearched = ($id: StoreID, text: string): boolean => {
   const $store = useStore($id)()
-  const pattern = new RegExp($store.search, $store.props.wrapper.flags)
+
+  const search = $store.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const pattern = new RegExp(search, $store.props.wrapper.flags)
   return pattern.test(text)
 }
 

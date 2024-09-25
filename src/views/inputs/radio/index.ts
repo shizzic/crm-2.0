@@ -37,7 +37,7 @@ export const DefaultCSS: CSS = {
     fontWeight: '500',
     color: '#676767',
 
-    padding: '7px'
+    padding: '7px 0'
   }
 }
 

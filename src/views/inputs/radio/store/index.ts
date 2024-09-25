@@ -4,9 +4,9 @@ import type { ModelRef, Ref } from 'vue'
 import { defaultProps } from '..'
 import type { Props, Model } from '..'
 import { $merge } from '@assets/composables'
-import type { Index } from '@types'
+import type { Index, StoreID } from '@types'
 
-export const useStore = (id: string) =>
+export const useStore = (id: StoreID) =>
   defineStore(`radio/${id}`, () => {
     const props = ref(defaultProps)
     const model: Ref<Model> = ref(undefined) // value
