@@ -2,25 +2,8 @@ import { unref } from 'vue'
 import type { Merge, ImageLoader, GetDeep, Deep } from '@types'
 import { useHttpStore } from '@stores'
 import clone from 'clone'
+import deepmerge from '@fastify/deepmerge'
 const $endpoint = useHttpStore().$endpoint
-
-export const $merge: Merge = (obj1: any, obj2: any): any => {
-  obj1 = unref(obj1) // делаю unref, чтобы избавиться от inner refs, так как данная функция не умеет работать с ними и хочет получить plain object
-  obj2 = unref(obj2) // делаю unref, чтобы избавиться от inner refs, так как данная функция не умеет работать с ними и хочет получить plain object
-  const result = { ...obj1 }
-
-  for (const key in obj2) {
-    if (Object.prototype.hasOwnProperty.call(obj2, key)) {
-      if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
-        result[key] = $merge(obj1[key], obj2[key])
-      } else {
-        result[key] = obj2[key]
-      }
-    }
-  }
-
-  return result
-}
 
 // получаю полный путь до фотки (local | url | blob) -> indiferent
 export const $img: ImageLoader = (name: string, controller_model?: string): string => {
@@ -45,4 +28,14 @@ export const $getDeep: GetDeep = (data: any, deep: Deep): any => {
   const deeper = data[deep[0]]
   deep.shift()
   return deep.length === 0 ? deeper : $getDeep(deeper, deep)
+}
+
+export const $merge: Merge = (...args): any => {
+  return deepmerge({ mergeArray: replaceByClonedSource })(...args)
+}
+
+function replaceByClonedSource() {
+  return function (...args: any[]) {
+    return clone(args[args.length - 1])
+  }
 }
