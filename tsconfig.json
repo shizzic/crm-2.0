@@ -21,6 +21,7 @@
       "@stores/*": ["./stores/*"],
       "@types": ["./assets/types"],
       "@composables": ["./assets/composables"],
+      "@composables/*": ["./assets/composables/*"],
       "@symbols": ["./assets/symbols"],
       "@assets": ["./assets"],
       "@assets/*": ["./assets/*"],

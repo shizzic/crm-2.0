@@ -18,8 +18,8 @@ const { title, description } = defineProps<Props>()
 <style scoped>
 [data-item] {
     width: calc(50% - 35px);
-    background-color: #ffffff;
-    border: 2px solid #C4C4C4;
+    background-color: var(--color-1);
+    border: 2px solid var(--color-3);
     border-radius: 8px;
 
     padding: 30rem 30px;
@@ -36,7 +36,7 @@ const { title, description } = defineProps<Props>()
 h3 {
     font-size: 18rem;
     font-weight: 600;
-    color: #252540;
+    color: var(--color-6);
 
     padding-bottom: 12rem;
 }
@@ -44,7 +44,7 @@ h3 {
 h4 {
     font-size: 14rem;
     font-weight: 600;
-    color: #3F3F57;
+    color: var(--color-3);
 
     padding-bottom: 20rem;
 }

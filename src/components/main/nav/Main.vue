@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useUserStore } from '@stores'
+import { getFilter } from '@composables/icon'
+
+const filter = computed(() => getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-3')))
 </script>
 
 <template>
@@ -13,8 +17,9 @@ import { useUserStore } from '@stores'
 <style scoped>
 nav {
     min-width: 82px;
+    /* max-width: 82px; */
     height: 100%;
-    background-color: #FFFFFF;
+    background-color: var(--color-1);
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
     user-select: none;
@@ -36,6 +41,7 @@ nav {
 
 img {
     width: 50%;
+    filter: v-bind(filter);
 }
 
 #logout {

@@ -3,7 +3,7 @@ import type { HexToCssConfiguration } from 'hex-to-css-filter'
 
 export const getFilter = (color: string | undefined): string => {
   const colorFilterConfig: HexToCssConfiguration = {
-    acceptanceLossPercentage: 1,
+    acceptanceLossPercentage: 0,
     maxChecks: 10,
     forceFilterRecalculation: true
   }
