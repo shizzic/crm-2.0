@@ -1,12 +1,6 @@
-import { hexToCSSFilter } from 'hex-to-css-filter'
-import type { HexToCssConfiguration } from 'hex-to-css-filter'
+import CssFilterConverter from 'css-filter-converter'
 
 export const getFilter = (color: string | undefined): string => {
-  const colorFilterConfig: HexToCssConfiguration = {
-    acceptanceLossPercentage: 0,
-    maxChecks: 10,
-    forceFilterRecalculation: true
-  }
-
-  return hexToCSSFilter(String(color), colorFilterConfig).filter.slice(0, -1)
+  const parsed = CssFilterConverter.hexToFilter(String(color))
+  return String(parsed?.color)
 }

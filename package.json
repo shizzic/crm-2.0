@@ -21,7 +21,7 @@
     "@vueuse/core": "^11.1.0",
     "bowser": "^2.11.0",
     "clone": "^2.1.2",
-    "hex-to-css-filter": "^5.4.0",
+    "css-filter-converter": "^1.0.109",
     "nanoevents": "^9.0.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^4.0.0",

@@ -1,16 +1,31 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useUserStore } from '@stores'
+import { watch, ref, computed } from 'vue'
+import { useSettingsStore, useUserStore } from '@stores'
 import { getFilter } from '@composables/icon'
+import Poppers from '@views/lib/popper/Main.vue'
 
-const filter = computed(() => getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-3')))
+const filter = ref('')
+const changeFilter = () => {
+    filter.value = getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-6'))
+}
+changeFilter()
+watch(() => useSettingsStore().theme, () => {
+    setTimeout(() => changeFilter(), 20)
+})
+const props = computed(() => {
+    return {
+        content: useSettingsStore().lang?.other?.logout
+    }
+})
 </script>
 
 <template>
     <nav>
-        <div v-once class="router" id="logout" @click="useUserStore().logout()">
-            <img src="@assets/images/nav/logout.webp">
-        </div>
+        <Poppers v-model:props="props">
+            <div v-once class="router" id="logout" @click="useUserStore().logout()">
+                <img src="@assets/images/nav/logout.webp">
+            </div>
+        </Poppers>
     </nav>
 </template>
 
