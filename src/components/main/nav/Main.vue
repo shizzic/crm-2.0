@@ -66,7 +66,8 @@ nav {
 }
 
 img {
-    width: 50%;
+    width: 55%;
+    height: 85%;
     filter: v-bind(filter);
 }
 
@@ -80,7 +81,8 @@ img {
 }
 
 #profile_circle img {
-    width: 100%;
+    width: 50px;
+    height: 50px;
     filter: none;
 }
 
