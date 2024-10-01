@@ -19,9 +19,9 @@ $store.setParams(passedProps)
 <style scoped>
 :deep(.popper) {
     font-size: 13rem;
-    --popper-theme-background-color: #333333;
-    --popper-theme-background-color-hover: #333333;
-    --popper-theme-text-color: #ffffff;
+    --popper-theme-background-color: var(--color-4);
+    --popper-theme-background-color-hover: var(--color-4);
+    --popper-theme-text-color: var(--color-6);
     --popper-theme-border-width: 0px;
     --popper-theme-border-style: solid;
     --popper-theme-border-radius: 6px;

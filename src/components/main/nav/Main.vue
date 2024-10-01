@@ -43,6 +43,8 @@ nav {
     justify-content: center;
     align-items: flex-end;
     padding: 20px 0;
+
+    overflow: hidden;
 }
 
 .router {
