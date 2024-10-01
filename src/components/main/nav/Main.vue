@@ -49,15 +49,14 @@ nav {
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: center;
-    padding: 20px 15px;
+    padding: 20px 13px;
 
     overflow-x: hidden;
 }
 
 .router {
-    width: 100%;
-    min-width: 100%;
-    min-height: 1px;
+    width: 50px;
+    height: 50px;
     cursor: pointer;
     border-radius: 50%;
 
@@ -72,9 +71,6 @@ img {
 }
 
 #profile_circle {
-    width: 100%;
-    height: 50px;
-    border: 2px solid var(--color-5);
     background-color: none;
     align-self: flex-start;
 
