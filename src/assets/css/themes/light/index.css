@@ -1,0 +1,17 @@
+@import 'lib.css';
+
+@import 'views/input.css';
+@import 'views/expand.css';
+@import 'views/slider.css';
+@import 'views/radio.css';
+
+@import 'components/settings.css';
+
+:root {
+  --color-1: #ffffff;
+  --color-2: #f2f4f6;
+  --color-3: #676767;
+  --color-4: #c4c4c4;
+  --color-5: #4d5dfa;
+  --color-6: #252540;
+}

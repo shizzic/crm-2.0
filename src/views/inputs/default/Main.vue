@@ -84,6 +84,7 @@ input {
     background-color: inherit;
     border-radius: inherit;
     background-color: inherit;
+    transition: all 50ms ease-out;
 
     color: v-bind('$store.props.css?.default.color');
     font-family: v-bind('$store.props.css?.default.fontFamily');
@@ -106,6 +107,5 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
     /* -webkit-text-fill-color: #000; */
     -webkit-box-shadow: 0 0 0px 30px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
 }
 </style>

@@ -14,7 +14,7 @@ export const DefaultCSS: CSS = {
     width: '100%',
     color: '#000',
     fontFamily: 'Metropolis, sans-serif',
-    fontWeight: 'Medium',
+    fontWeight: '600',
     fontSize: '16.44rem',
     border: '2px solid',
     borderColor: '#C4C4C4',

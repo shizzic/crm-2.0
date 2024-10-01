@@ -23,12 +23,12 @@ export const DefaultCSS: CSS = {
     height: '16rem',
     width: '16rem',
     border: '2px solid',
-    borderColor: '#C4C4C4',
+    borderColor: 'var(--radio-border-color)',
     paddingRight: '10px',
 
     Checked: {
       border: '4.5px solid',
-      borderColor: '#4D5DFA'
+      borderColor: 'var(--radio-checked-border-color)'
     }
   },
 

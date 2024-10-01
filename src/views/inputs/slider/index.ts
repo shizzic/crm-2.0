@@ -36,14 +36,14 @@ export const defaultProps: Props = {
   silent: true,
   dotSize: 14,
   dotStyle: {
-    backgroundColor: '#4D5DFA'
+    backgroundColor: 'var(--slider-dot-backgroundColor)'
   },
   processStyle: {
-    backgroundColor: '#4D5DFA',
+    backgroundColor: 'var(--slider-process-backgroundColor)',
     height: '6px'
   },
   railStyle: {
-    backgroundColor: '#D6DAF7',
+    backgroundColor: 'var(--slider-rail-backgroundColor)',
     height: '6px'
   },
 

@@ -28,20 +28,20 @@ export interface Props {
 export const DefaultCSS: CSS = {
   default: {
     width: '100%',
-    color: '#000',
+    color: 'var(--input-color)',
     fontFamily: 'Metropolis, sans-serif',
-    fontWeight: 'Medium',
+    fontWeight: '500',
     fontSize: '16.44rem',
     border: '2px solid',
     borderColor: '#C4C4C4',
     borderRadius: '110px',
-    backgroundColor: '#ffffff',
+    backgroundColor: 'var(--input-backgroundColor)',
 
     padding: '10px 21px'
   },
 
   placeholder: {
-    color: '#676767'
+    color: 'var(--input-hover-color)'
   }
 }
 

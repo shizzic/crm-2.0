@@ -3,6 +3,8 @@ import { watch, ref, computed } from 'vue'
 import { useSettingsStore, useUserStore } from '@stores'
 import { getFilter } from '@composables/icon'
 import Poppers from '@views/lib/popper/Main.vue'
+import Image from '@views/lib/image/Main.vue'
+import { $img } from '@composables'
 
 const filter = ref('')
 const changeFilter = () => {
@@ -21,6 +23,10 @@ const props = computed(() => {
 
 <template>
     <nav>
+        <RouterLink v-once class="router" id="profile_circle" :to="{ name: 'home' }">
+            <Image :src="$img(String(useUserStore().avatar), 'user/user')" />
+        </RouterLink>
+
         <Poppers v-model:props="props">
             <div v-once class="router" id="logout" @click="useUserStore().logout()">
                 <img src="@assets/images/nav/logout.webp">
@@ -32,7 +38,7 @@ const props = computed(() => {
 <style scoped>
 nav {
     min-width: 82px;
-    /* max-width: 82px; */
+    max-width: 82px;
     height: 100%;
     background-color: var(--color-1);
     border-top-right-radius: 24px;
@@ -40,14 +46,18 @@ nav {
     user-select: none;
 
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     align-items: flex-end;
-    padding: 20px 0;
+    justify-content: center;
+    padding: 20px 15px;
 
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .router {
+    width: 100%;
+    min-width: 100%;
+    min-height: 1px;
     cursor: pointer;
     border-radius: 50%;
 
@@ -61,7 +71,25 @@ img {
     filter: v-bind(filter);
 }
 
+#profile_circle {
+    width: 100%;
+    height: 50px;
+    border: 2px solid var(--color-5);
+    background-color: none;
+    align-self: flex-start;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile_circle img {
+    width: 100%;
+    filter: none;
+}
+
 #logout {
     background-color: none;
+    align-self: flex-end;
 }
 </style>

@@ -1,0 +1,4 @@
+:root {
+  --radio-border-color: var(--color-4);
+  --radio-checked-border-color: var(--color-5);
+}

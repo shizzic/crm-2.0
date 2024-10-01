@@ -54,12 +54,11 @@ const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.sear
 section {
     width: 100%;
     height: 100%;
-    background-color: var(--color-1);
+    background-color: var(--settings-backgroundColor);
 
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    /* box-shadow: 0 3px 19px 0 rgba(196, 196, 196, 0.45); */
-    /* box-shadow: 0 3px 19px 0 var(--color-2); */
+    box-shadow: var(--block-shadow);
 
     display: flex;
     flex-direction: column;

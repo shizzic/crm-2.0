@@ -1,0 +1,5 @@
+:root {
+  --input-backgroundColor: var(--color-4);
+  --input-color: var(--color-6);
+  --input-hover-color: var(--color-6);
+}

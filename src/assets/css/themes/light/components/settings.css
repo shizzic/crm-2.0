@@ -1,0 +1,11 @@
+:root {
+  --settings-backgroundColor: var(--color-2);
+}
+
+[data-item] {
+  --border-color: var(--color-4);
+}
+
+[data-item] h4 {
+  color: var(--color-6);
+}

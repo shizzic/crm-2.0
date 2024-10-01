@@ -36,7 +36,7 @@ const popper: ComputedRef<Props> = computed(() => {
     cursor: pointer;
     max-width: 35px;
     max-height: 35px;
-    background-color: #4D5DFA;
+    background-color: var(--expand-backgroundColor);
     border-radius: 50%;
     outline: none;
     border: none;
@@ -48,7 +48,7 @@ const popper: ComputedRef<Props> = computed(() => {
 }
 
 [data-button]:hover {
-    background-color: #2135ec;
+    background-color: var(--expand-hover-backgroundColor);
 }
 
 img {

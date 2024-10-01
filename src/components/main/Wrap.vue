@@ -16,7 +16,7 @@ import Sidebar from './sidebar/Main.vue'
 #wrap {
     width: 100%;
     height: 100%;
-    background-color: var(--color-3);
+    background-color: var(--wrap-background);
 
     display: flex;
     align-items: center;

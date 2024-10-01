@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Resize from './Resize.vue'
-import ProfilePreview from './components/ProfilePreview.vue'
 import Projects from './components/Projects.vue'
 import Domains from './components/domains/Main.vue'
 </script>
@@ -9,7 +8,6 @@ import Domains from './components/domains/Main.vue'
     <aside>
         <Resize />
 
-        <ProfilePreview v-once />
         <Projects v-once />
         <Domains v-once />
     </aside>

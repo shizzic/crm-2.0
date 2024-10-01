@@ -1,0 +1,10 @@
+#wrap {
+  --wrap-background: var(--color-3);
+}
+
+:root {
+  --block-shadow: 0 3px 19px 0 rgba(37, 37, 64, 0.45);
+
+  --popper-bg: var(--color-4);
+  --popper-text: var(--color-6);
+}

@@ -1,0 +1,4 @@
+:root {
+  --expand-backgroundColor: var(--color-3);
+  --expand-hover-backgroundColor: var(--color-4);
+}

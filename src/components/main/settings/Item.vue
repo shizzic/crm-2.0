@@ -19,7 +19,8 @@ const { title, description } = defineProps<Props>()
 [data-item] {
     width: calc(50% - 35px);
     background-color: var(--color-1);
-    border: 2px solid var(--color-3);
+    border: 2px solid;
+    border-color: var(--border-color);
     border-radius: 8px;
 
     padding: 30rem 30px;

@@ -50,7 +50,7 @@ export const useSettingsStore = defineStore(
 
       // динамически получаю тему
       // ?inline в конце пути нужен, чтобы в будущем можно было спокойно использовать scss or less (внутри импортируемого файла)
-      const css = await import(`@assets/css/themes/${value}.css?inline`)
+      const css = await import(`@assets/css/themes/${value}/index.css?inline`)
 
       // добавляю тему
       const tag = document.createElement('style')

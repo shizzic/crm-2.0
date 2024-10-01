@@ -10,10 +10,15 @@ const $store = useStore(inject('$id') as StoreID)()
 const lang = useSettingsStore().lang
 const css: CSS = {
     default: {
+        color: '#s676767',
         fontFamily: $store.props.css?.default.fontFamily,
         fontWeight: 500,
+        backgroundColor: '#fff',
         fontSize: $store.props.css?.default.fontSize,
         padding: '9px 21px 9px 45px',
+    },
+    placeholder: {
+        color: '#676767',
     }
 }
 let props: Props = {

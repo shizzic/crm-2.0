@@ -70,6 +70,6 @@ initModel()
 [data-parent] {
     width: 100%;
 
-    padding: 0 20px 0;
+    padding: 20px 20px 0;
 }
 </style>

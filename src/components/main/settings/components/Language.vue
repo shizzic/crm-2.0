@@ -24,7 +24,8 @@ const props: ComputedRef<Props> = computed(() => {
                 fontSize: '16rem',
                 fotnWeight: 600,
                 minWidth: '0',
-                maxWidth: '350px'
+                maxWidth: '350px',
+                backgroundColor: 'var(--color-1)'
             },
 
             wrapper: {

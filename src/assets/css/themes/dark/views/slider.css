@@ -1,0 +1,5 @@
+:root {
+  --slider-dot-backgroundColor: var(--color-2);
+  --slider-process-backgroundColor: var(--color-2);
+  --slider-rail-backgroundColor: var(--color-4);
+}
