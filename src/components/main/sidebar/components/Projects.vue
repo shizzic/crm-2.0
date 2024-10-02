@@ -18,7 +18,7 @@ const css: CSS = {
         border: 'none',
         backgroundColor: '#4D5DFA',
         borderRadius: '20px',
-        padding: '15px 20px',
+        padding: '20px 20px',
         textAlign: 'center'
     },
     hover: {

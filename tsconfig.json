@@ -22,6 +22,8 @@
       "@types": ["./assets/types"],
       "@composables": ["./assets/composables"],
       "@composables/*": ["./assets/composables/*"],
+      "@css": ["./assets/css"],
+      "@css/*": ["./assets/css/*"],
       "@symbols": ["./assets/symbols"],
       "@assets": ["./assets"],
       "@assets/*": ["./assets/*"],

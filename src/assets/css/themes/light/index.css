@@ -5,8 +5,6 @@
 @import 'views/slider.css';
 @import 'views/radio.css';
 
-@import 'components/settings.css';
-
 :root {
   --color-1: #ffffff;
   --color-2: #f2f4f6;

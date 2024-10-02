@@ -1,0 +1,15 @@
+[data-roles] span {
+  --color: var(--color-3);
+}
+
+[data-divider] {
+  --backgroundColor: var(--color-4);
+}
+
+[data-field] h3 {
+  --color: var(--color-5);
+}
+
+[data-field-value] {
+  --color: var(--color-3);
+}

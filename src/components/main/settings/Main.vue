@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from './store'
@@ -13,10 +13,15 @@ import Theme from './components/Theme.vue'
 const $settings = useSettingsStore()
 const $store = useStore()
 const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'imu'))
+
+$store.getTheme($settings.theme)
+watch(() => $settings.theme, (value) => {
+    $store.getTheme(value)
+})
 </script>
 
 <template>
-    <section>
+    <section id="settings">
         <div data-hat>
             <Search />
             <Expand />
@@ -54,7 +59,7 @@ const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.sear
 section {
     width: 100%;
     height: 100%;
-    background-color: var(--settings-backgroundColor);
+    background-color: var(--backgroundColor);
 
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;

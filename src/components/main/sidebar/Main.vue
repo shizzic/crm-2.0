@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 import Resize from './Resize.vue'
-import Projects from './components/Projects.vue'
-import Domains from './components/domains/Main.vue'
+const Projects = defineAsyncComponent(() => import('./components/Projects.vue'))
+const Domains = defineAsyncComponent(() => import('./components/domains/Main.vue'))
 </script>
 
 <template>
     <aside>
         <Resize />
 
-        <Projects v-once />
-        <Domains v-once />
+        <Projects />
+        <Domains />
     </aside>
 </template>
 

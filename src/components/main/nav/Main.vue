@@ -23,8 +23,13 @@ const props = computed(() => {
 
 <template>
     <nav>
-        <RouterLink v-once class="router" id="profile_circle" :to="{ name: 'home' }">
+        <RouterLink v-once class="router" id="profile_circle"
+            :to="{ name: 'profile', query: { id: useUserStore().id } }">
             <Image :src="$img(String(useUserStore().avatar), 'user/user')" />
+        </RouterLink>
+
+        <RouterLink v-once class="router" :to="{ name: 'settings' }">
+            Settings
         </RouterLink>
 
         <Poppers v-model:props="props">
@@ -44,6 +49,7 @@ nav {
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
     user-select: none;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
 
     display: flex;
     flex-wrap: wrap;

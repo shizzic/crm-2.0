@@ -3,8 +3,8 @@ import { onMounted, useTemplateRef } from 'vue'
 const resizer = useTemplateRef('resizer')
 const min = Math.round(window.outerWidth * 0.20)
 const max = Math.round(window.outerWidth * 0.30)
-const minWidth: number = min < 325 ? 325 : min
-const maxWidth: number = max < 550 ? 550 : max
+const minWidth: number = min < 375 ? 375 : min
+const maxWidth: number = max < 575 ? 575 : max
 document.documentElement.style.setProperty('--sidebar-width', `${minWidth + (Math.trunc((maxWidth - minWidth) / 2))}px`)
 document.documentElement.style.setProperty('--sidebar-width-transition', 'width .15s ease-out, max-width .15s ease-out, min-width .15s ease-out')
 

@@ -1,26 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useSettingsStore, useUserStore } from '@stores'
+import { children } from './children'
 
 const c = {
   login: () => import('@components/login/Main.vue'),
-
-  wrap: () => import('@/components/main/Wrap.vue'),
-  home: () => import('@components/main/home/Main.vue'),
-  settings: () => import('@components/main/settings/Main.vue')
+  wrap: () => import('@/components/main/Wrap.vue')
 }
-
-const main_children = [
-  {
-    path: '',
-    name: 'home',
-    component: c.home
-  },
-  {
-    path: '/settings',
-    name: 'settings',
-    component: c.settings
-  }
-]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,7 +13,7 @@ const router = createRouter({
     {
       path: '/',
       component: c.wrap,
-      children: main_children
+      children: children
     },
     {
       path: '/login',

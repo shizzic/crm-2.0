@@ -1,5 +1,9 @@
-:root {
-  --settings-backgroundColor: var(--color-2);
+#wrap {
+  --wrap-background: var(--color-2);
+}
+
+#settings {
+  --backgroundColor: var(--color-2);
 }
 
 [data-item] {

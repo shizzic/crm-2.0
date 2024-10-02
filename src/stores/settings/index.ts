@@ -12,6 +12,8 @@ export const useSettingsStore = defineStore(
     const size: Ref<string> = ref('1px') // font-size, padding, margin
     const theme: Ref<string> = ref('light') // font-size, padding, margin
     const locale: Ref<string> = ref('RU')
+    const month: Ref<boolean> = ref(false)
+
     const languages: Ref<Lang> = ref({})
     const lang: ComputedRef<Lang> = computed(() => languages.value[locale.value])
 
@@ -59,13 +61,13 @@ export const useSettingsStore = defineStore(
       document.head.appendChild(tag)
     }
 
-    return { version, locale, languages, lang, size, theme, getLang, getTheme }
+    return { version, locale, languages, lang, size, theme, month, getLang, getTheme }
   },
   {
     persist: [
       {
         storage: localStorage,
-        pick: ['version', 'locale', 'size', 'theme']
+        pick: ['version', 'locale', 'size', 'theme', 'month']
       },
       {
         storage: sessionStorage,

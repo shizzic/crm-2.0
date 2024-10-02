@@ -1,0 +1,9 @@
+@import './fields.css';
+
+#wrap {
+  --wrap-background: var(--color-1);
+}
+
+.block {
+  --backgroundColor: var(--color-2);
+}
