@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { defineAsyncComponent } from 'vue'
+import { useStore } from './store'
 import Resize from './Resize.vue'
 const Projects = defineAsyncComponent(() => import('./components/Projects.vue'))
 const Domains = defineAsyncComponent(() => import('./components/domains/Main.vue'))
 </script>
 
 <template>
-    <aside>
+    <aside :style="{ padding: useStore().cssWidth ? 'var(--padding)' : 0 }">
         <Resize />
 
         <Projects />

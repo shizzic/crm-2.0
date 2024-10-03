@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { onMounted, useTemplateRef } from 'vue'
+import { useStore } from './store'
+
+const $store = useStore()
 const resizer = useTemplateRef('resizer')
-const min = Math.round(window.outerWidth * 0.20)
-const max = Math.round(window.outerWidth * 0.30)
-const minWidth: number = min < 375 ? 375 : min
-const maxWidth: number = max < 575 ? 575 : max
-document.documentElement.style.setProperty('--sidebar-width', `${minWidth + (Math.trunc((maxWidth - minWidth) / 2))}px`)
 document.documentElement.style.setProperty('--sidebar-width-transition', 'width .15s ease-out, max-width .15s ease-out, min-width .15s ease-out')
 
 onMounted(() => {
@@ -25,8 +23,8 @@ onMounted(() => {
     const mouseMoveHandler = function (e: any) {
         const result = w + e.clientX - x
 
-        if (result >= minWidth && result <= maxWidth)
-            document.documentElement.style.setProperty('--sidebar-width', `${result}px`)
+        if (result >= $store.minWidth && result <= $store.maxWidth)
+            $store.cssWidth = result
     }
 
     const mouseUpHandler = function () {
