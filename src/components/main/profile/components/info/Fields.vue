@@ -5,7 +5,7 @@ import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
 import { $img } from '@composables'
 import Image from '@views/lib/image/Main.vue'
-import { getFilter } from '@composables/icon'
+import { $getFilter } from '@composables/icon'
 
 const lang = useSettingsStore().lang
 const locale = useSettingsStore().locale
@@ -41,7 +41,7 @@ const date: ComputedRef<string> = computed(() => {
 })
 
 onMounted(() => {
-    filter.value = getFilter(getComputedStyle(document.querySelectorAll('[data-field] h3')?.[0]).getPropertyValue('--color'))
+    filter.value = $getFilter(getComputedStyle(document.querySelectorAll('[data-field] h3')?.[0]).getPropertyValue('--color'))
 })
 </script>
 
@@ -122,7 +122,7 @@ onMounted(() => {
 }
 
 [data-field] {
-    width: max-content;
+    width: 100%;
     display: flex;
     align-items: center;
 }
@@ -132,6 +132,7 @@ onMounted(() => {
 }
 
 [data-field] h3 {
+    user-select: none;
     font-size: 20rem;
     font-weight: 600;
     color: var(--color);
@@ -146,6 +147,7 @@ onMounted(() => {
 }
 
 [data-field] img {
+    user-select: none;
     width: 24px;
     filter: v-bind('filter');
 

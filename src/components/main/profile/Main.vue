@@ -3,10 +3,9 @@ import { onBeforeUnmount } from 'vue'
 import { fetcher } from '@composables/fetcher'
 import { useRoute } from 'vue-router'
 import { useStore } from './store'
-import { useSettingsStore } from '@stores'
-import Info from './components/info/Main.vue'
 import { $setComponentStyle } from '@/assets/composables/theme'
-import(`@css/themes/${useSettingsStore().theme}/components/profile/index.css`)
+import Info from './components/info/Main.vue'
+import Images from './components/images/Main.vue'
 
 $setComponentStyle('profile')
 const $store = useStore()
@@ -21,6 +20,7 @@ onBeforeUnmount(() => $store.$reset())
 <template>
     <section v-if="$store.user" id="profile">
         <Info />
+        <Images />
     </section>
 </template>
 
@@ -31,7 +31,9 @@ section {
 
     display: flex;
     flex-direction: column;
-    padding: 20px 15px;
+    padding: 30px 25px 30px 10px;
+
+    overflow-x: hidden;
 }
 
 .block {
@@ -43,6 +45,6 @@ section {
 }
 
 .block:not(:last-of-type) {
-    margin-bottom: 15px;
+    margin-bottom: 23px;
 }
 </style>

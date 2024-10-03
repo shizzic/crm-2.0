@@ -20,5 +20,6 @@ import Sidebar from './sidebar/Main.vue'
 
     display: flex;
     align-items: center;
+    overflow-x: auto;
 }
 </style>

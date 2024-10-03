@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { watch, ref, computed } from 'vue'
 import { useSettingsStore, useUserStore } from '@stores'
-import { getFilter } from '@composables/icon'
+import { $getFilter } from '@composables/icon'
 import Poppers from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
 import { $img } from '@composables'
 
 const filter = ref('')
 const changeFilter = () => {
-    filter.value = getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-6'))
+    filter.value = $getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-6'))
 }
 changeFilter()
 watch(() => useSettingsStore().theme, () => {
