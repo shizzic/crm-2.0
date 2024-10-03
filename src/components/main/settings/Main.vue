@@ -9,14 +9,18 @@ import Item from './Item.vue'
 import Language from './components/Language.vue'
 import Size from './components/Size.vue'
 import Theme from './components/Theme.vue'
+import { $setComponentStyle, $removeComponentStyle } from '@composables/theme'
+
+const component: string = 'settings'
+$setComponentStyle(component)
 
 const $settings = useSettingsStore()
 const $store = useStore()
 const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'imu'))
 
-$store.getTheme($settings.theme)
-watch(() => $settings.theme, (value) => {
-    $store.getTheme(value)
+watch(() => $settings.theme, () => {
+    $removeComponentStyle()
+    $setComponentStyle(component)
 })
 </script>
 

@@ -5,8 +5,10 @@ import { useRoute } from 'vue-router'
 import { useStore } from './store'
 import { useSettingsStore } from '@stores'
 import Info from './components/info/Main.vue'
+import { $setComponentStyle } from '@/assets/composables/theme'
 import(`@css/themes/${useSettingsStore().theme}/components/profile/index.css`)
 
+$setComponentStyle('profile')
 const $store = useStore()
 fetcher.get('user/user/get-profile?target_id=' + useRoute().query.id)
     .then((r: any) => {
