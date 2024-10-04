@@ -2,7 +2,7 @@
 import { watch, ref, computed } from 'vue'
 import { useSettingsStore, useUserStore } from '@stores'
 import { $getFilter } from '@composables/icon'
-import Poppers from '@views/lib/popper/Main.vue'
+import Popper from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
 import { $img } from '@composables'
 
@@ -14,9 +14,14 @@ changeFilter()
 watch(() => useSettingsStore().theme, () => {
     setTimeout(() => changeFilter(), 20)
 })
-const props = computed(() => {
+const profile = computed(() => {
     return {
-        content: useSettingsStore().lang?.other?.logout
+        content: useSettingsStore().lang?.nav?.open_profile
+    }
+})
+const logout = computed(() => {
+    return {
+        content: useSettingsStore().lang?.nav?.logout
     }
 })
 </script>
@@ -25,18 +30,20 @@ const props = computed(() => {
     <nav>
         <RouterLink v-once class="router" id="profile_circle"
             :to="{ name: 'profile', query: { id: useUserStore().id } }">
-            <Image :src="$img(String(useUserStore().avatar), 'user/user')" />
+            <Popper v-model:props="profile">
+                <Image :src="$img(String(useUserStore().avatar), 'user/user')" style="border-radius: 50%;" />
+            </Popper>
         </RouterLink>
 
         <RouterLink v-once class="router" :to="{ name: 'settings' }">
             Settings
         </RouterLink>
 
-        <Poppers v-model:props="props">
+        <Popper v-model:props="logout">
             <div v-once class="router" id="logout" @click="useUserStore().logout()">
                 <img src="@assets/images/nav/logout.webp">
             </div>
-        </Poppers>
+        </Popper>
     </nav>
 </template>
 
