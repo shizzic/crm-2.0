@@ -26,7 +26,7 @@ const vViewer = viewer({})
 const images = computed(() => $store.user?.images)
 const isClicked = ref(false)
 const isMoved = ref(false)
-const popper = { content: useSettingsStore().lang?.profile?.add, placement: 'left' }
+let popper = { content: useSettingsStore().lang?.profile?.add, placement: 'left' }
 
 const scrollHandler = (e: WheelEvent): void => {
     e.preventDefault()

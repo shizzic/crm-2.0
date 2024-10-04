@@ -5,7 +5,7 @@ import { $img } from '@composables'
 import Image from '@views/lib/image/Main.vue'
 import Popper from '@views/lib/popper/Main.vue'
 
-const props = { content: useSettingsStore().lang?.profile?.delete }
+let props = { content: useSettingsStore().lang?.profile?.delete }
 </script>
 
 <template>
