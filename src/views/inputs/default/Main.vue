@@ -3,12 +3,13 @@ import { defineAsyncComponent, onMounted, onActivated, useTemplateRef, useId, pr
 import type { Props, Model } from './'
 import type { Ref } from 'vue'
 import { useStore } from './store'
+import { defaultProps } from './'
 const Range = defineAsyncComponent(() => import('./components/Range.vue'))
 const Errors = defineAsyncComponent(() => import('./components/Errors.vue'))
 
 const $id = String(useId())
 const $store = useStore($id)()
-const passedProps = defineModel<Props>('props')
+const passedProps = defineModel<Props>('props', { default: defaultProps })
 const passedModel = defineModel<Model>('model', { default: '' })
 const passedV = defineModel<any>('v')
 const input: Ref<any> = useTemplateRef('input') // ref на настоящий input

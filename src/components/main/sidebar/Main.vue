@@ -4,14 +4,17 @@ import { useStore } from './store'
 import Resize from './Resize.vue'
 const Projects = defineAsyncComponent(() => import('./components/Projects.vue'))
 const Domains = defineAsyncComponent(() => import('./components/domains/Main.vue'))
+
+const $store = useStore()
 </script>
 
 <template>
-    <aside :style="{ padding: useStore().cssWidth ? 'var(--padding)' : 0 }">
+    <aside :style="{ padding: $store.cssWidth ? 'var(--padding)' : 0 }">
+        <component v-for="(component, name) in $store.components.top" :key="name" :is="{ ...component }" />
         <Resize />
-
         <Projects />
         <Domains />
+        <component v-for="(component, name) in $store.components.bottom" :key="name" :is="{ ...component }" />
     </aside>
 </template>
 

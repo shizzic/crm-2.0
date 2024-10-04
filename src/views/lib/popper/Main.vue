@@ -3,10 +3,11 @@ import { useId } from "vue"
 import type { Props } from "."
 import Popper from "vue3-popper"
 import { useStore } from "./store"
+import { defaultProps } from "."
 
 const $id = String(useId())
 const $store = useStore($id)()
-const passedProps = defineModel<Props>('props')
+const passedProps = defineModel<Props>('props', { default: defaultProps })
 $store.setParams(passedProps)
 </script>
 
@@ -19,7 +20,7 @@ $store.setParams(passedProps)
 <style scoped>
 :deep(.popper) {
     font-size: 13rem;
-    font-weight: v-bind('$store.props?.css?.default?.fontWeight');
+    font-weight: v-bind('$store.props?.css?.default.fontWeight');
 
     --popper-theme-background-color: var(--popper-bg);
     --popper-theme-background-color-hover: var(--popper-bg);
