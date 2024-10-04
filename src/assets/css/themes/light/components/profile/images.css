@@ -1,11 +1,8 @@
-[data-images] {
-  --scroll-color: var(--color-5);
-}
-
 [data-new-image] {
   --backgroundColor: var(--color-1);
 }
 
 :root {
   --new-image-filter: var(--color-5);
+  --scroll-color: var(--color-5);
 }

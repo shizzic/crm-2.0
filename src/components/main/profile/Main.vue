@@ -34,6 +34,7 @@ section {
     padding: 30px 25px 30px 10px;
 
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .block {
@@ -46,5 +47,22 @@ section {
 
 .block:not(:last-of-type) {
     margin-bottom: 23px;
+}
+
+section::-webkit-scrollbar {
+    height: 10px;
+    width: 19px;
+}
+
+section::-webkit-scrollbar-track {
+    border-radius: 12px;
+}
+
+section::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    background-color: var(--scroll-color);
+
+    background-clip: content-box;
+    border: 6px solid transparent;
 }
 </style>

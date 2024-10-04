@@ -8,54 +8,67 @@ export const useHttpStore = defineStore('http', () => {
   const component_id: number | undefined = undefined
 
   // С триггером авторизации
-  function authorize_headers(): HeadersInit {
+  function authorize_headers(): Headers {
     const host: string = window.location.hostname.trim().split('.')[0]
     const viktoriaSecret: string = host === 'test-client' ? 'localhost' : host
 
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer some',
-      project: String(project_id),
-      component: String(component_id),
-      user: String(useUserStore().id),
-      uri: location.pathname,
-      viktoriaSecret: viktoriaSecret,
-      lang: useSettingsStore().locale
-    }
+    const headers: HeadersInit = new Headers()
+    headers.set('Content-Type', 'application/json')
+    headers.set('Authorization', 'Bearer some')
+    headers.set('project', String(project_id))
+    headers.set('component', String(component_id))
+    headers.set('user', String(useUserStore().id))
+    headers.set('uri', location.pathname)
+    headers.set('viktoriaSecret', viktoriaSecret)
+    headers.set('lang', useSettingsStore().locale)
 
     add_target_domain_if_needed(headers)
     return headers
   }
 
   // Без триггера авторизации
-  function non_authorize_headers(): HeadersInit {
+  function non_authorize_headers(): Headers {
     const host: string = window.location.hostname.trim().split('.')[0]
     const viktoriaSecret: string = host === 'test-client' ? 'localhost' : host
 
-    const headers: HeadersInit = {
-      'Content-Type': 'application/json',
-      uri: location.pathname,
-      viktoriaSecret: viktoriaSecret === 'test-client' ? 'localhost' : viktoriaSecret,
-      lang: useSettingsStore().locale
-    }
+    const headers: HeadersInit = new Headers()
+    headers.set('Content-Type', 'application/json')
+    headers.set('uri', location.pathname)
+    headers.set('viktoriaSecret', viktoriaSecret === 'test-client' ? 'localhost' : viktoriaSecret)
+    headers.set('lang', useSettingsStore().locale)
 
     add_target_domain_if_needed(headers)
     return headers
   }
 
+  // header для файлов (обычно с raw получаю blob)
+  function raw_headers(): Headers {
+    const headers = authorize_headers()
+    headers.set('Content-Type', 'raw')
+    headers.set('Cache-Control', 'private') // Indicates that all or part of the response message is intended for a single user and MUST NOT be cached by a shared cache, such as a proxy server.
+    return headers
+  }
+
   // header для файлов
-  function raw_headers(): HeadersInit {
-    const headers: any = authorize_headers()
-    headers['Content-Type'] = 'raw'
-    headers['Cache-Control'] = 'private'
+  function media_headers(): Headers {
+    const headers = authorize_headers()
+    headers.delete('Content-Type')
+    headers.set('Cache-Control', 'private') // Indicates that all or part of the response message is intended for a single user and MUST NOT be cached by a shared cache, such as a proxy server.
     return headers
   }
 
   // targetDomain добавляю только, если это не localhost
-  function add_target_domain_if_needed(headers: any): void {
+  function add_target_domain_if_needed(headers: Headers): void {
     if (window.location.hostname === $endpoint)
-      headers.targetDomain = !domain_name ? window.location.hostname : domain_name
+      headers.set('targetDomain', domain_name ?? window.location.hostname)
   }
 
-  return { domain_name, $endpoint, authorize_headers, non_authorize_headers, raw_headers }
+  return {
+    domain_name,
+    $endpoint,
+    authorize_headers,
+    non_authorize_headers,
+    raw_headers,
+    media_headers
+  }
 })

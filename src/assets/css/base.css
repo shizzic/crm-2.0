@@ -3,9 +3,9 @@
 }
 
 /*
-:v-deep
-:v-deep
-:v-deep
+:deep
+:deep
+:deep
 
 for accessing global lib's css inside my own scope
 */

@@ -8,7 +8,7 @@ import { $merge } from '@assets/composables'
 export const useStore = (id: string) =>
   defineStore(`file/${id}`, () => {
     const props = ref(defaultProps)
-    const model: Ref<Model> = ref(FileList)
+    const model: Ref<Model> = ref(new DataTransfer().files)
 
     // отслеживаю изменения для родителя (если параметры вообще были переданы)
     function setWatchers(passedModel: ModelRef<Model>): void {

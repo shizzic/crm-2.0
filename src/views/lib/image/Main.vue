@@ -36,7 +36,7 @@ props.src ? get(props.src) : isFetched.value = true
 </script>
 
 <template>
-    <img v-if="isFetched && media" :src="media" loading="eager">
+    <img v-if="isFetched && media" :src="media" loading="lazy">
     <Skeletor v-else-if="!media && !isFetched" data-skeletor />
 </template>
 

@@ -7,11 +7,13 @@ const $endpoint = useHttpStore().$endpoint
 
 // получаю полный путь до фотки (local | url | blob) -> indiferent
 export const $img: ImageLoader = (name: string, controller_model?: string): string => {
+  name = name.replace(/^\//, '')
+
   if (name.search('blob:') === -1) {
     const url = (controller_model ? controller_model : '') + '/get-file?file='
 
     return name.search('\\?') === -1
-      ? 'src/assets/images' + name
+      ? 'src/assets/images/' + name
       : $endpoint + url + name.split('?').shift()
   } else return name
 }

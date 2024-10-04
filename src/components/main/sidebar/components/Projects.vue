@@ -2,7 +2,7 @@
 import { ref, watch, computed } from 'vue'
 import type { ComputedRef, Ref } from 'vue'
 import Select from '@views/selects/default/Main.vue'
-import { fetcher } from '@/assets/composables/fetcher'
+import { fetcher } from '@composables/fetcher'
 import { useProjectStore, useSettingsStore } from '@stores'
 import type { List, CSS } from '@types'
 import type { Props } from '@views/selects/default'

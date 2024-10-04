@@ -3,6 +3,9 @@ import { useTemplateRef, watch } from 'vue'
 import { $img } from '@composables'
 import { $getFilter } from '@composables/icon'
 import type { Props } from '@views/inputs/file'
+import { fetcher } from '@composables/fetcher'
+import { useStore } from '../../../store'
+import type { ImagesResponse } from '../../../store/images'
 import Image from '@views/lib/image/Main.vue'
 import File from '@views/inputs/file/Main.vue'
 
@@ -15,9 +18,17 @@ let props: Props = {
     }
 }
 const input: any = useTemplateRef('input')
-watch(input, (element: any) => {
-    console.log(element)
-}, { deep: true })
+
+const uploadImages = async (files: FileList): Promise<void> => {
+    const form = new FormData()
+    for (const file of files) form.append(file.name, file)
+    const response: ImagesResponse = await fetcher.media.post('user/user/save-images', form)
+    if (input?.value) input.value.$store.model = new DataTransfer().files
+    useStore().updateImages(response)
+}
+watch(() => input?.value?.$store.model, (files: FileList): void => {
+    if (files.length > 0) uploadImages(files)
+})
 </script>
 
 <template>

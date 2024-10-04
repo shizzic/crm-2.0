@@ -5,8 +5,8 @@ import { useStore } from '../../store'
 import Photos from './Photos.vue'
 
 const lang = useSettingsStore().lang
-const images = useStore().user?.images
-const hasImages = computed(() => images?.length)
+const images = computed(() => useStore().user?.images)
+const hasImages = computed(() => images.value?.length)
 </script>
 
 <template>
