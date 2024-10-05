@@ -1,5 +1,6 @@
 @import './fields.css';
 @import './images.css';
+@import './avatar.css';
 
 #wrap {
   --wrap-background: var(--color-3);

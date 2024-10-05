@@ -21,6 +21,10 @@ const hasImages = computed(() => images.value?.length)
 </template>
 
 <style scoped>
+.block {
+    padding-bottom: 5px !important;
+}
+
 h2,
 h2>* {
     font-weight: 600;

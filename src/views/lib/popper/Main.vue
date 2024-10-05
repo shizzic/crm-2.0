@@ -12,7 +12,7 @@ $store.setParams(passedProps)
 </script>
 
 <template>
-    <Popper v-bind="$store.props">
+    <Popper v-bind="$store.props" style="border: none; margin: 0;">
         <slot />
     </Popper>
 </template>

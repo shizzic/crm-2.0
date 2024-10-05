@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
 import { useStore } from './store'
 import Resize from './Resize.vue'
+import { $removeComponentStyle, $setComponentStyle } from '@/assets/composables/theme';
 const Projects = defineAsyncComponent(() => import('./components/Projects.vue'))
 const Domains = defineAsyncComponent(() => import('./components/domains/Main.vue'))
 
 const $store = useStore()
+const sidebarPadding = computed(() => $store.cssWidth ? 'var(--padding)' : 0)
+
+$removeComponentStyle()
+$setComponentStyle(String('profile'))
 </script>
 
 <template>
-    <aside :style="{ padding: $store.cssWidth ? 'var(--padding)' : 0 }">
-        <component v-for="(component, name) in $store.components.top" :key="name" :is="{ ...component }" />
+    <aside>
+        <component v-for="(item, identifier) in $store.components.top" :is="{ ...item.component }"
+            :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'top'" />
         <Resize />
         <Projects />
         <Domains />
-        <component v-for="(component, name) in $store.components.bottom" :key="name" :is="{ ...component }" />
+        <component v-for="(item, identifier) in $store.components.bottom" :is="{ ...item.component }"
+            :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'bottom'" />
     </aside>
 </template>
 
@@ -30,6 +37,7 @@ aside {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    padding: v-bind(sidebarPadding);
     transition: var(--sidebar-width-transition);
 }
 

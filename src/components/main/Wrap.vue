@@ -8,7 +8,11 @@ import Sidebar from './sidebar/Main.vue'
         <Nav />
         <Sidebar />
 
-        <RouterView />
+        <RouterView v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+                <component :is="Component" />
+            </transition>
+        </RouterView>
     </div>
 </template>
 
@@ -21,5 +25,15 @@ import Sidebar from './sidebar/Main.vue'
     display: flex;
     align-items: center;
     overflow-x: auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

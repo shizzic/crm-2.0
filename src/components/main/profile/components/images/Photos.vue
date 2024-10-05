@@ -39,7 +39,7 @@ const scrollHandler = (e: WheelEvent): void => {
         @mouseup="isClicked = false; isMoved = false;" @mousemove="if (isClicked) isMoved = true;"
         @mouseleave="isClicked = false; isMoved = false;">
 
-        <Popper v-model:props="popper">
+        <Popper v-if="$store.user?.self" v-model:props="popper">
             <New :style="{ 'pointer-events': isClicked && isMoved ? 'none' : 'auto' }" />
         </Popper>
 
@@ -75,7 +75,7 @@ const scrollHandler = (e: WheelEvent): void => {
 
 [data-new-image],
 [data-image] {
-    cursor: grabbing !important;
+    cursor: grabbing;
     width: 182px;
     min-width: 182px;
     max-width: 182px;
@@ -85,8 +85,9 @@ const scrollHandler = (e: WheelEvent): void => {
     border-radius: 26px;
 }
 
-[data-image] {
-    margin-left: 15px;
+[data-new-image],
+[data-image]:not(:last-of-type) {
+    margin-right: 15px;
 }
 
 [data-images-wrapper]::-webkit-scrollbar {

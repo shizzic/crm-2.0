@@ -29,6 +29,7 @@
     "viewerjs": "^1.11.6",
     "vue": "^3.4.29",
     "vue-3-slider-component": "^1.0.1",
+    "vue-advanced-cropper": "^2.8.9",
     "vue-dragscroll": "^4.0.6",
     "vue-router": "^4.3.3",
     "vue-skeletor": "^1.0.6",
