@@ -1,14 +1,17 @@
 import { useHttpStore } from '@stores'
 import Media from './media'
+import Blob from './blob'
 
 const $http = useHttpStore()
 const $endpoint = $http.$endpoint
 
 class Fetcher {
   media: any
+  blob: any
 
   constructor() {
     this.media = new Media()
+    this.blob = new Blob()
   }
 
   async get(url: string): Promise<any> {

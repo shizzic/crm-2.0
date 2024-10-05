@@ -15,37 +15,54 @@ $setComponentStyle(String('profile'))
 
 <template>
     <aside>
-        <component v-for="(item, identifier) in $store.components.top" :is="{ ...item.component }"
-            :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'top'" />
-        <Resize />
-        <Projects />
-        <Domains />
-        <component v-for="(item, identifier) in $store.components.bottom" :is="{ ...item.component }"
-            :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'bottom'" />
+        <div data-components>
+            <component v-for="(item, identifier) in $store.components.top" :is="{ ...item.component }"
+                :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'top'" />
+
+            <Projects />
+            <Domains />
+            <component v-for="(item, identifier) in $store.components.bottom" :is="{ ...item.component }"
+                :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'bottom'" />
+        </div>
+
+        <div data-resize-wrapper>
+            <Resize />
+        </div>
     </aside>
 </template>
 
 <style scoped>
 aside {
-    position: relative;
     min-width: var(--sidebar-width);
     width: var(--sidebar-width);
     max-width: var(--sidebar-width);
     height: 100%;
 
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: v-bind(sidebarPadding);
     transition: var(--sidebar-width-transition);
 }
 
-aside>* {
+[data-components] {
+    width: 100%;
+    height: max-content;
+
+    display: flex;
+    flex-direction: column;
+    padding: v-bind(sidebarPadding);
+}
+
+[data-components]>* {
     margin-bottom: 20px;
 }
 
-aside:last-child {
+[data-components]:last-child {
     margin-bottom: 0;
+}
+
+[data-resize-wrapper] {
+    position: relative;
 }
 </style>
