@@ -39,6 +39,6 @@ h2 {
 }
 
 [data-roles] span:not(:last-of-type) {
-    margin-right: 10px;
+    margin-right: 10rem;
 }
 </style>

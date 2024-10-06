@@ -40,11 +40,11 @@ export const defaultProps: Props = {
   },
   processStyle: {
     backgroundColor: 'var(--slider-process-backgroundColor)',
-    height: '6px'
+    height: '6rem'
   },
   railStyle: {
     backgroundColor: 'var(--slider-rail-backgroundColor)',
-    height: '6px'
+    height: '6rem'
   },
 
   label: false,

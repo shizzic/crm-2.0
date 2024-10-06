@@ -20,7 +20,7 @@ const lang = useSettingsStore().lang
 [data-header] {
     display: flex;
     justify-content: space-between;
-    padding: 15px 20px 0;
+    padding: 15rem 20rem 0;
 }
 
 [data-header] h6 {
@@ -28,7 +28,7 @@ const lang = useSettingsStore().lang
     font-size: calc(v-bind('$store.props.css?.default.fontSize') - 5rem);
     font-weight: 600;
 
-    margin-right: 15px;
+    margin-right: 15rem;
 }
 
 [data-header] button {

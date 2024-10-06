@@ -36,7 +36,7 @@ const v$ = useVuelidate(rules, form)
 const input_css = {
     default: {
         fontSize: '19.75rem',
-        padding: '10px 21px',
+        padding: '10rem 21rem',
     },
 }
 const isRequestPassword = ref(false)
@@ -92,7 +92,7 @@ let passwordProps = {
             </KeepAlive>
             <Input v-model:model="form.password" v-model:props="passwordProps" v-model:v="passwordV" class="item" />
 
-            <span @click.stop="isRequestPassword = true" style="margin-top: -20px;">{{ lang?.auth?.forgot }}</span>
+            <span @click.stop="isRequestPassword = true" style="margin-top: -20rem;">{{ lang?.auth?.forgot }}</span>
             <Modal v-if="isRequestPassword">
                 <RequestNewPassword />
             </Modal>
@@ -103,10 +103,10 @@ let passwordProps = {
                     default: {
                         width: '100%',
                         backgroundColor: '#4D5DFA',
-                        fontSize: '19.75px',
+                        fontSize: '19.75rem',
 
-                        padding: '10px 21px',
-                        margin: '35px 0 0',
+                        padding: '10rem 21rem',
+                        margin: '35rem 0 0',
                     },
                 }
             }" />
@@ -133,11 +133,11 @@ section {
 
 form {
     width: 33%;
-    min-width: 500px;
+    min-width: 500rem;
     background-color: #fff;
     border-radius: 20px;
 
-    padding: 60px;
+    padding: 60rem;
 }
 
 @media screen and (max-width: 550px) {
@@ -145,13 +145,13 @@ form {
         width: 100%;
         min-width: 0;
 
-        padding: 40px;
+        padding: 40rem;
     }
 }
 
 @media screen and (max-width: 360px) {
     form {
-        padding: 15px 20px;
+        padding: 15rem 20rem;
     }
 }
 
@@ -159,7 +159,7 @@ h2 {
     font-weight: 700;
     font-size: 41.88rem;
 
-    margin-bottom: 12px;
+    margin-bottom: 12rem;
 }
 
 h4 {
@@ -167,19 +167,19 @@ h4 {
     font-weight: 500;
     font-size: 15.64rem;
 
-    margin-bottom: 50px;
+    margin-bottom: 50rem;
 }
 
 @media screen and (max-width: 360px) {
     h2 {
         font-size: 35rem;
 
-        margin-bottom: 25px;
+        margin-bottom: 25rem;
     }
 }
 
 .item {
-    margin-bottom: 25px;
+    margin-bottom: 25rem;
 }
 
 span {

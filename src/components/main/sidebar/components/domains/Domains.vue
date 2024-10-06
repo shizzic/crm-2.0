@@ -18,7 +18,7 @@ const css: CSS = {
         border: 'none',
         backgroundColor: '#3F3F57',
         borderRadius: '20px',
-        padding: '20px 20px',
+        padding: '20rem',
         textAlign: 'center'
     },
     hover: {
@@ -74,6 +74,6 @@ initModel()
 
 <style scoped>
 [data-parent] {
-    padding: 0 20px 0;
+    padding: 0 20rem 0;
 }
 </style>

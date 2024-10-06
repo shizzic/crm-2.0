@@ -26,10 +26,10 @@ let props = {
         <h3>{{ lang?.auth?.request?.title }}</h3>
         <span>{{ lang?.auth?.request?.description }}</span>
 
-        <Input v-model:props="props" v-model:model="form.email" style="margin-top: 20px;" />
+        <Input v-model:props="props" v-model:model="form.email" style="margin-top: 20rem;" />
 
-        <div id="btns" style="margin-top: 35px;">
-            <Cancel v-bind="{ event: 'default', css: { default: { width: '100%' } } }" style="margin-right: 20px;" />
+        <div id="btns" style="margin-top: 35rem;">
+            <Cancel v-bind="{ event: 'default', css: { default: { width: '100%' } } }" style="margin-right: 20rem;" />
             <Submit v-bind="{ css: { default: { width: '100%', fontWeight: '600' } } }" />
         </div>
     </form>
@@ -42,7 +42,7 @@ let props = {
 
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding: 40rem;
 }
 
 h3 {
@@ -51,7 +51,7 @@ h3 {
     font-size: 32rem;
     letter-spacing: -0.02em;
 
-    margin-bottom: 10px;
+    margin-bottom: 10rem;
 }
 
 span {

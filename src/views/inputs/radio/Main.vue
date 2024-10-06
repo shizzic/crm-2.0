@@ -46,7 +46,7 @@ $store.setParams(passedProps, passedModel, passedIndex)
 }
 
 [data-item]:not(:last-of-type) {
-    margin-bottom: 2px;
+    margin-bottom: 2rem;
 }
 
 label {

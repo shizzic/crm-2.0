@@ -59,8 +59,8 @@ const loadImage = () => {
 [data-root] {
     width: 100%;
 
-    padding: 20px 70px 0 70px;
-    margin-bottom: 5px;
+    padding: 20rem 70rem 0 70rem;
+    margin-bottom: 5rem;
 }
 
 [data-avatar-wrapper] {
@@ -86,7 +86,7 @@ const loadImage = () => {
     right: 15%;
     bottom: 0;
 
-    padding: 6px 8px;
+    padding: 6rem 8rem;
 }
 
 [data-button] img {

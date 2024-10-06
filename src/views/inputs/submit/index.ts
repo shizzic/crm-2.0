@@ -12,13 +12,13 @@ export const DefaultCSS: CSS = {
     color: '#ffffff',
     fontFamily: 'Metropolis, sans-serif',
     fontWeight: '500',
-    fontSize: '16.44px',
+    fontSize: '16.44rem',
     border: 'none',
     borderColor: 'transparent',
     borderRadius: '110px',
     backgroundColor: '#4D5DFA',
 
-    padding: '10px 21px',
+    padding: '10rem 21rem',
     margin: '0'
   },
 

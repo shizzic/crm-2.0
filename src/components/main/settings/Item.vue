@@ -17,15 +17,15 @@ const { title, description } = defineProps<Props>()
 
 <style scoped>
 [data-item] {
-    width: calc(50% - 35px);
+    width: calc(50% - 35rem);
     background-color: var(--color-1);
     border: 2px solid;
     border-color: var(--border-color);
     border-radius: 8px;
 
-    padding: 30rem 30rem;
+    padding: 30rem;
     margin-bottom: 25rem;
-    margin-right: 30px;
+    margin-right: 30rem;
 }
 
 [data-item]:nth-child(2) {

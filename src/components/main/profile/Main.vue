@@ -38,7 +38,7 @@ section {
 
     display: flex;
     flex-direction: column;
-    padding: 30px 25px 30px 10px;
+    padding: 30rem 25rem 30rem 10rem;
 
     overflow-x: hidden;
     overflow-y: auto;
@@ -49,7 +49,7 @@ section {
     background-color: var(--backgroundColor);
     border-radius: 22px;
 
-    padding: 30px;
+    padding: 30rem;
 }
 
 .block:not(:last-of-type) {
@@ -57,8 +57,8 @@ section {
 }
 
 section::-webkit-scrollbar {
-    height: 10px;
-    width: 19px;
+    height: 10rem;
+    width: 19rem;
 }
 
 section::-webkit-scrollbar-track {

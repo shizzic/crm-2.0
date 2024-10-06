@@ -27,8 +27,8 @@ const popper: ComputedRef<Props> = computed(() => {
 [data-button] {
     user-select: none;
     cursor: pointer;
-    max-width: 35px;
-    max-height: 35px;
+    max-width: 35rem;
+    max-height: 35rem;
     background-color: var(--expand-backgroundColor);
     border-radius: 50%;
     outline: none;
@@ -37,7 +37,7 @@ const popper: ComputedRef<Props> = computed(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 9px;
+    padding: 9rem;
 }
 
 [data-button]:hover {

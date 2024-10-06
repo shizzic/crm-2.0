@@ -50,7 +50,7 @@ let avatarPopper = { content: useSettingsStore().lang?.profile?.avatar }
     left: 0;
     top: 0;
 
-    padding: 15px 28px;
+    padding: 15rem 28rem;
 }
 
 [data-button]:hover {
@@ -58,7 +58,7 @@ let avatarPopper = { content: useSettingsStore().lang?.profile?.avatar }
 }
 
 [data-button] img {
-    width: 26px;
+    width: 26rem;
     filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(856%) hue-rotate(97deg) brightness(118%) contrast(91%);
 
 

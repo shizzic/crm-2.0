@@ -90,10 +90,10 @@ select {
     border-width: 0 2px 2px 0;
 
     position: absolute;
-    right: 20px;
+    right: 20rem;
 
     display: inline-block;
-    padding: 3px;
+    padding: 3rem;
 
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);

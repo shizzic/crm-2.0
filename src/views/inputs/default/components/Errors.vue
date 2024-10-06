@@ -27,7 +27,7 @@ const $store = useStore(inject('$id') as StoreID)()
     font-weight: 500;
 
     display: inline-block;
-    margin-top: 5px;
-    margin-right: 10px;
+    margin-top: 5rem;
+    margin-right: 10rem;
 }
 </style>

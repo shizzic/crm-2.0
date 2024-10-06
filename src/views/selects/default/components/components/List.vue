@@ -50,12 +50,12 @@ li {
 
     display: flex;
     align-items: center;
-    padding: 8px 20px;
+    padding: 8rem 20rem;
     transition: padding-left .2s ease-out;
 }
 
 li:hover {
-    padding-left: 30px;
+    padding-left: 30rem;
 }
 
 i {
@@ -71,7 +71,7 @@ i {
 }
 
 li:hover i {
-    left: 0px;
+    left: 0;
 }
 
 ul::-webkit-scrollbar {

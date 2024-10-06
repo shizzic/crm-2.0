@@ -55,7 +55,7 @@ aside {
 }
 
 [data-components]>* {
-    margin-bottom: 20px;
+    margin-bottom: 20rem;
 }
 
 [data-components]:last-child {

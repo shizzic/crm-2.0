@@ -28,7 +28,7 @@ $store.setParams(passedProps)
     --popper-theme-border-width: 0px;
     --popper-theme-border-style: solid;
     --popper-theme-border-radius: 6px;
-    --popper-theme-padding: 12px;
+    --popper-theme-padding: 12rem;
     --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
 }
 </style>

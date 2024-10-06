@@ -19,7 +19,7 @@ export const DefaultCSS: CSS = {
     borderRadius: '110px',
     backgroundColor: '#F2F4F6',
 
-    padding: '10px 21px'
+    padding: '10rem 21rem'
   },
 
   hover: {

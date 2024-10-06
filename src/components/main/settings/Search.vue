@@ -14,14 +14,14 @@ const props: ComputedRef<Props> = computed(() => {
         placeholder: ref(useSettingsStore().lang?.other?.search).value,
         icon: {
             url: '/lib/search.webp',
-            size: '17px 45%',
+            size: '17rem 45%',
             filter: '#4D5DFA',
         },
         css: {
             default: {
                 border: 'none',
                 backgroundColor: 'var(--input-backgroundColor)',
-                padding: '10px 21px 10px 45px'
+                padding: '10rem 21rem 10rem 45rem'
             }
         }
     }
@@ -29,5 +29,5 @@ const props: ComputedRef<Props> = computed(() => {
 </script>
 
 <template>
-    <Input v-model:props="props" v-model:model="useStore().search" style="margin-right: 20px;" />
+    <Input v-model:props="props" v-model:model="useStore().search" style="margin-right: 20rem;" />
 </template>

@@ -37,7 +37,7 @@ export const DefaultCSS: CSS = {
     borderRadius: '110px',
     backgroundColor: 'var(--input-backgroundColor)',
 
-    padding: '10px 21px'
+    padding: '10rem 21rem'
   },
 
   placeholder: {
@@ -53,7 +53,7 @@ export const defaultProps: Props = {
   label: false,
   css: DefaultCSS,
   icon: {
-    position: 'left 15px center',
+    position: 'left 15rem center',
     repeat: 'no-repeat'
   }
 }

@@ -68,7 +68,7 @@ onMounted(() => {
 
     display: flex;
     margin-top: 25rem;
-    padding-bottom: 20px;
+    padding-bottom: 20rem;
 
     overflow-x: auto;
     overflow-y: hidden;
@@ -95,11 +95,11 @@ onMounted(() => {
 
 [data-new-image],
 [data-image]:not(:last-of-type) {
-    margin-right: 15px;
+    margin-right: 15rem;
 }
 
 [data-images-wrapper]::-webkit-scrollbar {
-    height: 13px;
+    height: 13rem;
 }
 
 [data-images-wrapper]::-webkit-scrollbar-track {

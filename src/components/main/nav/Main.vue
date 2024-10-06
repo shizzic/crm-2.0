@@ -63,7 +63,7 @@ nav {
     flex-wrap: wrap;
     align-items: flex-end;
     justify-content: center;
-    padding: 20px 13px;
+    padding: 20rem 13rem;
 
     overflow-x: hidden;
 }
@@ -76,7 +76,7 @@ nav {
 
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    padding: 10rem 0;
 }
 
 img {
@@ -95,8 +95,8 @@ img {
 }
 
 #profile_circle img {
-    width: 50px;
-    height: 50px;
+    width: 50rem;
+    height: 50rem;
     filter: none;
 }
 

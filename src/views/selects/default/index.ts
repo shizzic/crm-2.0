@@ -45,7 +45,7 @@ export const DefaultCSS: CSS = {
     borderRadius: '20px',
     backgroundColor: '#ffffff',
 
-    padding: '10px 21px'
+    padding: '10rem 21rem'
   },
 
   hover: {
@@ -66,7 +66,7 @@ export const DefaultCSS: CSS = {
     },
     List: {
       color: '#252540',
-      maxHeight: '200px'
+      maxHeight: '200rem'
     }
   }
 }

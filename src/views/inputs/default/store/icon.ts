@@ -12,7 +12,7 @@ export interface Icon {
 
 export const getIcon = (props: Props, inputHeight: number | undefined): Icon => {
   const url = `url(${$img(String(props.icon?.url))})`
-  const size = props.icon?.size ?? `${String(inputHeight ? inputHeight / 2 : 0)}px 50%`
+  const size = props.icon?.size ?? `${String(inputHeight ? inputHeight / 2 : 0)}rem 50%`
   const position = props.icon?.position
   const repeat = props.icon?.repeat
   const filter = $getFilter(props.icon?.filter || props.css?.placeholder.color)

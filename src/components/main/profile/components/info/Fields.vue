@@ -128,7 +128,7 @@ onMounted(() => {
 }
 
 [data-field]:not(:last-of-type) {
-    margin-bottom: 15px;
+    margin-bottom: 15rem;
 }
 
 [data-field] h3 {
@@ -137,7 +137,7 @@ onMounted(() => {
     font-weight: 600;
     color: var(--color);
 
-    margin-right: 5px;
+    margin-right: 5rem;
 }
 
 [data-field-value] {
@@ -148,9 +148,9 @@ onMounted(() => {
 
 [data-field] img {
     user-select: none;
-    width: 24px;
+    width: 24rem;
     filter: v-bind('filter');
 
-    margin-right: 10px;
+    margin-right: 10rem;
 }
 </style>

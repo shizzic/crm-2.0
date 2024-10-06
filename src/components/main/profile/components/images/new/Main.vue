@@ -50,12 +50,12 @@ watch(() => input.value?.$store?.model, (files) => { if (files && files.length >
 
 [data-new-image] img {
     pointer-events: none;
-    width: 55px;
-    min-width: 55px;
-    max-width: 55px;
-    height: 44px;
-    min-height: 44px;
-    max-height: 44px;
+    width: 55rem;
+    min-width: 55rem;
+    max-width: 55rem;
+    height: 44rem;
+    min-height: 44rem;
+    max-height: 44rem;
     border-radius: 0;
     filter: v-bind(filter);
 }

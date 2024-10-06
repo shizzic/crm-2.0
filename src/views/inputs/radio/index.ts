@@ -24,7 +24,7 @@ export const DefaultCSS: CSS = {
     width: '16rem',
     border: '2px solid',
     borderColor: 'var(--radio-border-color)',
-    paddingRight: '10px',
+    paddingRight: '10rem',
 
     Checked: {
       border: '4.5px solid',
@@ -37,7 +37,7 @@ export const DefaultCSS: CSS = {
     fontWeight: '500',
     color: '#676767',
 
-    padding: '7px 0'
+    padding: '7rem 0'
   }
 }
 

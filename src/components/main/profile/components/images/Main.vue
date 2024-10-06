@@ -22,7 +22,7 @@ const hasImages = computed(() => images.value?.length)
 
 <style scoped>
 .block {
-    padding-bottom: 5px !important;
+    padding-bottom: 5rem !important;
 }
 
 h2,

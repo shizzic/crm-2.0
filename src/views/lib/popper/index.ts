@@ -21,7 +21,7 @@ export const DefaultCSS: CSS = {
     borderRadius: '110px',
     backgroundColor: '#ffffff',
 
-    padding: '10px 21px'
+    padding: '10rem 21rem'
   }
 }
 

@@ -40,14 +40,14 @@ const upload = () => {
                     <cropper :src="$store.cropper.blob" :check-orientation="false" ref="cropper" />
                 </div>
 
-                <div id="btns" style="margin-top: 35px;">
+                <div id="btns" style="margin-top: 35rem;">
                     <Cancel v-bind="{
                         event: 'default', css: {
                             default: {
                                 width: 'max-content',
                                 fontSize: '17rem',
                                 fontWeight: 600,
-                                padding: '15px 40px'
+                                padding: '15rem 40rem'
                             }
                         }
                     }" style="margin-right: 20px;" @click="$store.clearCropper" />
@@ -57,7 +57,7 @@ const upload = () => {
                                 width: 'max-content',
                                 fontSize: '17rem',
                                 fontWeight: 600,
-                                padding: '15px 40px'
+                                padding: '15rem 40rem'
                             }
                         }
                     }" @click="upload()" />
@@ -103,7 +103,7 @@ const upload = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px;
+    padding: 30rem;
 }
 
 h2 {
@@ -129,7 +129,7 @@ h2,
 
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 30rem;
 }
 
 [data-cropper] {
@@ -145,7 +145,7 @@ h3 {
     font-weight: 500;
     text-align: center;
 
-    margin-bottom: 20px;
+    margin-bottom: 20rem;
 }
 
 :deep(.vue-advanced-cropper) {
@@ -181,7 +181,7 @@ h3 {
 :deep(.vue-simple-handler) {
     border-radius: 50%;
 
-    padding: 7px;
+    padding: 7rem;
 }
 
 :deep(.vue-simple-line) {

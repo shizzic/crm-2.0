@@ -13,7 +13,7 @@ let props = {
     silent: true
 }
 
-watch(model, (value) => useSettingsStore().size = `${value || 1}px`)
+watch(model, (value) => { if (value) useSettingsStore().size = `${value || 1}px` })
 </script>
 
 <template>

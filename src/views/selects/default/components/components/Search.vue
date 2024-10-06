@@ -15,7 +15,7 @@ const css: CSS = {
         fontWeight: 500,
         backgroundColor: '#fff',
         fontSize: $store.props.css?.default.fontSize,
-        padding: '9px 21px 9px 45px',
+        padding: '9rem 21rem 9rem 45rem',
     },
     placeholder: {
         color: '#676767',
@@ -42,7 +42,7 @@ let props: Props = {
 
 <style scoped>
 [data-search] {
-    padding: 0 20px;
-    margin: 15px 0 15px;
+    padding: 0 20rem;
+    margin: 15rem 0 15rem;
 }
 </style>
