@@ -2,7 +2,7 @@
 import { useTemplateRef } from 'vue'
 import { useStore } from '../../store'
 import { useSettingsStore } from '@stores'
-import { onClickOutside } from '@vueuse/core'
+import { onClickOutside, useDraggable } from '@vueuse/core'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import Popper from '@views/lib/popper/Main.vue'
@@ -16,6 +16,9 @@ const crop = useTemplateRef('cropper')
 let closePopper = { content: lang?.other.close }
 
 onClickOutside(wrapper, $store.clearCropper)
+const { style } = useDraggable(wrapper, {
+    initialValue: { x: Math.round(window.outerWidth * 0.25), y: Math.round(window.outerWidth * 0.08) },
+})
 const upload = () => {
     if (!crop.value) return
     const { coordinates, canvas } = crop.value.getResult()
@@ -26,7 +29,7 @@ const upload = () => {
 
 <template>
     <div data-root>
-        <div data-wrapper ref="wrapper">
+        <div data-wrapper ref="wrapper" :style="style" style="position: fixed;">
             <div data-header>
                 <h2 v-text="lang?.profile?.cropper?.title" />
                 <Popper v-model:props="closePopper">
@@ -113,6 +116,7 @@ h2 {
 }
 
 [data-cancel] {
+    user-select: none;
     cursor: pointer;
     font-size: 20rem;
 }

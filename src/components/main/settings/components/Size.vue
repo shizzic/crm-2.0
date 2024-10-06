@@ -6,8 +6,8 @@ import Slider from '@views/inputs/slider/Main.vue'
 const model = ref(+useSettingsStore().size.slice(0, -2))
 let props = {
     interval: 0.01,
-    min: 0.8,
-    max: 1.2,
+    min: 0.7,
+    max: 1.1,
     lazy: false,
     tooltip: 'none',
     silent: true

@@ -14,14 +14,16 @@ changeFilter()
 watch(() => useSettingsStore().theme, () => {
     setTimeout(() => changeFilter(), 20)
 })
+
+const placement = 'right'
 const profile = computed(() => {
     return {
-        content: useSettingsStore().lang?.nav?.open_profile
+        content: useSettingsStore().lang?.nav?.open_profile, placement
     }
 })
 const logout = computed(() => {
     return {
-        content: useSettingsStore().lang?.nav?.logout
+        content: useSettingsStore().lang?.nav?.logout, placement
     }
 })
 </script>
@@ -70,18 +72,16 @@ nav {
 
 .router {
     width: 100%;
-    /* height: 50px; */
     cursor: pointer;
     border-radius: 50%;
 
     display: flex;
     justify-content: center;
-    padding: 10rem 0;
 }
 
 img {
-    width: 55%;
-    height: 85%;
+    width: 30rem;
+    height: 30rem;
     filter: v-bind(filter);
 }
 
