@@ -23,7 +23,7 @@ const { title, description } = defineProps<Props>()
     border-color: var(--border-color);
     border-radius: 8px;
 
-    padding: 30rem 30px;
+    padding: 30rem 30rem;
     margin-bottom: 25rem;
     margin-right: 30px;
 }

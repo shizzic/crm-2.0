@@ -17,7 +17,7 @@ export function expand(): void {
 
 watch(cssWidth, (value) => {
   if (value) width.value = value // изменяю ширину не скрытого сайдбара
-  document.documentElement.style.setProperty('--sidebar-width', `${value}px`) // а вот фактическую ширину css меняю в любом случаи
+  document.documentElement.style.setProperty('--sidebar-width', `${value}rem`) // а вот фактическую ширину css меняю в любом случаи
 })
 
-document.documentElement.style.setProperty('--sidebar-width', `${width.value}px`)
+document.documentElement.style.setProperty('--sidebar-width', `${width.value}rem`)

@@ -31,7 +31,8 @@ const logout = computed(() => {
         <RouterLink v-once class="router" id="profile_circle"
             :to="{ name: 'profile', query: { id: useUserStore().id } }">
             <Popper v-model:props="profile">
-                <Image :src="$img(String(useUserStore().avatar), 'user/user')" style="border-radius: 50%;" />
+                <Image :src="$img(useUserStore().avatar ?? '/no-photo.webp', 'user/user')"
+                    style="border-radius: 50%;" />
             </Popper>
         </RouterLink>
 
@@ -49,8 +50,8 @@ const logout = computed(() => {
 
 <style scoped>
 nav {
-    min-width: 82px;
-    max-width: 82px;
+    min-width: 82rem;
+    max-width: 82rem;
     height: 100%;
     background-color: var(--color-1);
     border-top-right-radius: 24px;
@@ -68,8 +69,8 @@ nav {
 }
 
 .router {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    /* height: 50px; */
     cursor: pointer;
     border-radius: 50%;
 

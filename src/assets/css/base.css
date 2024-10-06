@@ -33,6 +33,7 @@ for accessing global lib's css inside my own scope
 html {
   font-size: var(--html-size);
   background: var(--color-2);
+  width: var(--html-size);
 }
 
 body {

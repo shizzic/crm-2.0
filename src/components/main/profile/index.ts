@@ -5,7 +5,7 @@ export type User =
       phones: any
 
       // База
-      avatar: string
+      avatar: string | undefined
       birth_place: string | undefined
       birthday: string | number | undefined
 
@@ -20,7 +20,7 @@ export type User =
       patronymic: string
 
       // другое
-      images: string[]
+      images: string[] | undefined | null
       male: boolean | null
       companies: Item[]
 

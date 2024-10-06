@@ -3,32 +3,33 @@ import { useTemplateRef, watch } from 'vue'
 import { $img } from '@composables'
 import { $getFilter } from '@composables/icon'
 import type { Props } from '@views/inputs/file'
-import { fetcher } from '@composables/fetcher'
 import { useStore } from '../../../store'
+import { fetcher } from '@composables/fetcher'
 import type { ImagesResponse } from '../../../store/images'
 import Image from '@views/lib/image/Main.vue'
 import File from '@views/inputs/file/Main.vue'
 
+const $store = useStore()
 const filter = $getFilter(getComputedStyle(document.documentElement).getPropertyValue('--new-image-filter'))
+const input = useTemplateRef('input')
+
 let props: Props = {
     attributes: {
-        name: 'new_image_for_profile',
+        name: 'upload_image_to_profile',
         multiple: true,
         accept: 'image/jpg, image/png, image/x-png, image/jpeg, image/pjpeg'
     }
 }
-const input: any = useTemplateRef('input')
 
 const uploadImages = async (files: FileList): Promise<void> => {
     const form = new FormData()
     for (const file of files) form.append(file.name, file)
     const response: ImagesResponse = await fetcher.media.post('user/user/save-images', form)
-    if (input?.value) input.value.$store.model = new DataTransfer().files
-    useStore().updateImages(response)
+
+    if (input.value) input.value.$store.model = new DataTransfer().files
+    $store.updateImages(response)
 }
-watch(() => input?.value?.$store.model, (files: FileList): void => {
-    if (files.length > 0) uploadImages(files)
-})
+watch(() => input.value?.$store?.model, (files) => { if (files && files.length > 0) uploadImages(files) })
 </script>
 
 <template>

@@ -15,15 +15,12 @@ const wrapper = useTemplateRef('wrapper')
 const crop = useTemplateRef('cropper')
 let closePopper = { content: lang?.other.close }
 
-const closeCropper = () => {
-    $store.cropper.active = false
-    $store.cropper.blob = undefined
-}
-onClickOutside(wrapper, closeCropper)
+onClickOutside(wrapper, $store.clearCropper)
 const upload = () => {
     if (!crop.value) return
     const { coordinates, canvas } = crop.value.getResult()
-    console.log(coordinates, canvas)
+
+    $store.cropper.file ? $store.setFreshAvatar(canvas, $store.cropper.file) : $store.updateAvatar(String($store.cropper.src), coordinates)
 }
 </script>
 
@@ -33,7 +30,7 @@ const upload = () => {
             <div data-header>
                 <h2 v-text="lang?.profile?.cropper?.title" />
                 <Popper v-model:props="closePopper">
-                    <span data-cancel v-text="'&#128473;'" @click="closeCropper" />
+                    <span data-cancel v-text="'&#128473;'" @click="$store.clearCropper" />
                 </Popper>
             </div>
             <div data-main>
@@ -53,7 +50,7 @@ const upload = () => {
                                 padding: '15px 40px'
                             }
                         }
-                    }" style="margin-right: 20px;" @click="closeCropper" />
+                    }" style="margin-right: 20px;" @click="$store.clearCropper" />
                     <Submit v-bind="{
                         css: {
                             default: {

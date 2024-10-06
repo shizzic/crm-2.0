@@ -71,7 +71,7 @@ section {
 
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 25rem;
 }
 
 [data-hat] {

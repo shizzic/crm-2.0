@@ -1,25 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, computed } from 'vue'
 import type { Ref } from 'vue'
-import { useHttpStore } from '@stores'
+import { useHttpStore, useImageStore } from '@stores'
+import type { Props } from './'
 import { Skeletor } from 'vue-skeletor'
 import 'vue-skeletor/dist/vue-skeletor.css'
 
 const media: Ref<string | undefined> = ref(undefined)
 const isFetched: Ref<boolean> = ref(false)
-
-interface Props {
-    src: string
-}
 const props = defineProps<Props>()
+const isRecacheNeeded = computed(() => props.src in useImageStore().recache)
+const isLink = computed(() => props.src.search("https") > -1)
+
+watch(isRecacheNeeded, (value) => {
+    if (value) getBlobWithRecached()
+})
 
 // если это ссылка, то я делаю подгрузку raw данных фотографии, если нет, то подгружаю с локальных ассетов
-const get = async function (src: string) {
-    if (src.search("https") !== -1) {
+const getBlob = async function (src: string, cache?: any) {
+    if (isLink.value) {
         fetch(src, {
             headers: useHttpStore().raw_headers(),
             credentials: "include",
-            cache: 'force-cache',
+            cache: cache ?? 'force-cache'
         })
             .then(r => { return r.blob() })
             .then(blob => {
@@ -32,11 +35,19 @@ const get = async function (src: string) {
     }
 }
 
-props.src ? get(props.src) : isFetched.value = true
+function getBlobWithRecached(): void {
+    getBlob(props.src, 'default')
+    delete useImageStore().recache[props.src]
+}
+
+if (props.src) {
+    isRecacheNeeded.value ? getBlobWithRecached() : getBlob(props.src)
+} else
+    isFetched.value = true
 </script>
 
 <template>
-    <img v-if="isFetched && media" :src="media" loading="lazy">
+    <img v-if="isFetched && media" :src="media" loading="lazy" :key="String(isRecacheNeeded)">
     <Skeletor v-else-if="!media && !isFetched" data-skeletor />
 </template>
 

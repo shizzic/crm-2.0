@@ -13,6 +13,7 @@ $setComponentStyle('profile')
 const $store = useStore()
 fetcher.get('user/user/get-profile?target_id=' + useRoute().query.id)
     .then((r: any) => {
+        if (r?.data?.user && r.data.user.avatar === '/no-photo.webp') r.data.user.avatar = undefined
         $store.user = r?.data?.user
         $store.roles = r?.data?.roles
     })

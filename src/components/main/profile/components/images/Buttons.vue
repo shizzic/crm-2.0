@@ -5,14 +5,23 @@ import { $img } from '@composables'
 import Image from '@views/lib/image/Main.vue'
 import Popper from '@views/lib/popper/Main.vue'
 
-let props = { content: useSettingsStore().lang?.profile?.delete }
+const $store = useStore()
+let deletePopper = { content: useSettingsStore().lang?.profile?.delete }
+let avatarPopper = { content: useSettingsStore().lang?.profile?.avatar }
 </script>
 
 <template>
     <div data-buttons>
-        <Popper v-model:props="props">
-            <div data-button @click="useStore().deleteImage()">
+        <Popper v-model:props="deletePopper">
+            <div data-button @click="$store.deleteImage">
                 <Image :src="$img('/lib/delete.webp')" />
+            </div>
+        </Popper>
+
+        <Popper v-model:props="avatarPopper">
+            <div v-show="$store.user?.images?.[0]?.split('/').slice(0, -1).pop() !== '0'" data-button
+                @click="$store.crop($store.currentImageIndex)">
+                <Image :src="$img('/profile/makeAvatar.webp')" />
             </div>
         </Popper>
     </div>

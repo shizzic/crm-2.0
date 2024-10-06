@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useTemplateRef, computed, ref } from 'vue'
+import { useTemplateRef, computed, ref, onMounted } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
 import { $img } from '@composables'
 import "viewerjs/dist/viewer.css"
 import { directive as viewer } from "v-viewer"
+import { } from 'v-viewer'
 import { dragscroll as vDragscroll } from 'vue-dragscroll'
 import Image from '@views/lib/image/Main.vue'
 import New from './new/Main.vue'
@@ -13,6 +14,7 @@ import Popper from '@views/lib/popper/Main.vue'
 
 const $store = useStore()
 const wrapper = useTemplateRef('wrapper')
+const vViewer = viewer({})
 const options = {
     focus: false,
     toolbar: false,
@@ -22,7 +24,6 @@ const options = {
     hide: () => $store.isViewerActive = false,
     view: (e: any) => $store.currentImageIndex = e.detail.index
 }
-const vViewer = viewer({})
 const images = computed(() => $store.user?.images)
 const isClicked = ref(false)
 const isMoved = ref(false)
@@ -32,6 +33,13 @@ const scrollHandler = (e: WheelEvent): void => {
     e.preventDefault()
     if (wrapper.value) wrapper.value.scrollLeft += e.deltaY
 }
+
+const $viewer: any = useTemplateRef('$viewer')
+onMounted(() => {
+    setTimeout(() => {
+        $store.$viewer = $viewer.value?.viewer
+    }, 200)
+})
 </script>
 
 <template>
@@ -43,8 +51,8 @@ const scrollHandler = (e: WheelEvent): void => {
             <New :style="{ 'pointer-events': isClicked && isMoved ? 'none' : 'auto' }" />
         </Popper>
 
-        <div data-images v-viewer.rebuild="options">
-            <Image v-for="image in images" :key="image" :src="$img(image, 'user/user')" data-image
+        <div data-images v-viewer.rebuild="options" ref="$viewer">
+            <Image v-for="src in images" :key="src" :src="$img(src, 'user/user')" data-image
                 :style="{ 'pointer-events': isClicked && isMoved ? 'none' : 'auto' }" />
         </div>
 
@@ -76,12 +84,12 @@ const scrollHandler = (e: WheelEvent): void => {
 [data-new-image],
 [data-image] {
     cursor: grabbing;
-    width: 182px;
-    min-width: 182px;
-    max-width: 182px;
-    height: 177px;
-    min-height: 177px;
-    max-height: 177px;
+    width: 182rem;
+    min-width: 182rem;
+    max-width: 182rem;
+    height: 177rem;
+    min-height: 177rem;
+    max-height: 177rem;
     border-radius: 26px;
 }
 
@@ -91,7 +99,7 @@ const scrollHandler = (e: WheelEvent): void => {
 }
 
 [data-images-wrapper]::-webkit-scrollbar {
-    height: 10px;
+    height: 13px;
 }
 
 [data-images-wrapper]::-webkit-scrollbar-track {

@@ -1,43 +1,56 @@
 <script setup lang="ts">
-// import type { SubComponentProps } from '@components/main/sidebar'
-import { computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { useSettingsStore } from '@stores'
-// import { useStore as useSidebarStore } from '@components/main/sidebar/store'
 import { useStore } from '../../store'
+import type { Props } from '@views/inputs/file'
 import { $img } from '@composables'
-import { fetcher } from '@composables/fetcher'
 import Popper from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
+import File from '@views/inputs/file/Main.vue'
 import Cropper from './Cropper.vue'
 
 const $store = useStore()
 let popper = { content: useSettingsStore().lang?.profile?.change }
-const avatar = computed(() => $store.user?.avatar ?? 'no-photo.webp')
-// const props = defineProps<SubComponentProps>()
-// onBeforeMount(() => {
-//     console.log(useSidebarStore().components.top[props.identifier].component.__asyncResolved.__hmrId)
-// })
+const src = computed(() => $img($store.user?.avatar ?? 'no-photo.webp', 'user/user'))
+let props: Props = {
+    attributes: {
+        name: 'upload_avatar',
+        multiple: false,
+        accept: 'image/jpg, image/png, image/x-png, image/jpeg, image/pjpeg'
+    }
+}
+const input = useTemplateRef('input')
 
-const reCropCurrentAvatar = async (): Promise<void> => {
-    if (!$store.user) return
-    $store.cropper.blob = await fetcher.blob.get($img($store.user.images[0], 'user/user'))
-    $store.cropper.src = $store.user.images[0]
-    $store.cropper.active = true
+const loadImage = () => {
+    const files = input.value?.$store.model
+
+    if (files && files[0]) {
+        const blob = URL.createObjectURL(files[0])
+        const reader = new FileReader()
+
+        reader.onload = () => {
+            $store.cropper.blob = blob
+            $store.cropper.file = files[0]
+            $store.cropper.active = true
+        }
+        reader.readAsArrayBuffer(files[0])
+    }
 }
 </script>
 
 <template>
     <div data-root>
         <div data-avatar-wrapper>
-            <Image data-avatar :src="$img(avatar, 'user/user')" :key="avatar" />
+            <Image data-avatar :src="src" :key="src" />
 
-            <Popper v-if="$store.user?.self && $store.user?.avatar" v-model:props="popper">
-                <div data-button @click="reCropCurrentAvatar">
+            <Popper v-if="$store.user?.self" v-model:props="popper">
+                <div data-button @click="$store.user?.avatar ? $store.crop(0) : input?.element?.click()">
                     <Image :src="$img('profile/edit.webp')" />
                 </div>
             </Popper>
         </div>
 
+        <File v-show="false" v-model:props="props" ref="input" @change="loadImage" />
         <Cropper v-if="$store.cropper.active" />
     </div>
 </template>
@@ -63,6 +76,7 @@ const reCropCurrentAvatar = async (): Promise<void> => {
 }
 
 [data-button] {
+    user-select: none;
     cursor: pointer;
     width: 12%;
     background-color: var(--color-5);

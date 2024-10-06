@@ -1,6 +1,6 @@
 {
   "name": "isinda",
-  "version": "0.1.24",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -23,6 +23,7 @@
     "clone": "^2.1.2",
     "css-filter-converter": "^1.0.109",
     "nanoevents": "^9.0.0",
+    "object-to-formdata": "^4.5.1",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^4.0.0",
     "v-viewer": "^3.0.20",

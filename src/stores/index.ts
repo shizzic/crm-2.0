@@ -5,6 +5,7 @@ export * from './sse/device'
 export * from './project'
 export * from './domain'
 export * from './access'
+export * from './image'
 
 import clone from 'clone'
 import { getActivePinia, defineStore } from 'pinia'
