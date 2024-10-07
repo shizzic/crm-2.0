@@ -13,10 +13,11 @@ const $store = useStore()
 const lang = useSettingsStore().lang
 const wrapper = useTemplateRef('wrapper')
 const crop = useTemplateRef('cropper')
+const header = useTemplateRef('header')
 let closePopper = { content: lang?.other.close }
 
 onClickOutside(wrapper, $store.clearCropper)
-const { style } = useDraggable(wrapper, {
+const { style } = useDraggable(header, {
     initialValue: { x: Math.round(window.outerWidth * 0.25), y: Math.round(window.outerWidth * 0.08) },
 })
 const upload = () => {
@@ -30,7 +31,7 @@ const upload = () => {
 <template>
     <div data-root>
         <div data-wrapper ref="wrapper" :style="style" style="position: fixed;">
-            <div data-header>
+            <div data-header ref="header">
                 <h2 v-text="lang?.profile?.cropper?.title" />
                 <Popper v-model:props="closePopper">
                     <span data-cancel v-text="'&#128473;'" @click="$store.clearCropper" />
@@ -100,6 +101,7 @@ const upload = () => {
 }
 
 [data-header] {
+    cursor: grabbing;
     height: max-content;
     border-bottom: 1.5px solid #C4C4C4;
 
