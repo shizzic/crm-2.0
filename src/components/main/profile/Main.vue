@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { onBeforeUnmount, defineAsyncComponent, watch } from 'vue'
+import { onBeforeUnmount, onBeforeMount } from 'vue'
 import { fetcher } from '@composables/fetcher'
 import { useRoute } from 'vue-router'
 import { useStore } from './store'
-import { useStore as useSidebarStore } from '@components/main/sidebar/store'
+import { useSidebarStore } from '@stores'
 import { $setComponentStyle } from '@composables/theme'
 import Info from './components/info/Main.vue'
 import Images from './components/images/Main.vue'
-const Avatar = defineAsyncComponent(() => import('./components/avatar/Main.vue'))
+import Avatar from './components/avatar/Main.vue'
 
 $setComponentStyle('profile')
 const $store = useStore()
@@ -18,9 +18,12 @@ fetcher.get('user/user/get-profile?target_id=' + useRoute().query.id)
         $store.roles = r?.data?.roles
     })
 
-onBeforeUnmount(() => $store.$reset())
-watch(() => $store.user, (value) => {
-    if (value) useSidebarStore().components.top.push({ component: Avatar })
+onBeforeUnmount(() => {
+    useSidebarStore().$reset()
+    $store.$reset()
+})
+onBeforeMount(() => {
+    useSidebarStore().components.add({ component: Avatar }, 'top')
 })
 </script>
 
@@ -50,6 +53,7 @@ section {
     border-radius: 22px;
 
     padding: 30rem;
+    overflow: hidden;
 }
 
 .block:not(:last-of-type) {

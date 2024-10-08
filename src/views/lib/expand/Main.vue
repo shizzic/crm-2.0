@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { ComputedRef } from 'vue'
-import { useSettingsStore } from '@stores'
-import { useStore } from '@components/main/sidebar/store'
+import { useSettingsStore, useSidebarStore } from '@stores'
 import { $img } from '@assets/composables'
 import Poppers from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
@@ -17,7 +16,7 @@ const popper: ComputedRef<Props> = computed(() => {
 
 <template>
     <Poppers v-model:props="popper">
-        <button data-button @click="useStore().expand()">
+        <button data-button @click="useSidebarStore().expand()">
             <Image :src="$img('/lib/expand.webp')" />
         </button>
     </Poppers>

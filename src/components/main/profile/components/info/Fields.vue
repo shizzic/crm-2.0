@@ -62,52 +62,50 @@ onMounted(() => {
                 <span data-field-value v-text="phone" />
             </div>
 
-            <div data-field>
-                <Image :src="$img('/lib/calendar.webp')" />
-                <h3 v-text="lang.table.birthday + ':'" />
-                <span data-field-value v-text="date" />
-            </div>
+            <div v-if="useStore().$fields.expand">
+                <div data-field>
+                    <Image :src="$img('/lib/calendar.webp')" />
+                    <h3 v-text="lang.table.birthday + ':'" />
+                    <span data-field-value v-text="date" />
+                </div>
 
-            <div data-field>
-                <Image :src="$img('/lib/gender.webp')" />
-                <h3 v-text="lang.table.male + ':'" />
-                <span data-field-value
-                    v-text="$user?.male !== null ? ($user?.male ? lang.other.man : lang.other.woman) : ''" />
-            </div>
+                <div data-field>
+                    <Image :src="$img('/lib/gender.webp')" />
+                    <h3 v-text="lang.table.male + ':'" />
+                    <span data-field-value
+                        v-text="$user?.male !== null ? ($user?.male ? lang.other.man : lang.other.woman) : ''" />
+                </div>
 
-            <div data-field>
-                <Image :src="$img('/lib/location.webp')" />
-                <h3 v-text="lang.profile.edit.birth_place.title + ':'" />
-                <span data-field-value v-text="$user?.birth_place" />
-            </div>
+                <div data-field>
+                    <Image :src="$img('/lib/location.webp')" />
+                    <h3 v-text="lang.profile.edit.birth_place.title + ':'" />
+                    <span data-field-value v-text="$user?.birth_place" />
+                </div>
 
-            <div data-field>
-                <Image :src="$img('/lib/location.webp')" />
-                <h3 v-text="lang.profile.current_place + ':'" />
-                <span data-field-value>
-                    <span v-if="$user?.country" v-text="$user?.country.title" data-field-value />
-                    <span v-if="$user?.region" v-text="', ' + $user?.region.title" data-field-value />
-                    <span v-if="$user?.city" v-text="', ' + $user?.city.title" data-field-value />
-                </span>
-            </div>
+                <div data-field>
+                    <Image :src="$img('/lib/location.webp')" />
+                    <h3 v-text="lang.profile.current_place + ':'" />
+                    <span data-field-value>
+                        <span v-if="$user?.country" v-text="$user?.country.title" data-field-value />
+                        <span v-if="$user?.region" v-text="', ' + $user?.region.title" data-field-value />
+                        <span v-if="$user?.city" v-text="', ' + $user?.city.title" data-field-value />
+                    </span>
+                </div>
 
-            <div data-field>
-                <Image :src="$img('/lib/company.webp')" />
-                <h3 v-text="lang.profile.edit.companies.title + ':'" />
-                <span v-if="$user?.companies" data-field-value>
-                    <span v-for="(agency, index) in $user.companies" :key="agency.id" data-field-value
-                        v-text="agency.title + ((index + 1) === $user.companies.length ? '' : ', ')" />
-                </span>
+                <div data-field>
+                    <Image :src="$img('/lib/company.webp')" />
+                    <h3 v-text="lang.profile.edit.companies.title + ':'" />
+                    <span v-if="$user?.companies" data-field-value>
+                        <span v-for="(agency, index) in $user.companies" :key="agency.id" data-field-value
+                            v-text="agency.title + ((index + 1) === $user.companies.length ? '' : ', ')" />
+                    </span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-[data-fields-wrapper] {
-    margin-top: 25rem;
-}
-
 [data-divider] {
     width: 55%;
     height: 1.5px;

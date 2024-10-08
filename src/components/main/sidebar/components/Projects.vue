@@ -47,17 +47,16 @@ fetcher.get('project/project-user/attached-projects')
     })
 
 const model: Ref<any> = ref(null)
-watch(model, (data) => {
-    useProjectStore().id = data?.id
-    useProjectStore().title = data?.title
-})
 
-const initModel = (): void => {
+initModel()
+watch(model, (data) => {
+    useProjectStore().id = data!.id
+    useProjectStore().title = data!.title
+})
+function initModel(): void {
     if (useProjectStore().id && useProjectStore().title)
         model.value = { id: +String(useProjectStore().id), title: String(useProjectStore().title) }
 }
-
-initModel()
 </script>
 
 <template>

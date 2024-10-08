@@ -70,14 +70,12 @@ export const useUserStore = defineStore(
           } else {
             logout()
           }
-
-          // this.http(data)
         })
     }
 
     function logout(): void {
       console.trace()
-      resetAllStores(['settings'])
+      resetAllStores('settings', 'project')
     }
 
     // save_password prompt in browser

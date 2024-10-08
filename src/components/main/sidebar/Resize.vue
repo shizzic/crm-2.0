@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, useTemplateRef } from 'vue'
-import { useStore } from './store'
+import { useSidebarStore } from './store'
 
-const $store = useStore()
+const $store = useSidebarStore()
 const resizer = useTemplateRef('resizer')
 document.documentElement.style.setProperty('--sidebar-width-transition', 'width .15s ease-out, max-width .15s ease-out, min-width .15s ease-out')
 

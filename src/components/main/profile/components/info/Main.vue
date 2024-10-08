@@ -7,11 +7,13 @@ const $store = useStore()
 
 <template>
     <div class="block">
-        <h2 v-text="$store.user?.surname + ' ' + $store.user?.firstname + ' ' + $store.user?.patronymic" />
+        <div data-header @click="$store.$fields.expand = !$store.$fields.expand">
+            <h2 v-text="$store.user?.surname + ' ' + $store.user?.firstname + ' ' + $store.user?.patronymic" />
 
-        <div data-roles>
-            <span v-for="(role, index) in $store.roles" :key="index"
-                v-text="role + ((index + 1) === $store.roles.length ? '' : ',')" />
+            <div data-roles>
+                <span v-for="(role, index) in $store.roles" :key="index"
+                    v-text="role + ((index + 1) === $store.roles.length ? '' : ',')" />
+            </div>
         </div>
 
         <Fields />
@@ -19,6 +21,13 @@ const $store = useStore()
 </template>
 
 <style scoped>
+[data-header] {
+    width: 100%;
+    cursor: pointer;
+
+    padding-bottom: 25rem;
+}
+
 h2 {
     font-weight: 700;
     font-size: 30rem;

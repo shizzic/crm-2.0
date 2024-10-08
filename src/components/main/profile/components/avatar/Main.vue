@@ -12,7 +12,7 @@ import Cropper from './Cropper.vue'
 const $store = useStore()
 let popper = { content: useSettingsStore().lang?.profile?.change }
 const src = computed(() => $img($store.user?.avatar ?? 'no-photo.webp', 'user/user'))
-let props: Props = {
+let fileProps: Props = {
     attributes: {
         name: 'upload_avatar',
         multiple: false,
@@ -39,7 +39,7 @@ const loadImage = () => {
 </script>
 
 <template>
-    <div data-root>
+    <div v-if="$store.user" data-root>
         <div data-avatar-wrapper>
             <Image data-avatar :src="src" :key="src" />
 
@@ -50,7 +50,7 @@ const loadImage = () => {
             </Popper>
         </div>
 
-        <File v-show="false" v-model:props="props" ref="input" @change="loadImage" />
+        <File v-show="false" v-model:props="fileProps" ref="input" @change="loadImage" />
         <Cropper v-if="$store.cropper.active" />
     </div>
 </template>

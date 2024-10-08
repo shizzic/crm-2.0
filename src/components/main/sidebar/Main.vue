@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { defineAsyncComponent, computed } from 'vue'
-import { useStore } from './store'
+import { useSidebarStore } from './store'
 import Resize from './Resize.vue'
 import { $removeComponentStyle, $setComponentStyle } from '@/assets/composables/theme';
 const Projects = defineAsyncComponent(() => import('./components/Projects.vue'))
 const Domains = defineAsyncComponent(() => import('./components/domains/Main.vue'))
 
-const $store = useStore()
+const $store = useSidebarStore()
 const sidebarPadding = computed(() => $store.cssWidth ? 'var(--padding)' : 0)
 
 $removeComponentStyle()
@@ -17,12 +17,14 @@ $setComponentStyle(String('profile'))
     <aside>
         <div data-components>
             <component v-for="(item, identifier) in $store.components.top" :is="{ ...item.component }"
-                :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'top'" />
+                :key="item?.component?.__hmrId ?? item?.component?.__asyncResolved?.__hmrId" :identifier="identifier"
+                :place="'top'" />
 
             <Projects />
             <Domains />
             <component v-for="(item, identifier) in $store.components.bottom" :is="{ ...item.component }"
-                :key="item?.component?.__asyncResolved?.__hmrId" :identifier="identifier" :place="'bottom'" />
+                :key="item?.component?.__hmrId ?? item?.component?.__asyncResolved?.__hmrId" :identifier="identifier"
+                :place="'bottom'" />
         </div>
 
         <div data-resize-wrapper>

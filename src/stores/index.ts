@@ -6,6 +6,7 @@ export * from './project'
 export * from './domain'
 export * from './access'
 export * from './image'
+export * from '@components/main/sidebar/store'
 
 import clone from 'clone'
 import { getActivePinia, defineStore } from 'pinia'
@@ -20,7 +21,7 @@ export function addResetMethod({ store }: any): void {
   }
 }
 
-export function resetAllStores(except?: string[]): void {
+export function resetAllStores(...except: string[]): void {
   const activepinia = getActivePinia()
   if (activepinia) {
     Object.entries(activepinia.state.value).forEach(([storeName, state]) => {
