@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { watch, ref, computed } from 'vue'
+import type { ComputedRef } from 'vue'
 import { useSettingsStore, useUserStore } from '@stores'
 import { $getFilter } from '@composables/icon'
+import { $img } from '@composables'
+import type { Props } from '@views/lib/popper'
 import Popper from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
-import { $img } from '@composables'
 
 const filter = ref('')
 const changeFilter = () => {
@@ -16,12 +18,12 @@ watch(() => useSettingsStore().theme, () => {
 })
 
 const placement = 'right'
-const profile = computed(() => {
+const profile: ComputedRef<Props> = computed(() => {
     return {
         content: useSettingsStore().lang?.nav?.open_profile, placement
     }
 })
-const logout = computed(() => {
+const logout: ComputedRef<Props> = computed(() => {
     return {
         content: useSettingsStore().lang?.nav?.logout, placement
     }

@@ -4,8 +4,9 @@ import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
 import { $img } from '@composables'
-import Image from '@views/lib/image/Main.vue'
 import { $getFilter } from '@composables/icon'
+import Image from '@views/lib/image/Main.vue'
+import Copy from '@views/lib/copy/Main.vue'
 
 const lang = useSettingsStore().lang
 const locale = useSettingsStore().locale
@@ -54,12 +55,14 @@ onMounted(() => {
                 <Image :src="$img('/lib/email.webp')" />
                 <h3 v-text="lang.profile.edit.email.title + ':'" />
                 <span data-field-value v-text="$user?.email" />
+                <Copy :text="$user?.email" />
             </div>
 
             <div data-field>
                 <Image :src="$img('/lib/phone.webp')" />
                 <h3 v-text="lang.profile.edit.phones.title + ':'" />
                 <span data-field-value v-text="phone" />
+                <Copy :text="phone" />
             </div>
 
             <div v-if="useStore().$fields.expand">

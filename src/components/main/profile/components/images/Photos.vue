@@ -5,7 +5,7 @@ import { useStore } from '../../store'
 import { $img } from '@composables'
 import "viewerjs/dist/viewer.css"
 import { directive as viewer } from "v-viewer"
-import { } from 'v-viewer'
+import type { Props } from '@views/lib/popper'
 import { dragscroll as vDragscroll } from 'vue-dragscroll'
 import Image from '@views/lib/image/Main.vue'
 import New from './new/Main.vue'
@@ -27,7 +27,7 @@ const options = {
 const images = computed(() => $store.user?.images)
 const isClicked = ref(false)
 const isMoved = ref(false)
-let popper = { content: useSettingsStore().lang?.profile?.add, placement: 'left' }
+let popper: Props = { content: useSettingsStore().lang?.profile?.add, placement: 'left' }
 
 const scrollHandler = (e: WheelEvent): void => {
     e.preventDefault()

@@ -3,8 +3,22 @@ import type { CSS } from '@types'
 export type Props =
   | {
       content?: string
+      placement?:
+        | 'bottom'
+        | 'top'
+        | 'auto'
+        | 'auto-start'
+        | 'auto-end'
+        | 'top-start'
+        | 'top-end'
+        | 'bottom-start'
+        | 'bottom-end'
+        | 'right'
+        | 'right-start'
+        | 'left'
       hover?: boolean
       arrow?: boolean
+      interactive?: boolean
       css?: CSS
     }
   | undefined
@@ -27,7 +41,9 @@ export const DefaultCSS: CSS = {
 
 export const defaultProps: Props = {
   content: '',
+  placement: 'bottom',
   hover: true,
   arrow: true,
+  interactive: true,
   css: DefaultCSS
 }

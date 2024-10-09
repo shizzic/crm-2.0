@@ -12,7 +12,8 @@ $store.setParams(passedProps)
 </script>
 
 <template>
-    <Popper v-bind="$store.props" style="border: none; margin: 0;">
+    <Popper v-bind="$store.props"
+        style="border: none; padding: 0; margin: 0; width: max-content; height: max-content; min-width: none; min-height: none;">
         <slot />
     </Popper>
 </template>
