@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { emitter as cancel } from '@/views/lib/cancel'
+import { emitter as cancel } from '@views/lib/cancel'
 
 const content = useTemplateRef('content')
 onClickOutside(content, () => { cancel.emit('default') })

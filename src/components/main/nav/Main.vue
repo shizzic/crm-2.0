@@ -2,12 +2,17 @@
 import { watch, ref, computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore, useUserStore } from '@stores'
+import { useNavStore } from './store'
 import { $getFilter } from '@composables/icon'
+import { $setComponentStyle } from '@composables/theme'
 import { $img } from '@composables'
 import type { Props } from '@views/lib/popper'
 import Popper from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
+import MenuItem from './components/Item.vue'
 
+$setComponentStyle('nav')
+const $store = useNavStore()
 const filter = ref('')
 const changeFilter = () => {
     filter.value = $getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-6'))
@@ -40,13 +45,13 @@ const logout: ComputedRef<Props> = computed(() => {
             </Popper>
         </RouterLink>
 
-        <RouterLink v-once class="router" :to="{ name: 'settings' }">
-            Settings
-        </RouterLink>
+        <div id="menu">
+            <MenuItem v-for="(item, index) in $store.menu" :key="index" v-bind="item" class="router" />
+        </div>
 
         <Popper v-model:props="logout">
             <div v-once class="router" id="logout" @click="useUserStore().logout()">
-                <img src="@assets/images/nav/logout.webp">
+                <Image :src="$img('/nav/logout.webp')" style="border-radius: 0;" />
             </div>
         </Popper>
     </nav>
@@ -54,8 +59,8 @@ const logout: ComputedRef<Props> = computed(() => {
 
 <style scoped>
 nav {
-    min-width: 82rem;
-    max-width: 82rem;
+    min-width: v-bind("`${$store.width}rem`");
+    max-width: v-bind("`${$store.width}rem`");
     height: 100%;
     background-color: var(--color-1);
     border-top-right-radius: 24px;
@@ -64,26 +69,35 @@ nav {
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
 
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     padding: 20rem 13rem;
 
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
+#menu {
+    height: 100%;
+
+    padding: 20rem 0;
+    overflow: auto;
+}
+
 .router {
-    width: 100%;
+    align-self: flex-start;
     cursor: pointer;
+    width: 50rem;
+    height: 50rem;
     border-radius: 50%;
 
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
 img {
-    width: 30rem;
-    height: 30rem;
     filter: v-bind(filter);
 }
 
@@ -94,6 +108,8 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin: 0 auto;
 }
 
 #profile_circle img {
@@ -104,6 +120,13 @@ img {
 
 #logout {
     background-color: none;
-    align-self: flex-end;
+    justify-self: flex-end;
+
+    margin: 0 auto;
+}
+
+#logout img {
+    width: 30rem;
+    height: 30rem;
 }
 </style>

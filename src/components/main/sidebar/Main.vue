@@ -10,7 +10,6 @@ const $store = useSidebarStore()
 const sidebarPadding = computed(() => $store.cssWidth ? 'var(--padding)' : 0)
 
 $removeComponentStyle()
-$setComponentStyle(String('profile'))
 </script>
 
 <template>

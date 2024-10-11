@@ -40,6 +40,7 @@ function copy(): void {
 
 <style scoped>
 [data-copy-wrapper] {
+    user-select: none;
     cursor: pointer;
     max-height: 100%;
     width: 20rem;

@@ -1,7 +1,3 @@
 <template>
-    <section>
-        <RouterLink :to="{ name: 'settings' }">to settings</RouterLink>
-    </section>
+    <section />
 </template>
-
-<style scoped></style>

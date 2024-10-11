@@ -6,6 +6,7 @@ export * from './project'
 export * from './domain'
 export * from './access'
 export * from './image'
+export * from './components'
 export * from '@components/main/sidebar/store'
 
 import clone from 'clone'

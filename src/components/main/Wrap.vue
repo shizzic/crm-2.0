@@ -9,7 +9,7 @@ import Sidebar from './sidebar/Main.vue'
         <Sidebar />
 
         <RouterView v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
+            <transition name="slide-fade" mode="out-in">
                 <component :is="Component" />
             </transition>
         </RouterView>
@@ -27,13 +27,13 @@ import Sidebar from './sidebar/Main.vue'
     overflow-x: auto;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.slide-fade-enter-active,
+.slide-fade-leave-active {
     transition: opacity .2s ease;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.slide-fade-enter-from,
+.slide-fade-leave-to {
     opacity: 0;
 }
 </style>

@@ -1,0 +1,7 @@
+:root {
+  --nav-image-filter: var(--color-1);
+}
+
+.router {
+  --bg: var(--color-5);
+}
