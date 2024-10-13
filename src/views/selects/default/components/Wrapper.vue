@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { inject, useTemplateRef } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { useStore } from '../store'
+import type { StoreID } from '@types'
 import Modal from '@views/modal/default/Main.vue'
 import Header from './components/Header.vue'
 import Search from './components/Search.vue'
 import Selected from './components/Selected.vue'
-import List from './components/List.vue'
-import { useStore } from '../store'
-import type { StoreID } from '@types'
+import List from './components/list/List.vue'
+import Undefined from './components/list/Undefined.vue'
+import Loading from './components/list/Loading.vue'
 
 const $id = inject('$id') as StoreID
 const $store = useStore($id)()
@@ -27,7 +29,9 @@ onClickOutside(wrapper, (e: any) => { if (e?.target?.id === 'modal') $store.prop
                 <Header v-if="$store.props.wrapper.description || !$store.props.hideClear" />
                 <Search />
                 <Selected v-if="$store.props.multiple" />
-                <List v-if="$store.props.wrapper.list" />
+                <Undefined v-if="$store.props.wrapper.list === null || $store.props.wrapper.list?.length === 0" />
+                <Loading v-else-if="$store.props.wrapper.list === undefined" />
+                <List v-else />
             </div>
         </Transition>
     </div>

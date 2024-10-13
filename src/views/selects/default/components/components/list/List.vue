@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import { useStore } from '../../store'
+import { useStore } from '../../../store'
 import { $getDeep } from '@composables'
 import type { Index, StoreID } from '@types'
 
