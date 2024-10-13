@@ -2,7 +2,7 @@
 import { defineAsyncComponent, computed } from 'vue'
 import { useSidebarStore } from './store'
 import Resize from './Resize.vue'
-import { $removeComponentStyle, $setComponentStyle } from '@/assets/composables/theme';
+import { $removeComponentStyle } from '@composables/theme'
 const Projects = defineAsyncComponent(() => import('./components/Projects.vue'))
 const Domains = defineAsyncComponent(() => import('./components/domains/Main.vue'))
 
