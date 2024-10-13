@@ -82,7 +82,7 @@ emitter.on('closeList', () => active.value = false)
 
 <style scoped>
 .router {
-    cursor: pointer;
+    cursor: inherit;
     align-self: flex-start;
     width: 100%;
     background-color: transparent;

@@ -4,6 +4,7 @@ import { useSettingsStore, useAccessStore } from '@stores'
 import { useNavStore } from './store'
 import { $getFilter } from '@composables/icon'
 import { $setComponentStyle } from '@composables/theme'
+import { dragscroll as vDragscroll } from 'vue-dragscroll'
 import Profile from './components/Profile.vue'
 import Logout from './components/Logout.vue'
 import MenuItem from './components/default/Item.vue'
@@ -14,6 +15,7 @@ $setComponentStyle('nav')
 const $store = useNavStore()
 const filter = ref('')
 const align = computed(() => $store.width === $store.minWidth ? 'center' : 'flex-start')
+const isDragging = ref(false)
 
 const changeFilter = () => {
     filter.value = $getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-6'))
@@ -29,10 +31,13 @@ onBeforeUnmount(() => useAccessStore().clearUpdater())
 <template>
     <nav>
         <Profile />
-        <div id="menu">
-            <template v-for="(item, index) in $store.menu" :key="index">
-                <MenuItem v-if="$store.isDeeper(item)" v-bind="item" />
-            </template>
+        <div data-menu>
+            <div id="menu" v-dragscroll.y="true" :data-menu-grabbing="isDragging" @dragscrollstart="isDragging = true"
+                @dragscrollend="isDragging = false" :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }">
+                <template v-for="(item, index) in $store.menu" :key="index">
+                    <MenuItem v-if="$store.isDeeper(item)" v-bind="item" :disabled="isDragging" />
+                </template>
+            </div>
         </div>
         <Expand v-once />
         <Logout v-once />
@@ -62,16 +67,30 @@ nav {
     transition: all .2s ease-out;
 }
 
-#menu {
+[data-menu] {
     width: 100%;
     height: 100%;
 
     padding: 20rem 0;
-    overflow: auto;
+}
+
+#menu {
+    width: 100%;
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+[data-menu-grabbing="false"] {
+    cursor: grab;
+}
+
+[data-menu-grabbing="true"] {
+    cursor: grabbing;
 }
 
 .router {
-    cursor: pointer;
     align-self: flex-start;
     width: 100%;
     background-color: transparent;

@@ -25,8 +25,7 @@ const options = {
     view: (e: any) => $store.currentImageIndex = e.detail.index
 }
 const images = computed(() => $store.user?.images)
-const isClicked = ref(false)
-const isMoved = ref(false)
+const isDragging = ref(false)
 let popper: Props = { content: useSettingsStore().lang?.profile?.add, placement: 'left' }
 
 const scrollHandler = (e: WheelEvent): void => {
@@ -43,17 +42,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <div data-images-wrapper ref="wrapper" @wheel="scrollHandler" v-dragscroll="true" @mousedown="isClicked = true"
-        @mouseup="isClicked = false; isMoved = false;" @mousemove="if (isClicked) isMoved = true;"
-        @mouseleave="isClicked = false; isMoved = false;">
-
+    <div data-images-wrapper ref="wrapper" @wheel="scrollHandler" v-dragscroll.x="true"
+        @dragscrollstart="isDragging = true" @dragscrollend="isDragging = false" :data-grabbing="isDragging">
         <Popper v-if="$store.user?.self" v-model:props="popper">
-            <New :style="{ 'pointer-events': isClicked && isMoved ? 'none' : 'auto' }" />
+            <New :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }" />
         </Popper>
 
         <div data-images v-viewer.rebuild="options" ref="$viewer">
             <Image v-for="src in images" :key="src" :src="$img(src, 'user/user')" data-image
-                :style="{ 'pointer-events': isClicked && isMoved ? 'none' : 'auto' }" />
+                :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }" />
         </div>
 
         <Buttons v-show="$store.isViewerActive" />
@@ -83,7 +80,6 @@ onMounted(() => {
 
 [data-new-image],
 [data-image] {
-    cursor: grabbing;
     width: 182rem;
     min-width: 182rem;
     max-width: 182rem;
@@ -91,6 +87,14 @@ onMounted(() => {
     min-height: 177rem;
     max-height: 177rem;
     border-radius: 26px;
+}
+
+[data-grabbing="false"] {
+    cursor: grab;
+}
+
+[data-grabbing="true"] {
+    cursor: grabbing;
 }
 
 [data-new-image],
