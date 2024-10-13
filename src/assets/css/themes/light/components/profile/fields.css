@@ -1,3 +1,7 @@
+:root {
+  --expander-backgroundColor: var(--color-6);
+}
+
 [data-roles] span {
   --color: var(--color-3);
 }
@@ -12,4 +16,8 @@
 
 [data-field-value] {
   --color: var(--color-3);
+}
+
+[data-expander] i {
+  --color: var(--color-1);
 }

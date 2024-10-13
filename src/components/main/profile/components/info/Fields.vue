@@ -7,6 +7,7 @@ import { $img } from '@composables'
 import { $getFilter } from '@composables/icon'
 import Image from '@views/lib/image/Main.vue'
 import Copy from '@views/lib/copy/Main.vue'
+import Expander from './Expander.vue'
 
 const lang = useSettingsStore().lang
 const locale = useSettingsStore().locale
@@ -105,10 +106,16 @@ onMounted(() => {
                 </div>
             </div>
         </div>
+
+        <Expander />
     </div>
 </template>
 
 <style scoped>
+[data-fields-wrapper] {
+    position: relative;
+}
+
 [data-divider] {
     width: 55%;
     height: 1.5px;

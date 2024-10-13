@@ -14,10 +14,6 @@ export const useNavStore = defineStore(
       {
         icon: '/nav/settings.webp',
         name: 'settings'
-      },
-      {
-        icon: '/lib/delete.webp',
-        name: 'profile'
       }
     ])
 
