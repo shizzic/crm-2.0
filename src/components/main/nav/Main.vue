@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { watch, ref, computed } from 'vue'
-import type { ComputedRef } from 'vue'
-import { useSettingsStore, useUserStore } from '@stores'
+import { watch, ref, computed, provide } from 'vue'
+import { useSettingsStore } from '@stores'
 import { useNavStore } from './store'
 import { $getFilter } from '@composables/icon'
 import { $setComponentStyle } from '@composables/theme'
-import { $img } from '@composables'
-import type { Props } from '@views/lib/popper'
-import Popper from '@views/lib/popper/Main.vue'
-import Image from '@views/lib/image/Main.vue'
-import MenuItem from './components/Item.vue'
+import Profile from './components/Profile.vue'
+import Logout from './components/Logout.vue'
+import MenuItem from './components/default/Item.vue'
 
 $setComponentStyle('nav')
 const $store = useNavStore()
 const filter = ref('')
+const align = computed(() => $store.width === $store.minWidth ? 'center' : 'flex-start')
+
 const changeFilter = () => {
     filter.value = $getFilter(getComputedStyle(document.documentElement).getPropertyValue('--color-6'))
 }
@@ -21,39 +20,17 @@ changeFilter()
 watch(() => useSettingsStore().theme, () => {
     setTimeout(() => changeFilter(), 20)
 })
-
-const placement = 'right'
-const profile: ComputedRef<Props> = computed(() => {
-    return {
-        content: useSettingsStore().lang?.nav?.open_profile, placement
-    }
-})
-const logout: ComputedRef<Props> = computed(() => {
-    return {
-        content: useSettingsStore().lang?.nav?.logout, placement
-    }
-})
+provide('align', align)
 </script>
 
 <template>
     <nav>
-        <RouterLink v-once class="router" id="profile_circle"
-            :to="{ name: 'profile', query: { id: useUserStore().id } }">
-            <Popper v-model:props="profile">
-                <Image :src="$img(useUserStore().avatar ?? '/no-photo.webp', 'user/user')"
-                    style="border-radius: 50%;" />
-            </Popper>
-        </RouterLink>
-
+        <Profile />
         <div id="menu">
-            <MenuItem v-for="(item, index) in $store.menu" :key="index" v-bind="item" class="router" />
+            <MenuItem v-for="(item, index) in $store.menu" :key="index" v-bind="item" />
         </div>
-
-        <Popper v-model:props="logout">
-            <div v-once class="router" id="logout" @click="useUserStore().logout()">
-                <Image :src="$img('/nav/logout.webp')" style="border-radius: 0;" />
-            </div>
-        </Popper>
+        <span class="test" @click="$store.changeNavWidth()">some</span>
+        <Logout />
     </nav>
 </template>
 
@@ -61,6 +38,7 @@ const logout: ComputedRef<Props> = computed(() => {
 nav {
     min-width: v-bind("`${$store.width}rem`");
     max-width: v-bind("`${$store.width}rem`");
+    width: v-bind("`${$store.width}rem`");
     height: 100%;
     background-color: var(--color-1);
     border-top-right-radius: 24px;
@@ -70,15 +48,17 @@ nav {
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: v-bind(align);
     justify-content: flex-start;
     padding: 20rem 13rem;
 
     overflow-y: auto;
     overflow-x: hidden;
+    transition: all .2s ease-out;
 }
 
 #menu {
+    width: 100%;
     height: 100%;
 
     padding: 20rem 0;
@@ -86,47 +66,22 @@ nav {
 }
 
 .router {
-    align-self: flex-start;
     cursor: pointer;
-    width: 50rem;
-    height: 50rem;
-    border-radius: 50%;
+    align-self: flex-start;
+    width: 100%;
+    background-color: transparent;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: v-bind(align);
 }
 
 img {
     filter: v-bind(filter);
 }
 
-#profile_circle {
-    background-color: none;
-    align-self: flex-start;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin: 0 auto;
-}
-
-#profile_circle img {
-    width: 50rem;
-    height: 50rem;
-    filter: none;
-}
-
-#logout {
-    background-color: none;
-    justify-self: flex-end;
-
-    margin: 0 auto;
-}
-
-#logout img {
-    width: 30rem;
-    height: 30rem;
+.test {
+    margin-bottom: 30px;
+    color: var(--color-6);
 }
 </style>

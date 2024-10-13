@@ -5,3 +5,7 @@
 .router {
   --bg: var(--color-5);
 }
+
+[data-nav-item-text] {
+  --color: var(--color-5);
+}

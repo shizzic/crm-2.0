@@ -2,8 +2,8 @@
 import { provide, inject, computed } from 'vue'
 import type { Ref } from 'vue'
 import { useSettingsStore } from '@stores'
-import { useNavStore } from '../store'
-import type { Item } from '..'
+import { useNavStore } from '../../store'
+import type { Item } from '../..'
 import Li from './Li.vue'
 
 const $store = useNavStore()

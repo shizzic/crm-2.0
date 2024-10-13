@@ -1,36 +1,22 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, useTemplateRef, inject } from 'vue'
 import { useSettingsStore } from '@stores'
-import { emitter } from '..'
-import type { Item } from '..'
-import { useRoute } from 'vue-router'
+import type { Item } from '../..'
+import { onClickOutside } from '@vueuse/core'
 import List from './List.vue'
 
-const $route = useRoute()
 const lang = useSettingsStore().lang
-const props = defineProps<Item>()
+let props = defineProps<Item>()
 const active = ref(false)
-const selected = computed(() => {
-    return nestedSelected.value ? nestedSelected.value : checkSelected(props)
-})
-const nestedSelected = ref(false)
-
-function checkSelected(data: Item): boolean {
-    if (!data.list) {
-        const result = $route.name === data.name
-        emitter.emit('select', result)
-        return result
-    }
-
-    return false
-}
+const element: any = useTemplateRef('element')
+const isSelected = inject('isSelected') as (data: Item) => boolean
+const selected = computed(() => isSelected(props))
 
 function openList(): void {
     if (!props.list) return
     active.value = true
 }
-
-emitter.on('select', (value) => nestedSelected.value = value)
+onClickOutside(element, () => active.value = false)
 </script>
 
 <template>
@@ -42,7 +28,7 @@ emitter.on('select', (value) => nestedSelected.value = value)
             {{ props.alias ? lang?.nav?.aliases?.[props.alias] : lang?.components?.[props.name] }}
 
             <Transition name="slide-right" mode="out-in">
-                <List v-show="active" v-bind="props" />
+                <List v-show="active" v-bind="props" ref="element" />
             </Transition>
         </component>
     </li>
