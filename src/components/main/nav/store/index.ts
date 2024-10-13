@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
-import type { Menu } from '..'
+import type { Item, Menu } from '..'
+import { useComponentsStore, useAccessStore } from '@stores'
 
 export const useNavStore = defineStore(
   'nav',
@@ -12,23 +13,11 @@ export const useNavStore = defineStore(
     const menu: Ref<Menu> = ref([
       {
         icon: '/nav/settings.webp',
-        name: 'settings',
-        list: [
-          {
-            name: 'settings',
-            alias: 'system',
-            list: [
-              {
-                name: 'settings',
-                alias: 'system'
-              }
-            ]
-          },
-          {
-            name: 'profile',
-            list: [{ name: 'profile' }]
-          }
-        ]
+        name: 'settings'
+      },
+      {
+        icon: '/lib/delete.webp',
+        name: 'profile'
       }
     ])
 
@@ -36,7 +25,19 @@ export const useNavStore = defineStore(
       width.value = width.value === minWidth ? maxWidth : minWidth
     }
 
-    return { width, minWidth, maxWidth, menu, changeNavWidth }
+    function isAccessable(name: string): boolean {
+      if (useComponentsStore().list[name]?.id)
+        return Number(useComponentsStore().list[name]?.id) in useAccessStore().list
+
+      return true
+    }
+
+    function isDeeper(data: Item): boolean {
+      if (data.list) for (const item of data.list) if (isDeeper(item)) return true
+      return isAccessable(data.name)
+    }
+
+    return { width, minWidth, maxWidth, menu, changeNavWidth, isDeeper, isAccessable }
   },
   {
     persist: [

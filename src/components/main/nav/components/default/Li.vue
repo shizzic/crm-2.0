@@ -3,17 +3,24 @@ import { ref, computed, useTemplateRef, inject } from 'vue'
 import { useSettingsStore } from '@stores'
 import type { Item } from '../..'
 import { onClickOutside } from '@vueuse/core'
+import { emitter } from '../..'
+import { useNavStore } from '../../store'
 import List from './List.vue'
 
 const lang = useSettingsStore().lang
 let props = defineProps<Item>()
+const $store = useNavStore()
 const active = ref(false)
 const element: any = useTemplateRef('element')
 const isSelected = inject('isSelected') as (data: Item) => boolean
 const selected = computed(() => isSelected(props))
 
+function close(): void {
+    emitter.emit('closeList')
+    active.value = false
+}
 function openList(): void {
-    if (!props.list) return
+    if (!props.list) return close()
     active.value = true
 }
 onClickOutside(element, () => active.value = false)
@@ -28,7 +35,7 @@ onClickOutside(element, () => active.value = false)
             {{ props.alias ? lang?.nav?.aliases?.[props.alias] : lang?.components?.[props.name] }}
 
             <Transition name="slide-right" mode="out-in">
-                <List v-show="active" v-bind="props" ref="element" />
+                <List v-if="active && $store.isDeeper(props)" v-bind="props" ref="element" />
             </Transition>
         </component>
     </li>

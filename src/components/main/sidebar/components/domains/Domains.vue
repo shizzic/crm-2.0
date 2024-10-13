@@ -54,8 +54,8 @@ const model: Ref<any> = ref(null)
 watch(model, (data: any, old: any) => {
     if (old) {
         useProjectStore().$reset()
-        useDomainStore().title = data!.title
-        useDomainStore().id = data!.id
+        useDomainStore().title = data?.title
+        useDomainStore().id = data?.id
     }
 })
 

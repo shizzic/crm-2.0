@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { watch, ref, computed, provide } from 'vue'
-import { useSettingsStore } from '@stores'
+import { watch, ref, computed, provide, onBeforeUnmount } from 'vue'
+import { useSettingsStore, useAccessStore } from '@stores'
 import { useNavStore } from './store'
 import { $getFilter } from '@composables/icon'
 import { $setComponentStyle } from '@composables/theme'
 import Profile from './components/Profile.vue'
 import Logout from './components/Logout.vue'
 import MenuItem from './components/default/Item.vue'
+import Expand from './components/Expand.vue'
 
+useAccessStore().setUpdater()
 $setComponentStyle('nav')
 const $store = useNavStore()
 const filter = ref('')
@@ -21,16 +23,19 @@ watch(() => useSettingsStore().theme, () => {
     setTimeout(() => changeFilter(), 20)
 })
 provide('align', align)
+onBeforeUnmount(() => useAccessStore().clearUpdater())
 </script>
 
 <template>
     <nav>
         <Profile />
         <div id="menu">
-            <MenuItem v-for="(item, index) in $store.menu" :key="index" v-bind="item" />
+            <template v-for="(item, index) in $store.menu" :key="index">
+                <MenuItem v-if="$store.isDeeper(item)" v-bind="item" />
+            </template>
         </div>
-        <span class="test" @click="$store.changeNavWidth()">some</span>
-        <Logout />
+        <Expand v-once />
+        <Logout v-once />
     </nav>
 </template>
 

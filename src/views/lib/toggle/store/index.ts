@@ -6,8 +6,8 @@ import type { Props, Model } from '..'
 import { $merge } from '@assets/composables'
 
 export const useStore = (id: string | number) =>
-  defineStore(`slider/${id}`, () => {
-    const props = ref(defaultProps)
+  defineStore(`toggle/${id}`, () => {
+    const props: Ref<Props> = ref(defaultProps)
     const model: Ref<Model> = ref(0) // value
 
     // отслеживаю изменения для родителя (если параметры вообще были переданы)

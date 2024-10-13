@@ -7,7 +7,7 @@ import {
   useAccessStore
 } from '@stores'
 import { emitter as cancel } from '@/views/lib/cancel'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
 
 declare global {
@@ -24,6 +24,7 @@ export const useUserStore = defineStore(
     const id: Ref<number | undefined> = ref(undefined)
     const username: Ref<string | undefined> = ref(undefined)
     const avatar: Ref<string | undefined> = ref(undefined)
+    const isLoggedIn = computed(() => Boolean(id.value))
 
     function login(
       invalid: boolean,
@@ -103,7 +104,7 @@ export const useUserStore = defineStore(
       cancel.emit('default')
     }
 
-    return { version, id, username, avatar, login, logout, request_new_password }
+    return { version, id, username, avatar, isLoggedIn, login, logout, request_new_password }
   },
   {
     persist: {

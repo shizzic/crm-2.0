@@ -1,3 +1,5 @@
+import { createNanoEvents } from 'nanoevents'
+
 export type Menu = Item[]
 
 export interface Item {
@@ -6,3 +8,9 @@ export interface Item {
   icon?: string
   list?: Item[]
 }
+
+type Events = {
+  closeList: () => void
+}
+
+export const emitter = createNanoEvents<Events>()

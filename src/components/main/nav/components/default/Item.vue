@@ -9,6 +9,7 @@ import { onClickOutside } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 import { useSettingsStore } from '@stores'
 import { useNavStore } from '../../store'
+import { emitter } from '../..'
 import Popper from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
 import List from './List.vue'
@@ -54,25 +55,28 @@ watch(selected, (value) => changeFilter(value))
 watch(() => useSettingsStore().theme, () => {
     setTimeout(() => changeFilter(selected.value), 20)
 })
+emitter.on('closeList', () => active.value = false)
 </script>
 
 <template>
     <component :is="props.list ? 'div' : 'RouterLink'" class="router router_from_store" :data-selected="selected"
-        :to="{ path: props.name }" @click="openList" ref="element">
-        <Popper v-model:props="popper" style=" width: 100%;">
-            <div data-under-popper>
-                <div data-img>
-                    <Image :src="$img(String(props.icon))" />
-                </div>
+        :to="{ path: props.name }" ref="element">
+        <div data-under-popper>
+            <div data-under-popper @click="openList">
+                <Popper v-model:props="popper" style=" width: 100%;">
+                    <div data-img>
+                        <Image :src="$img(String(props.icon))" />
+                    </div>
+                </Popper>
 
                 <span v-if="$store.width === $store.maxWidth" data-nav-item-text
                     v-text="useSettingsStore().lang?.components?.[props.alias ?? props.name]" />
-
-                <Transition name="slide-right" mode="out-in">
-                    <List v-show="active" v-bind="props" />
-                </Transition>
             </div>
-        </Popper>
+
+            <Transition name="slide-right" mode="out-in">
+                <List v-if="active && $store.isDeeper(props)" v-bind="props" />
+            </Transition>
+        </div>
     </component>
 </template>
 
@@ -92,7 +96,13 @@ watch(() => useSettingsStore().theme, () => {
     margin-bottom: 20rem;
 }
 
+a {
+    text-decoration: none;
+}
+
 [data-under-popper] {
+    width: 100%;
+
     display: flex;
     align-items: center;
     justify-content: v-bind(align);
@@ -107,6 +117,7 @@ watch(() => useSettingsStore().theme, () => {
     border-radius: 50%;
 
     padding: 10rem;
+    margin: 0 auto;
 }
 
 [data-img] img {
@@ -125,6 +136,8 @@ watch(() => useSettingsStore().theme, () => {
     letter-spacing: -0.02em;
     color: var(--color);
     word-break: break-all;
+    width: 100%;
+    min-width: 100%;
 
     padding-left: 10rem;
 }

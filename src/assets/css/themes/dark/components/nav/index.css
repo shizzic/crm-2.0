@@ -3,9 +3,17 @@
 }
 
 .router {
-  --bg: var(--color-4);
+  --bg: var(--color-3);
+}
+
+#profile_circle img {
+  --borderColor: var(--color-3);
 }
 
 [data-nav-item-text] {
+  --color: var(--color-6);
+}
+
+[data-expander] [data-nav-item-text] {
   --color: var(--color-6);
 }

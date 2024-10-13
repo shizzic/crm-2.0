@@ -5,8 +5,8 @@ import Sidebar from './sidebar/Main.vue'
 
 <template>
     <div id="wrap">
-        <Nav />
-        <Sidebar />
+        <Nav v-once />
+        <Sidebar v-once />
 
         <RouterView v-slot="{ Component }">
             <transition name="slide-fade" mode="out-in">

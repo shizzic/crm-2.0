@@ -50,8 +50,8 @@ const model: Ref<any> = ref(null)
 
 initModel()
 watch(model, (data) => {
-    useProjectStore().id = data!.id
-    useProjectStore().title = data!.title
+    useProjectStore().id = data?.id
+    useProjectStore().title = data?.title
 })
 function initModel(): void {
     if (useProjectStore().id && useProjectStore().title)

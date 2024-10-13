@@ -21,7 +21,9 @@ provide('top', 0)
         <h3 v-text="lang?.components?.[props.name]" />
 
         <ul>
-            <Li v-for="(item, index) in props.list" :key="index" v-bind="item" />
+            <template v-for="(item, index) in props.list" :key="index">
+                <Li v-if="$store.isAccessable(item.name)" v-bind="item" />
+            </template>
         </ul>
     </div>
 </template>

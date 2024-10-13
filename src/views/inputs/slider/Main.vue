@@ -2,11 +2,12 @@
 import { useId } from "vue"
 import type { Props, Model } from "."
 import { useStore } from "./store"
+import { defaultProps } from "."
 import VueSlider from "vue-3-slider-component"
 
 const $id = String(useId())
 const $store = useStore($id)()
-const passedProps = defineModel<Props>('props')
+const passedProps = defineModel<Props>('props', { default: defaultProps })
 const passedModel = defineModel<Model>('model', { default: 0 })
 $store.setWatchers(passedModel)
 $store.setParams(passedProps, passedModel)

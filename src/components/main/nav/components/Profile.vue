@@ -58,6 +58,7 @@ a {
 
 #profile_circle img {
     align-self: flex-start;
+    border: 3px solid var(--borderColor);
 
     width: 50rem;
     min-width: 50rem;
