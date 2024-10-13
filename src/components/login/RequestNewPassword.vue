@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useUserStore, useSettingsStore } from '@stores'
+import type { Props } from '@views/inputs/default'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import Input from '@views/inputs/default/Main.vue'
@@ -12,8 +13,7 @@ const form = ref({ email: '' })
 const rules = { email: { required, email } }
 const v$ = useVuelidate(rules, form)
 
-let props = {
-    v: v$,
+let props: Props = {
     name: 'email_for_new_password',
     placeholder: 'E-mail',
     css: { default: { fontSize: '19.75rem' } }
@@ -26,7 +26,7 @@ let props = {
         <h3>{{ lang?.auth?.request?.title }}</h3>
         <span>{{ lang?.auth?.request?.description }}</span>
 
-        <Input v-model:props="props" v-model:model="form.email" style="margin-top: 20rem;" />
+        <Input v-model:model="form.email" v-model:props="props" v-model:v="v$" style="margin-top: 20rem;" />
 
         <div id="btns" style="margin-top: 35rem;">
             <Cancel v-bind="{ event: 'default', css: { default: { width: '100%' } } }" style="margin-right: 20rem;" />

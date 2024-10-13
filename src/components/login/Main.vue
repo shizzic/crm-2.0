@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import type { ComputedRef } from 'vue'
 import { useUserStore, useSettingsStore } from '@stores'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 import { phone, password } from '@patterns'
 import { emitter as cancel } from '@/views/lib/cancel'
 import { $img } from '@composables'
+import type { Props } from '@views/inputs/default'
 import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
 import Modal from '@views/modal/default/Main.vue'
@@ -43,7 +45,7 @@ const input_css = {
 }
 const isRequestPassword = ref(false)
 let phoneV = v$.value.phone
-let phoneProps = {
+let phoneProps: Props = {
     name: 'phone',
     type: 'tel',
     placeholder: lang?.auth?.number,
@@ -53,7 +55,7 @@ let phoneProps = {
     css: input_css,
 }
 let emailV = v$.value.email
-let emailProps = {
+let emailProps: Props = {
     name: 'email',
     type: 'email',
     placeholder: 'E-mail',
@@ -63,7 +65,7 @@ let emailProps = {
 }
 let passwordV = v$.value.password
 const isShowPassword = ref(false)
-const passwordProps = computed(() => {
+const passwordProps: ComputedRef<Props> = computed(() => {
     return {
         name: 'password',
         type: isShowPassword.value ? 'text' : 'password',
