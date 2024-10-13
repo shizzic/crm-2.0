@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useUserStore, useSettingsStore } from '@stores'
 import { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf, email, minLength, maxLength, helpers } from '@vuelidate/validators'
 import { phone, password } from '@patterns'
 import { emitter as cancel } from '@/views/lib/cancel'
+import { $img } from '@composables'
 import Input from '@views/inputs/default/Main.vue'
 import Submit from '@views/inputs/submit/Main.vue'
 import Modal from '@views/modal/default/Main.vue'
 import RequestNewPassword from './RequestNewPassword.vue'
+import Image from '@views/lib/image/Main.vue'
 
 const lang = useSettingsStore().lang
 const form = ref({
@@ -40,8 +42,6 @@ const input_css = {
     },
 }
 const isRequestPassword = ref(false)
-cancel.on("default", () => isRequestPassword.value = false)
-
 let phoneV = v$.value.phone
 let phoneProps = {
     name: 'phone',
@@ -62,17 +62,22 @@ let emailProps = {
     css: input_css,
 }
 let passwordV = v$.value.password
-let passwordProps = {
-    name: 'password',
-    type: 'password',
-    placeholder: lang?.auth?.password,
-    minlength: 8,
-    maxlength: 16,
-    id: 'current-password',
-    autocomplete: 'current-password',
+const isShowPassword = ref(false)
+const passwordProps = computed(() => {
+    return {
+        name: 'password',
+        type: isShowPassword.value ? 'text' : 'password',
+        placeholder: lang?.auth?.password,
+        minlength: 8,
+        maxlength: 16,
+        id: 'current-password',
+        autocomplete: 'current-password',
 
-    css: input_css,
-}
+        css: input_css,
+    }
+})
+
+cancel.on("default", () => isRequestPassword.value = false)
 </script>
 
 <template>
@@ -90,7 +95,11 @@ let passwordProps = {
                 <Input v-if="form.phone.length === 0" v-model:model="form.email" v-model:props="emailProps"
                     v-model:v="emailV" class="item" />
             </KeepAlive>
-            <Input v-model:model="form.password" v-model:props="passwordProps" v-model:v="passwordV" class="item" />
+            <div data-password>
+                <Input v-model:model="form.password" v-model:props="passwordProps" v-model:v="passwordV" class="item" />
+                <Image :src="$img(`/login/${isShowPassword ? 'show_password' : 'hide_password'}.webp`)"
+                    @click="isShowPassword = !isShowPassword" :key="String(isShowPassword)" />
+            </div>
 
             <span @click.stop="isRequestPassword = true" style="margin-top: -20rem;">{{ lang?.auth?.forgot }}</span>
             <Modal v-if="isRequestPassword">
@@ -193,5 +202,18 @@ span {
     color: #252540;
 
     float: right;
+}
+
+[data-password] {
+    position: relative;
+}
+
+[data-password] img {
+    position: absolute;
+    right: 20rem;
+    top: 12rem;
+
+    cursor: pointer;
+    width: 24rem;
 }
 </style>
