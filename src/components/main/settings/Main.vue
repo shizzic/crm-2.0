@@ -63,7 +63,7 @@ watch(() => $settings.theme, () => {
                 :description="$settings.lang?.settings?.linkTo?.description">
                 <Links />
             </Item>
-            <Item
+            <Item style="margin: 0;"
                 v-show="searchPattern.test($settings.lang?.settings?.month?.title) || searchPattern.test($settings.lang?.settings?.month?.description)"
                 :title="$settings.lang?.settings?.month?.title"
                 :description="$settings.lang?.settings?.month?.description">

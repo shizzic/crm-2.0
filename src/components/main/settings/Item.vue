@@ -28,11 +28,11 @@ const { title, description } = defineProps<Props>()
 }
 
 [data-item]:nth-child(odd) {
-    margin-right: 15rem;
+    margin-right: 12.5rem;
 }
 
 [data-item]:nth-child(even) {
-    margin-left: 15rem;
+    margin-left: 12.5rem;
 }
 
 h3 {
