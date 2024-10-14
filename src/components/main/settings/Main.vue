@@ -3,13 +3,15 @@ import { computed, watch } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from './store'
+import { $setComponentStyle, $removeComponentStyle } from '@composables/theme'
 import Search from './Search.vue'
 import Expand from '@views/lib/expand/Main.vue'
 import Item from './Item.vue'
 import Language from './components/Language.vue'
 import Size from './components/Size.vue'
 import Theme from './components/Theme.vue'
-import { $setComponentStyle, $removeComponentStyle } from '@composables/theme'
+import Links from './components/Links.vue'
+import Month from './components/Month.vue'
 
 const component: string = 'settings'
 $setComponentStyle(component)
@@ -54,6 +56,18 @@ watch(() => $settings.theme, () => {
                 :title="$settings.lang?.settings?.theme?.title"
                 :description="$settings.lang?.settings?.theme?.description">
                 <Theme />
+            </Item>
+            <Item
+                v-show="searchPattern.test($settings.lang?.settings?.linkTo?.title) || searchPattern.test($settings.lang?.settings?.linkTo?.description)"
+                :title="$settings.lang?.settings?.linkTo?.title"
+                :description="$settings.lang?.settings?.linkTo?.description">
+                <Links />
+            </Item>
+            <Item
+                v-show="searchPattern.test($settings.lang?.settings?.month?.title) || searchPattern.test($settings.lang?.settings?.month?.description)"
+                :title="$settings.lang?.settings?.month?.title"
+                :description="$settings.lang?.settings?.month?.description">
+                <Month />
             </Item>
         </div>
     </section>

@@ -3,42 +3,20 @@ import { computed, onMounted, ref } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from '../../store'
-import { $img } from '@composables'
+import { $getParsedDate, $img } from '@composables'
 import { $getFilter } from '@composables/icon'
 import Image from '@views/lib/image/Main.vue'
 import Copy from '@views/lib/copy/Main.vue'
 import Expander from './Expander.vue'
 
 const lang = useSettingsStore().lang
-const locale = useSettingsStore().locale
 const $user = useStore().user
 const filter = ref('')
+const date: ComputedRef<string> = computed(() => $getParsedDate($user?.birthday))
 const phone: ComputedRef<string> = computed(() => {
     if ($user?.phones)
         for (const item of $user.phones)
             if (+item.is_main) return item.phoneCode + item.number
-    return ''
-})
-const date: ComputedRef<string> = computed(() => {
-    if ($user?.birthday) {
-        const date = new Date(+$user.birthday * 1000)
-        if (!date) return ''
-        const locales = `${locale.toLowerCase()}-${locale}`
-
-        if (useSettingsStore().month)
-            return date.toLocaleDateString(locales, {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-            })
-        else
-            return date.toLocaleDateString(locales, {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-            })
-    }
-
     return ''
 })
 

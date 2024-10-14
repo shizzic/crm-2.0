@@ -17,7 +17,7 @@ const { title, description } = defineProps<Props>()
 
 <style scoped>
 [data-item] {
-    width: calc(50% - 35rem);
+    flex: 1 0 calc(50% - 15rem);
     background-color: var(--color-1);
     border: 2px solid;
     border-color: var(--border-color);
@@ -25,13 +25,14 @@ const { title, description } = defineProps<Props>()
 
     padding: 30rem;
     margin-bottom: 25rem;
-    margin-right: 30rem;
 }
 
-[data-item]:nth-child(2) {
-    width: 50%;
+[data-item]:nth-child(odd) {
+    margin-right: 15rem;
+}
 
-    margin-right: 0;
+[data-item]:nth-child(even) {
+    margin-left: 15rem;
 }
 
 h3 {

@@ -1,6 +1,6 @@
 import { unref } from 'vue'
-import type { Merge, ImageLoader, GetDeep, Deep } from '@types'
-import { useHttpStore } from '@stores'
+import type { Merge, ImageLoader, GetDeep, Deep, GetParsedDate } from '@types'
+import { useHttpStore, useSettingsStore } from '@stores'
 import clone from 'clone'
 import deepmerge from '@fastify/deepmerge'
 const $endpoint = useHttpStore().$endpoint
@@ -40,4 +40,27 @@ function replaceByClonedSource() {
   return function (...args: any[]) {
     return clone(args[args.length - 1])
   }
+}
+
+export const $getParsedDate: GetParsedDate = (
+  timestamp: number | string | undefined | null
+): string => {
+  if (!timestamp) return ''
+
+  const date = new Date(Number(timestamp) * 1000)
+  if (!date) return ''
+  const locales = `${useSettingsStore().locale.toLowerCase()}-${useSettingsStore().locale}`
+
+  if (useSettingsStore().month)
+    return date.toLocaleDateString(locales, {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    })
+  else
+    return date.toLocaleDateString(locales, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
 }
