@@ -42,15 +42,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <div data-images-wrapper ref="wrapper" @wheel="scrollHandler" v-dragscroll.x="true"
-        @dragscrollstart="isDragging = true" @dragscrollend="isDragging = false" :data-grabbing="isDragging">
+    <div data-images-wrapper ref="wrapper" @wheel="scrollHandler" v-dragscroll="true"
+        @dragscrollstart="isDragging = true" @dragscrollend="isDragging = false"
+        :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }">
         <Popper v-if="$store.user?.self" v-model:props="popper">
-            <New :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }" />
+            <New :data-grabbing="isDragging" />
         </Popper>
 
-        <div data-images v-viewer.rebuild="options" ref="$viewer">
-            <Image v-for="src in images" :key="src" :src="$img(src, 'user/user')" data-image
-                :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }" />
+        <div data-images v-viewer.rebuild="options" ref="$viewer" :data-grabbing="isDragging">
+            <Image v-for="src in images" :key="src" :src="$img(src, 'user/user')" data-image />
         </div>
 
         <Buttons v-show="$store.isViewerActive" />
@@ -72,7 +72,7 @@ onMounted(() => {
 }
 
 [data-images] {
-    width: 100%;
+    width: max-content;
     height: 100%;
 
     display: flex;

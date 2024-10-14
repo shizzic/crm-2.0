@@ -31,16 +31,17 @@ onBeforeUnmount(() => useAccessStore().clearUpdater())
 <template>
     <nav>
         <Profile />
-        <div data-menu>
-            <div id="menu" v-dragscroll.y="true" :data-menu-grabbing="isDragging" @dragscrollstart="isDragging = true"
-                @dragscrollend="isDragging = false" :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }">
-                <template v-for="(item, index) in $store.menu" :key="index">
-                    <MenuItem v-if="$store.isDeeper(item)" v-bind="item" :disabled="isDragging" />
-                </template>
-            </div>
+        <div id="menu" v-dragscroll.y="true" :data-menu-grabbing="isDragging" @dragscrollstart="isDragging = true"
+            @dragscrollend="isDragging = false" :style="{ 'pointer-events': isDragging ? 'none' : 'auto' }">
+            <template v-for="(item, index) in $store.menu" :key="index">
+                <MenuItem v-if="$store.isDeeper(item)" v-bind="item" :disabled="isDragging" />
+            </template>
         </div>
-        <Expand v-once />
-        <Logout v-once />
+
+        <div style="margin-top: auto;">
+            <Expand v-once />
+            <Logout v-once />
+        </div>
     </nav>
 </template>
 
@@ -49,12 +50,12 @@ nav {
     min-width: v-bind("`${$store.width}rem`");
     max-width: v-bind("`${$store.width}rem`");
     width: v-bind("`${$store.width}rem`");
-    height: 100%;
     background-color: var(--color-1);
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
+    height: 100%;
     border-top-right-radius: 24px;
     border-bottom-right-radius: 24px;
     user-select: none;
-    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.25);
 
     display: flex;
     flex-direction: column;
@@ -62,22 +63,16 @@ nav {
     justify-content: flex-start;
     padding: 20rem 13rem;
 
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     transition: all .2s ease-out;
-}
-
-[data-menu] {
-    width: 100%;
-    height: 100%;
-
-    padding: 20rem 0;
 }
 
 #menu {
     width: 100%;
-    height: 100%;
+    height: max-content;
+    border-radius: 50px;
 
+    margin: 20rem 0;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -102,10 +97,5 @@ nav {
 
 img {
     filter: v-bind(filter);
-}
-
-.test {
-    margin-bottom: 30px;
-    color: var(--color-6);
 }
 </style>

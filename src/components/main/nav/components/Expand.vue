@@ -47,6 +47,7 @@ watch(() => $store.width, (value) => { if (value) model.value = value })
 [data-expander] {
     cursor: pointer;
     width: 100%;
+    flex-grow: 1;
 
     display: flex;
     justify-content: v-bind(align);

@@ -43,6 +43,7 @@ watch(() => useSettingsStore().theme, () => {
 <style scoped>
 #logout {
     width: 100%;
+    flex-grow: 1;
 
     background-color: transparent;
     justify-self: flex-end;
