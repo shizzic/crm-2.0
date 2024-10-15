@@ -30,8 +30,8 @@ onClickOutside(element, () => active.value = false)
     <li>
         <i v-show="selected" />
 
-        <component :is="props.list ? 'span' : 'RouterLink'" :to="{ name: props.name }" @click="openList"
-            :data-selected="selected">
+        <component :is="props.list ? 'span' : 'RouterLink'" :to="{ name: props.name }"
+            :target="useSettingsStore().linkTarget" @click="openList" :data-selected="selected">
             {{ props.alias ? lang?.nav?.aliases?.[props.alias] : lang?.components?.[props.name] }}
 
             <Transition name="slide-right" mode="out-in">

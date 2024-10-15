@@ -4,12 +4,10 @@ import { fetcher } from '@composables/fetcher'
 import { useRoute } from 'vue-router'
 import { useStore } from './store'
 import { useSidebarStore } from '@stores'
-import { $setComponentStyle } from '@composables/theme'
 import Info from './components/info/Main.vue'
 import Images from './components/images/Main.vue'
 import Avatar from './components/avatar/Main.vue'
 
-$setComponentStyle('profile')
 const $store = useStore()
 fetcher.get('user/user/get-profile?target_id=' + useRoute().query.id)
     .then((r: any) => {
@@ -19,7 +17,6 @@ fetcher.get('user/user/get-profile?target_id=' + useRoute().query.id)
     })
 
 onBeforeUnmount(() => {
-    useSidebarStore().$reset()
     $store.$reset()
 })
 onBeforeMount(() => {

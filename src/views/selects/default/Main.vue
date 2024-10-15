@@ -83,6 +83,7 @@ select {
     border-bottom: none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    background-color: v-bind('$store.props.css?.hover.backgroundColor');
 }
 
 [data-arrow] {

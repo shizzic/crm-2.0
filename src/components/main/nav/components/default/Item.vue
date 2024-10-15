@@ -60,7 +60,7 @@ emitter.on('closeList', () => active.value = false)
 
 <template>
     <component :is="props.list ? 'div' : 'RouterLink'" class="router router_from_store" :data-selected="selected"
-        :to="{ path: props.name }" ref="element">
+        :to="{ path: props.name }" :target="useSettingsStore().linkTarget" ref="element">
         <div data-under-popper>
             <div data-under-popper @click="openList">
                 <Popper v-model:props="popper" style=" width: 100%;">

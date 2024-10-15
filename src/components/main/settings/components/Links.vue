@@ -8,7 +8,7 @@ import type { Props } from '@views/inputs/radio'
 const index = ref(useSettingsStore().linkTarget)
 let props: ComputedRef<Props> = computed(() => {
     return {
-        list: useSettingsStore().lang?.settings?.linkTo?.list,
+        list: useSettingsStore().lang?.settings?.linkTo?.list2,
         deep: ['title']
     }
 })

@@ -18,7 +18,8 @@ const popper: ComputedRef<Props> = computed(() => {
 </script>
 
 <template>
-    <RouterLink v-once class="router" id="profile_circle" :to="{ name: 'profile', query: { id: useUserStore().id } }">
+    <RouterLink class="router" id="profile_circle" :to="{ name: 'profile', query: { id: useUserStore().id } }"
+        :target="useSettingsStore().linkTarget">
         <Popper v-model:props="popper" style="width: 100%;">
             <div data-under-popper>
                 <Image :src="$img(useUserStore().avatar ?? '/no-photo.webp', 'user/user')"

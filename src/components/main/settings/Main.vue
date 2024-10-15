@@ -13,16 +13,13 @@ import Theme from './components/Theme.vue'
 import Links from './components/Links.vue'
 import Month from './components/Month.vue'
 
-const component: string = 'settings'
-$setComponentStyle(component)
-
 const $settings = useSettingsStore()
 const $store = useStore()
 const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'imu'))
 
 watch(() => $settings.theme, () => {
     $removeComponentStyle()
-    $setComponentStyle(component)
+    $setComponentStyle('settings')
 })
 </script>
 

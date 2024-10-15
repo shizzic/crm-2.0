@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore, useSidebarStore } from '@stores'
-import { $img } from '@assets/composables'
+import { $img } from '@composables'
 import Poppers from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
 import type { Props } from '@views/lib/popper'

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useSettingsStore, useUserStore } from '@stores'
 import { children } from './children'
-import { $removeComponentStyle } from '@composables/theme'
+import { $setComponentStyle, $removeComponentStyle } from '@composables/theme'
 
 const c = {
   login: () => import('@components/login/Main.vue'),
-  wrap: () => import('@/components/main/Wrap.vue')
+  wrap: () => import('@components/main/Wrap.vue')
 }
 
 const router = createRouter({
@@ -26,8 +26,6 @@ const router = createRouter({
 
 // меняю title вкладок + блокирую переходы на страницы без доступа
 router.beforeEach((to) => {
-  $removeComponentStyle()
-
   if (!useUserStore().id && to.name !== 'login') return { name: 'login' }
   if (useUserStore().id && to.name === 'login') return { name: 'home' }
 
@@ -37,6 +35,11 @@ router.beforeEach((to) => {
         window.location.hostname.split('.').shift()
     ) + ' | isinda'
   return true
+})
+
+router.beforeResolve(async (to) => {
+  $removeComponentStyle()
+  if (to?.name) $setComponentStyle(String(to.name))
 })
 
 export default router
