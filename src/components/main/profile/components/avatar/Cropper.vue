@@ -101,7 +101,7 @@ const upload = () => {
 }
 
 [data-header] {
-    cursor: grabbing;
+    cursor: grab;
     height: max-content;
     border-bottom: 1.5px solid #C4C4C4;
 
