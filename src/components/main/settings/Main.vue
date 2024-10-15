@@ -49,10 +49,10 @@ watch(() => $settings.theme, () => {
                 <Size />
             </Item>
             <Item
-                v-show="searchPattern.test($settings.lang?.settings?.theme?.title) || searchPattern.test($settings.lang?.settings?.theme?.description)"
-                :title="$settings.lang?.settings?.theme?.title"
-                :description="$settings.lang?.settings?.theme?.description">
-                <Theme />
+                v-show="searchPattern.test($settings.lang?.settings?.month?.title) || searchPattern.test($settings.lang?.settings?.month?.description)"
+                :title="$settings.lang?.settings?.month?.title"
+                :description="$settings.lang?.settings?.month?.description">
+                <Month />
             </Item>
             <Item
                 v-show="searchPattern.test($settings.lang?.settings?.linkTo?.title) || searchPattern.test($settings.lang?.settings?.linkTo?.description)"
@@ -61,10 +61,10 @@ watch(() => $settings.theme, () => {
                 <Links />
             </Item>
             <Item style="margin: 0;"
-                v-show="searchPattern.test($settings.lang?.settings?.month?.title) || searchPattern.test($settings.lang?.settings?.month?.description)"
-                :title="$settings.lang?.settings?.month?.title"
-                :description="$settings.lang?.settings?.month?.description">
-                <Month />
+                v-show="searchPattern.test($settings.lang?.settings?.theme?.title) || searchPattern.test($settings.lang?.settings?.theme?.description)"
+                :title="$settings.lang?.settings?.theme?.title"
+                :description="$settings.lang?.settings?.theme?.description">
+                <Theme />
             </Item>
         </div>
     </section>

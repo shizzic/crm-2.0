@@ -22,9 +22,14 @@ $store.setParams(passedProps, passedModel)
 
 <style scoped>
 [data-root] {
+    z-index: v-bind('$store.props.css?.default.zIndex');
     width: v-bind('$store.props.css?.default.width');
 
     padding: v-bind('$store.props.css?.default.padding');
     margin: v-bind('$store.props.css?.default.margin');
+}
+
+:deep(.vue-slider-dot) {
+    z-index: inherit;
 }
 </style>

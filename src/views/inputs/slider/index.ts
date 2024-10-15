@@ -21,6 +21,7 @@ export interface Props {
 
 export const DefaultCSS: CSS = {
   default: {
+    zIndex: '1',
     width: '100%',
     padding: '0',
     margin: '0'
