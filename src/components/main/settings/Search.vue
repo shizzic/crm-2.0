@@ -20,7 +20,6 @@ const props: ComputedRef<Props> = computed(() => {
         css: {
             default: {
                 border: 'none',
-                backgroundColor: 'var(--input-backgroundColor)',
                 padding: '10rem 21rem 10rem 45rem'
             }
         }

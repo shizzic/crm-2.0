@@ -40,8 +40,12 @@ const v$ = useVuelidate(rules, form)
 const input_css = {
     default: {
         fontSize: '19.75rem',
+        backgroundColor: '#fff',
         padding: '10rem 21rem',
     },
+    placeholder: {
+        color: '#676767'
+    }
 }
 const isRequestPassword = ref(false)
 let phoneV = v$.value.phone
@@ -130,6 +134,7 @@ section {
     width: 100%;
     height: 100%;
     background: url('@assets/images/login/guy.webp') left no-repeat, url('@assets/images/login/background.webp') right no-repeat;
+    background-color: #fff;
 
     display: flex;
     justify-content: center;

@@ -4,6 +4,8 @@ const id = '$$palette' // id style тега хранящего палитру ц
 const c = '$$component' // id style тега хранящего все, кроме цветов (или статичные цвета)
 
 export async function $setComponentStyle(componentName: string): Promise<void> {
+  if (!isComponentStyleExist(componentName)) return
+
   const palette = await import(
     `@css/themes/${useSettingsStore().theme}/components/${componentName}/index.css?inline`
   )
@@ -27,4 +29,15 @@ export function $removeComponentStyle(): void {
   theme_component?.remove()
   const component = document.getElementById(c)
   component?.remove()
+}
+
+// Проверяю существование папки в @css/components, чтобы не выскакивала ошибка при попытке импортировать несуществующии стили
+function isComponentStyleExist(componentName: string): boolean {
+  const existedComponents = import.meta.glob('@css/components/**')
+  for (const path in existedComponents) {
+    const shatteredPath = path.split('/')
+    const existedName = shatteredPath[shatteredPath.length - 2]
+    if (existedName === componentName) return true
+  }
+  return false
 }
