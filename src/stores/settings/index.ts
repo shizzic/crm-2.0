@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { theme, getTheme } from './theme'
-import { locale, languages, lang, getLang } from './lang'
+import { locale, beforeLocaleSwitch, languages, lang, getLang } from './lang'
 
 export const useSettingsStore = defineStore(
   'settings',
@@ -14,7 +14,19 @@ export const useSettingsStore = defineStore(
 
     watch(size, (value) => document.documentElement.style.setProperty('--html-size', value))
 
-    return { version, locale, languages, lang, size, theme, month, linkTarget, getLang, getTheme }
+    return {
+      version,
+      locale,
+      beforeLocaleSwitch,
+      languages,
+      lang,
+      size,
+      theme,
+      month,
+      linkTarget,
+      getLang,
+      getTheme
+    }
   },
   {
     persist: [

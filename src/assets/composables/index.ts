@@ -1,9 +1,8 @@
-import { unref } from 'vue'
+import { toValue } from 'vue'
 import type { ImageLoader, GetDeep, Deep, GetParsedDate } from '@types'
 import { useHttpStore, useSettingsStore } from '@stores'
 import clone from 'clone'
 import deepmerge from '@fastify/deepmerge'
-const $endpoint = useHttpStore().$endpoint
 
 // получаю полный путь до фотки (local | url | blob) -> indiferent
 export const $img: ImageLoader = (name: string, controller_model?: string): string => {
@@ -14,7 +13,7 @@ export const $img: ImageLoader = (name: string, controller_model?: string): stri
 
     return name.search('\\?') === -1
       ? 'src/assets/images/' + name
-      : $endpoint + url + name.split('?').shift()
+      : useHttpStore().$endpoint + url + name.split('?').shift()
   } else return name
 }
 
@@ -22,7 +21,7 @@ export const $img: ImageLoader = (name: string, controller_model?: string): stri
 //  так как возможно, что нам потребуется получить еще 1 глубину с помощью ключа, но применить этот ключ на не итерируемые значения нельзя
 //  поэтому возвращаю допустимый макисмум
 export const $getDeep: GetDeep = (data: any, deep: Deep): any => {
-  data = unref(data)
+  data = toValue(data)
   deep = clone(deep)
 
   if (!data || (data && !data?.[deep?.[0]])) return data

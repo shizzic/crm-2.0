@@ -1,13 +1,14 @@
-import { ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { Lang } from '@types'
 import { useHttpStore } from '@stores'
 
-export const locale: Ref<string> = ref('RU')
+export const locale = ref('RU')
+export const beforeLocaleSwitch: Ref<string | undefined> = ref(undefined)
 export const languages: Ref<Lang> = ref({})
-export const lang: ComputedRef<Lang> = computed(() => languages.value[locale.value])
-
-watch(locale, () => getLang())
+export const lang: ComputedRef<Lang> = computed(
+  () => languages.value[beforeLocaleSwitch.value ?? locale.value]
+)
 
 // Получение всех переводов на выбранный язык (язык в headers)
 export function getLang(): void {
@@ -22,5 +23,6 @@ export function getLang(): void {
     .then((r) => {
       if (!r?.data) return
       languages.value[locale.value] = r.data
+      beforeLocaleSwitch.value = undefined
     })
 }
