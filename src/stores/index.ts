@@ -9,8 +9,19 @@ export * from './image'
 export * from './components'
 export * from '@components/main/sidebar/store'
 
+// import { $merge } from '@composables'
 import clone from 'clone'
 import { getActivePinia, defineStore } from 'pinia'
+
+// setTimeout(() => {
+//   const pinia = getActivePinia()
+//   if (pinia?.state.value.settings && 'month' in pinia.state.value.settings) {
+//     // const obj = { month: false, locale: 'RU' }
+//     // $merge
+//     // pinia.state.value.settings
+//     console.log(pinia.state.value.settings.month)
+//   }
+// }, 100)
 
 // $reset method for pinia composition api
 export function addResetMethod({ store }: any): void {
@@ -22,6 +33,7 @@ export function addResetMethod({ store }: any): void {
   }
 }
 
+// активация $reset метода для всех сторов, кроме исключений (во время выхода юзера из аккаунта)
 export function resetAllStores(...except: string[]): void {
   const activepinia = getActivePinia()
   if (activepinia) {

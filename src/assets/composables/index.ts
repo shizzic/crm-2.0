@@ -1,5 +1,5 @@
 import { unref } from 'vue'
-import type { Merge, ImageLoader, GetDeep, Deep, GetParsedDate } from '@types'
+import type { ImageLoader, GetDeep, Deep, GetParsedDate } from '@types'
 import { useHttpStore, useSettingsStore } from '@stores'
 import clone from 'clone'
 import deepmerge from '@fastify/deepmerge'
@@ -32,8 +32,8 @@ export const $getDeep: GetDeep = (data: any, deep: Deep): any => {
   return deep.length === 0 ? deeper : $getDeep(deeper, deep)
 }
 
-export const $merge: Merge = (...args): any => {
-  return deepmerge({ mergeArray: replaceByClonedSource })(...args)
+export const $merge: (arg1: any, arg2: any) => any = (arg1: any, arg2: any): any => {
+  return deepmerge({ mergeArray: replaceByClonedSource })(arg1, arg2)
 }
 
 function replaceByClonedSource() {
