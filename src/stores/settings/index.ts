@@ -32,7 +32,13 @@ export const useSettingsStore = defineStore(
     persist: [
       {
         storage: localStorage,
-        pick: ['version', 'locale', 'size', 'theme', 'month', 'linkTarget']
+        pick: ['version', 'locale', 'size', 'theme', 'month', 'linkTarget'],
+        afterHydrate: () => {
+          watch(locale, (value, old) => {
+            if (!(value in languages.value)) beforeLocaleSwitch.value = old
+            getLang()
+          })
+        }
       },
       {
         storage: sessionStorage,
