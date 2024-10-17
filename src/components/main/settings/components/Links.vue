@@ -13,7 +13,8 @@ let props: ComputedRef<Props> = computed(() => {
     }
 })
 
-watch(index, (value) => { if (value) useSettingsStore().linkTarget = value })
+watch(index, (value) => { if (value !== undefined) useSettingsStore().linkTarget = value })
+watch(() => useSettingsStore().linkTarget, (value) => { if (value !== undefined) index.value = value })
 </script>
 
 <template>

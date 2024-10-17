@@ -5,9 +5,9 @@ import { useRouter } from 'vue-router'
 
 const $router = useRouter()
 const $settings = useSettingsStore()
+$settings.$persist()
 $settings.getLang()
 $settings.getTheme($settings.theme)
-// console.log(JSON.parse(String(localStorage.getItem('sidebar'))))
 
 watch(() => useUserStore().isLoggedIn, (value) => { $router.replace(value ? { name: "home" } : { name: "login" }) })
 </script>

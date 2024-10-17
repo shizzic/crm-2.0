@@ -13,7 +13,8 @@ let props: ComputedRef<Props> = computed(() => {
     }
 })
 
-watch(index, (value) => { if (value) useSettingsStore().theme = value })
+watch(index, (value) => { if (value !== undefined) useSettingsStore().theme = value })
+watch(() => useSettingsStore().theme, (value) => { if (value !== undefined) index.value = value })
 </script>
 
 <template>

@@ -8,10 +8,11 @@ export const useSettingsStore = defineStore(
   'settings',
   () => {
     const version = ref(1)
-    const size = ref('0.85px') // font-size, padding, margin
+    const size = ref('0.95px') // font-size, padding, margin
     const month: Ref<'number' | 'word'> = ref('word')
     const linkTarget: Ref<'_self' | '_blank'> = ref('_self')
 
+    document.documentElement.style.setProperty('--html-size', size.value)
     watch(size, (value) => document.documentElement.style.setProperty('--html-size', value))
 
     return {

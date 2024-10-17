@@ -9,21 +9,21 @@ export * from './image'
 export * from './components'
 export * from '@components/main/sidebar/store'
 
-// import { toRefs, ref, reactive } from 'vue'
-// import { $merge } from '@composables'
 import clone from 'clone'
 import { getActivePinia, defineStore } from 'pinia'
 
-// setTimeout(() => {
-//   const pinia = getActivePinia()
-//   if (pinia) {
-//     const obj: any = { locale: 'RU' }
-//     // for (const key in obj) pinia.state.value.settings[key] = obj[key]
-//     // pinia.state.value.settings = ref($merge(pinia.state.value.settings, obj))
-//     pinia.state.value.settings = toRefs(reactive($merge(pinia.state.value.settings, obj)))
-//     // console.log(pinia.state.value.settings)
-//   }
-// }, 1500)
+setTimeout(() => {
+  const pinia = getActivePinia()
+  if (pinia) {
+    // pinia.state.value.settings[key] = obj[key]
+    const obj: any = { settings: { locale: 'RU', size: '0.95px' } }
+    for (const storename in obj)
+      for (const fieldname in obj[storename]) {
+        pinia.state.value[storename][fieldname] = obj[storename][fieldname]
+        console.log(pinia.state.value[storename][fieldname])
+      }
+  }
+}, 700)
 
 // $reset method for pinia composition api
 export function addResetMethod({ store }: any): void {

@@ -14,6 +14,7 @@ let props: ComputedRef<Props> = computed(() => {
 })
 
 watch(index, (value) => { if (value !== undefined) useSettingsStore().month = value })
+watch(() => useSettingsStore().month, (value) => { if (value !== undefined) index.value = value })
 </script>
 
 <template>

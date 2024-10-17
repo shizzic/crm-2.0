@@ -4,12 +4,13 @@ import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import Select from '@views/selects/default/Main.vue'
 import type { Props } from '@/views/selects/default'
+import type { Locale } from '@stores/settings/lang'
 
-const list: { [k: string]: { title: string } } = {
+const index = ref(useSettingsStore().locale)
+const list: { [index in Locale]: { title: string } } = {
     RU: { title: 'Русский' },
     EN: { title: 'English' }
 }
-const index = ref(useSettingsStore().locale)
 const props: ComputedRef<Props> = computed(() => {
     return {
         name: 'language',
@@ -34,14 +35,19 @@ const props: ComputedRef<Props> = computed(() => {
         }
     }
 })
-watch(index, (value) => { if (value) useSettingsStore().locale = value })
-watch(() => useSettingsStore().locale, () => {
-    document.title =
-        String(
-            useSettingsStore().lang?.components?.settings ??
-            window.location.hostname.split('.').shift()
-        ) + ' | isinda'
+
+watch(index, (value) => {
+    if (value !== undefined) {
+        useSettingsStore().locale = value
+
+        document.title =
+            String(
+                useSettingsStore().lang?.components?.settings ??
+                window.location.hostname.split('.').shift()
+            ) + ' | isinda'
+    }
 })
+watch(() => useSettingsStore().locale, (value) => { if (value !== undefined) index.value = value })
 </script>
 
 <template>

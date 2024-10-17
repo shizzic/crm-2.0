@@ -3,8 +3,10 @@ import type { Ref, ComputedRef } from 'vue'
 import type { Lang } from '@types'
 import { useHttpStore } from '@stores'
 
-export const locale = ref('RU')
-export const beforeLocaleSwitch: Ref<string | undefined> = ref(undefined)
+export type Locale = 'RU' | 'EN'
+
+export const locale: Ref<Locale> = ref('RU')
+export const beforeLocaleSwitch: Ref<Locale | undefined> = ref(undefined)
 export const languages: Ref<Lang> = ref({})
 export const lang: ComputedRef<Lang> = computed(
   () => languages.value[beforeLocaleSwitch.value ?? locale.value]
