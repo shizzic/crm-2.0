@@ -4,10 +4,10 @@ import type { Ref, ComputedRef } from 'vue'
 import Select from '@views/selects/default/Main.vue'
 import { fetcher } from '@composables/fetcher'
 import { useProjectStore, useSettingsStore, useDomainStore } from '@stores'
-import type { List, CSS } from '@types'
+import type { CSS } from '@types'
 import type { Props } from '@views/selects/default'
 
-const list: Ref<List> = ref(useDomainStore().list)
+const list = ref(useDomainStore().list)
 const text: ComputedRef<string> = computed(() => useSettingsStore().lang.table.domains)
 const description: ComputedRef<string> = computed(() => useSettingsStore().lang.sidebar.selects?.domains?.description)
 const css: CSS = {
@@ -42,7 +42,7 @@ fetcher.get('domain')
 
         if (list.value) {
             if (list.value.length > 0 && !useDomainStore().id)
-                for (let item of list.value) {
+                for (let item of list.value as any[]) {
                     useDomainStore().title = item.title
                     useDomainStore().id = item.id
                     initModel()

@@ -12,7 +12,7 @@ export const $select = ($id: StoreID, li: any, i: Index): void => {
     // если выбронное кол-во элементов равно кол-ву элементов в списке, то закрыть селект
     const length = Array.isArray($store.props.wrapper.list)
       ? $store.props.wrapper.list.length
-      : Object.keys($store.props.wrapper.list).length
+      : Object.keys(Object.assign({}, $store.props.wrapper.list)).length
 
     if ($store.model.value?.length === length) $store.props.active = false
   }

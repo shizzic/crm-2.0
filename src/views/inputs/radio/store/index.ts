@@ -41,7 +41,9 @@ export const useStore = (id: StoreID) =>
       model.value = passedModel.value
       index.value = passedIndex.value
 
-      if (index.value) model.value = props.value.list[index.value]
+      if (index.value !== undefined && props.value.list)
+        model.value = props.value.list[index.value as keyof typeof props.value.list]
+
       if (passedProps.value !== undefined)
         watch(
           passedProps,

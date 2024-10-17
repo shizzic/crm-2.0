@@ -16,7 +16,7 @@ export const $getText = ($id: StoreID): string => {
       return useSettingsStore().lang?.other?.select
 
     return $getDeep(
-      $store.props.wrapper.list?.[String($store.index)],
+      $store.props.wrapper.list?.[$store.index as keyof typeof $store.props.wrapper.list],
       $store.props.wrapper.deep || []
     )
   }

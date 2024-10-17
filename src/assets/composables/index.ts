@@ -50,7 +50,7 @@ export const $getParsedDate: GetParsedDate = (
   if (!date) return ''
   const locales = `${useSettingsStore().locale.toLowerCase()}-${useSettingsStore().locale}`
 
-  if (useSettingsStore().month)
+  if (useSettingsStore().month === 'number')
     return date.toLocaleDateString(locales, {
       day: '2-digit',
       month: '2-digit',

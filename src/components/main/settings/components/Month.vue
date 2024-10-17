@@ -5,15 +5,15 @@ import { useSettingsStore } from '@stores'
 import Radio from '@views/inputs/radio/Main.vue'
 import type { Props } from '@views/inputs/radio'
 
-const index = ref(String(useSettingsStore().month))
+const index = ref(useSettingsStore().month)
 let props: ComputedRef<Props> = computed(() => {
     return {
-        list: useSettingsStore().lang?.settings?.month?.list,
+        list: useSettingsStore().lang?.settings?.month?.list2,
         deep: ['title']
     }
 })
 
-watch(index, (value) => { useSettingsStore().month = value === 'true' })
+watch(index, (value) => { if (value !== undefined) useSettingsStore().month = value })
 </script>
 
 <template>
