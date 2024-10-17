@@ -9,21 +9,21 @@ export * from './image'
 export * from './components'
 export * from '@components/main/sidebar/store'
 
-import clone from 'clone'
 import { getActivePinia, defineStore } from 'pinia'
+import clone from 'clone'
 
-setTimeout(() => {
-  const pinia = getActivePinia()
-  if (pinia) {
-    // pinia.state.value.settings[key] = obj[key]
-    const obj: any = { settings: { locale: 'RU', size: '0.95px' } }
-    for (const storename in obj)
-      for (const fieldname in obj[storename]) {
-        pinia.state.value[storename][fieldname] = obj[storename][fieldname]
-        console.log(pinia.state.value[storename][fieldname])
-      }
-  }
-}, 700)
+// setTimeout(() => {
+//   const pinia = getActivePinia()
+//   if (pinia) {
+//     // pinia.state.value.settings[key] = obj[key]
+//     const obj: any = { settings: { locale: 'RU', size: '0.95px' } }
+//     for (const storename in obj)
+//       for (const fieldname in obj[storename]) {
+//         pinia.state.value[storename][fieldname] = obj[storename][fieldname]
+//         console.log(pinia.state.value[storename][fieldname])
+//       }
+//   }
+// }, 700)
 
 // $reset method for pinia composition api
 export function addResetMethod({ store }: any): void {

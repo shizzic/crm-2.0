@@ -6,6 +6,7 @@ import type { Props } from '@views/lib/popper'
 import { $img } from '@composables'
 import { useNavStore } from '../store'
 import { $getFilter } from '@composables/icon'
+import { setTimeout } from 'worker-timers'
 import Popper from '@views/lib/popper/Main.vue'
 import Image from '@views/lib/image/Main.vue'
 

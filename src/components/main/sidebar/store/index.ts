@@ -8,6 +8,7 @@ import type { Components, SubComponent } from '..'
 export const useSidebarStore = defineStore(
   'sidebar',
   () => {
+    const version = ref(1)
     const components: Ref<Components> = ref({
       top: [],
       bottom: [],
@@ -53,6 +54,8 @@ export const useSidebarStore = defineStore(
     })
 
     return {
+      version,
+
       minWidth,
       maxWidth,
       cssWidth,
@@ -66,7 +69,7 @@ export const useSidebarStore = defineStore(
     persist: [
       {
         storage: localStorage,
-        pick: ['cssWidth']
+        pick: ['version', 'cssWidth']
       }
     ]
   }

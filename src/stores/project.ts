@@ -6,18 +6,17 @@ import type { List } from '@types'
 export const useProjectStore = defineStore(
   'project',
   () => {
-    const version: Ref<number> = ref(1)
     const id: Ref<number | undefined> = ref(undefined)
     const title: Ref<string | undefined> = ref(undefined)
     const list: Ref<List> = ref(undefined)
 
-    return { version, id, title, list }
+    return { id, title, list }
   },
   {
     persist: [
       {
         storage: localStorage,
-        pick: ['version', 'id', 'title']
+        pick: ['id', 'title']
       },
       {
         storage: sessionStorage,

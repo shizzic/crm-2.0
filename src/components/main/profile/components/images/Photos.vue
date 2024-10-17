@@ -7,6 +7,7 @@ import "viewerjs/dist/viewer.css"
 import { directive as viewer } from "v-viewer"
 import type { Props } from '@views/lib/popper'
 import { dragscroll as vDragscroll } from 'vue-dragscroll'
+import { setTimeout } from 'worker-timers'
 import Image from '@views/lib/image/Main.vue'
 import New from './new/Main.vue'
 import Buttons from './Buttons.vue'

@@ -3,6 +3,8 @@ import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { theme, getTheme } from './theme'
 import { locale, beforeLocaleSwitch, languages, lang, getLang } from './lang'
+import { saveUserSettings } from '@stores/settings/saving'
+import { setTimeout } from 'worker-timers'
 
 export const useSettingsStore = defineStore(
   'settings',
@@ -34,7 +36,15 @@ export const useSettingsStore = defineStore(
       {
         storage: localStorage,
         pick: ['version', 'locale', 'size', 'theme', 'month', 'linkTarget'],
-        afterHydrate: () => {
+        afterHydrate: (data) => {
+          setTimeout(() => {
+            watch(
+              () => data.store.$state,
+              () => saveUserSettings(),
+              { deep: true }
+            )
+          }, 500)
+
           watch(locale, (value, old) => {
             if (!(value in languages.value)) beforeLocaleSwitch.value = old
             getLang()

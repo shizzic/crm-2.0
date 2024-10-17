@@ -12,7 +12,6 @@ interface Access {
 export const useAccessStore = defineStore(
   'access',
   () => {
-    const version: Ref<number> = ref(1)
     const list: Ref<Access> = ref({})
     const roles: Ref<List> = ref([])
     const is_manager = ref(false)
@@ -54,13 +53,13 @@ export const useAccessStore = defineStore(
       clearInterval(updater.value)
     }
 
-    return { version, list, roles, setUpdater, clearUpdater }
+    return { list, roles, setUpdater, clearUpdater }
   },
   {
     persist: [
       {
         storage: localStorage,
-        pick: ['version', 'roles']
+        pick: ['roles']
       },
       {
         storage: sessionStorage,

@@ -2,9 +2,6 @@ import { useHttpStore } from '@stores'
 import Media from './media'
 import Blob from './blob'
 
-const $http = useHttpStore()
-const $endpoint = $http.$endpoint
-
 class Fetcher {
   media: any
   blob: any
@@ -15,17 +12,17 @@ class Fetcher {
   }
 
   async get(url: string): Promise<any> {
-    const response = await fetch(`${$endpoint}${url}`, {
-      headers: $http.authorize_headers() as HeadersInit,
+    const response = await fetch(`${useHttpStore().$endpoint}${url}`, {
+      headers: useHttpStore().authorize_headers() as HeadersInit,
       credentials: 'include'
     })
     return response.json()
   }
 
   async put(url: string, data: any): Promise<any> {
-    const response = await fetch(`${$endpoint}${url}`, {
+    const response = await fetch(`${useHttpStore().$endpoint}${url}`, {
       method: 'PUT',
-      headers: $http.authorize_headers() as HeadersInit,
+      headers: useHttpStore().authorize_headers() as HeadersInit,
       credentials: 'include',
       body: JSON.stringify(data)
     })
@@ -33,9 +30,9 @@ class Fetcher {
   }
 
   async post(url: string, data: any): Promise<any> {
-    const response = await fetch(`${$endpoint}${url}`, {
+    const response = await fetch(`${useHttpStore().$endpoint}${url}`, {
       method: 'POST',
-      headers: $http.authorize_headers() as HeadersInit,
+      headers: useHttpStore().authorize_headers() as HeadersInit,
       credentials: 'include',
       body: JSON.stringify(data)
     })
@@ -43,9 +40,9 @@ class Fetcher {
   }
 
   async delete(url: string): Promise<any> {
-    const response = await fetch(`${$endpoint}${url}`, {
+    const response = await fetch(`${useHttpStore().$endpoint}${url}`, {
       method: 'DELETE',
-      headers: $http.authorize_headers() as HeadersInit,
+      headers: useHttpStore().authorize_headers() as HeadersInit,
       credentials: 'include'
     })
     return response.json()

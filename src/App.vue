@@ -5,7 +5,6 @@ import { useRouter } from 'vue-router'
 
 const $router = useRouter()
 const $settings = useSettingsStore()
-$settings.$persist()
 $settings.getLang()
 $settings.getTheme($settings.theme)
 
