@@ -12,22 +12,10 @@ export * from '@components/main/sidebar/store'
 import { getActivePinia, defineStore } from 'pinia'
 import clone from 'clone'
 
-// setTimeout(() => {
-//   const pinia = getActivePinia()
-//   if (pinia) {
-//     // pinia.state.value.settings[key] = obj[key]
-//     const obj: any = { settings: { locale: 'RU', size: '0.95px' } }
-//     for (const storename in obj)
-//       for (const fieldname in obj[storename]) {
-//         pinia.state.value[storename][fieldname] = obj[storename][fieldname]
-//         console.log(pinia.state.value[storename][fieldname])
-//       }
-//   }
-// }, 700)
-
 // $reset method for pinia composition api
 export function addResetMethod({ store }: any): void {
   const initialState = clone(store.$state)
+  store.$initialState = initialState
   store.$reset = () => {
     store.$patch(($state: any) => {
       Object.assign($state, initialState)

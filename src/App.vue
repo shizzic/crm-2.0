@@ -6,10 +6,10 @@ import { useRouter } from 'vue-router'
 
 const $router = useRouter()
 const $settings = useSettingsStore()
-$settings.getLang()
-$settings.getTheme($settings.theme)
-
 loadUserSettings()
+$settings.getTheme($settings.theme)
+$settings.getLang()
+
 watch(() => useUserStore().isLoggedIn, (value) => {
   if (value) loadUserSettings()
   $router.replace(value ? { name: "home" } : { name: "login" })

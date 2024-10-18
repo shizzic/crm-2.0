@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import type { Item, Menu } from '..'
 import { useComponentsStore, useAccessStore } from '@stores'
+import { saveUserSettings } from '@stores/settings/saving'
 
 export const useNavStore = defineStore(
   'nav',
   () => {
+    const version = ref(1)
     const width = ref(82)
     const minWidth = 82
     const maxWidth = 200
@@ -33,13 +35,20 @@ export const useNavStore = defineStore(
       return isAccessable(data.name)
     }
 
-    return { width, minWidth, maxWidth, menu, changeNavWidth, isDeeper, isAccessable }
+    return { version, width, minWidth, maxWidth, menu, changeNavWidth, isDeeper, isAccessable }
   },
   {
     persist: [
       {
         storage: localStorage,
-        pick: ['width']
+        pick: ['version', 'width'],
+        afterHydrate: (data) => {
+          watch(
+            () => data.store.$state,
+            () => saveUserSettings(),
+            { deep: true }
+          )
+        }
       }
     ]
   }

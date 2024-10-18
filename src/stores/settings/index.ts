@@ -4,12 +4,14 @@ import type { Ref } from 'vue'
 import { theme, getTheme } from './theme'
 import { locale, beforeLocaleSwitch, languages, lang, getLang } from './lang'
 import { saveUserSettings } from '@stores/settings/saving'
-import { setTimeout } from 'worker-timers'
+import type { UserSettingsResponse } from './saving'
 
 export const useSettingsStore = defineStore(
   'settings',
   () => {
     const version = ref(1)
+    const replicas: Ref<UserSettingsResponse | undefined> = ref(undefined)
+
     const size = ref('0.95px') // font-size, padding, margin
     const month: Ref<'number' | 'word'> = ref('word')
     const linkTarget: Ref<'_self' | '_blank'> = ref('_self')
@@ -19,14 +21,18 @@ export const useSettingsStore = defineStore(
 
     return {
       version,
+      replicas,
+
       locale,
       beforeLocaleSwitch,
       languages,
       lang,
+
       size,
       theme,
       month,
       linkTarget,
+
       getLang,
       getTheme
     }
@@ -37,13 +43,11 @@ export const useSettingsStore = defineStore(
         storage: localStorage,
         pick: ['version', 'locale', 'size', 'theme', 'month', 'linkTarget'],
         afterHydrate: (data) => {
-          setTimeout(() => {
-            watch(
-              () => data.store.$state,
-              () => saveUserSettings(),
-              { deep: true }
-            )
-          }, 500)
+          watch(
+            () => data.store.$state,
+            () => saveUserSettings(),
+            { deep: true }
+          )
 
           watch(locale, (value, old) => {
             if (!(value in languages.value)) beforeLocaleSwitch.value = old

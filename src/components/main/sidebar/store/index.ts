@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import router from '@router'
 import { minWidth, maxWidth, cssWidth, width, expand } from './resize'
 import type { Components, SubComponent } from '..'
+import { saveUserSettings } from '@stores/settings/saving'
 
 export const useSidebarStore = defineStore(
   'sidebar',
@@ -69,7 +70,14 @@ export const useSidebarStore = defineStore(
     persist: [
       {
         storage: localStorage,
-        pick: ['version', 'cssWidth']
+        pick: ['version', 'cssWidth'],
+        afterHydrate: (data) => {
+          watch(
+            () => data.store.$state,
+            () => saveUserSettings(),
+            { deep: true }
+          )
+        }
       }
     ]
   }
