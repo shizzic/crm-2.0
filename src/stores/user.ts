@@ -73,8 +73,9 @@ export const useUserStore = defineStore(
         })
     }
 
-    function logout(): void {
+    function logout(fromEverywhere?: boolean): void {
       console.trace()
+      if (!fromEverywhere) useDeviceStore().untieUserDevice()
       resetAllStores('settings', 'project')
     }
 

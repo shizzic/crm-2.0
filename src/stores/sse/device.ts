@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import * as Bowser from 'bowser'
+import { fetcher } from '@composables/fetcher'
+import { useUserStore } from '@stores'
 const bowser: any = Bowser
 
 export const useDeviceStore = defineStore(
@@ -12,7 +14,18 @@ export const useDeviceStore = defineStore(
     )
     const list: Ref<string[]> = ref([])
 
-    return { current, list }
+    // убрать "активное" устройство из списка доступных для юзера
+    function untieUserDevice(): void {
+      fetcher.put('user/user/remove-user-device', { device: current.value })
+    }
+
+    // убрать все "активные" устройства из списка доступных для юзера
+    function untieAllUserDevices(): void {
+      fetcher.get('user/user/logout')
+      useUserStore().logout(true)
+    }
+
+    return { current, list, untieUserDevice, untieAllUserDevices }
   },
   {
     persist: [

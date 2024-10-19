@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { useSettingsStore } from '@stores'
+import { useSettingsStore, useDeviceStore } from '@stores'
 </script>
 
 <template>
-    <button data-logout-btn v-text="useSettingsStore().lang?.other?.logout" />
+    <button data-logout-btn v-text="useSettingsStore().lang?.other?.logout"
+        @click="useDeviceStore().untieAllUserDevices()" />
 </template>
 
 <style scoped>
