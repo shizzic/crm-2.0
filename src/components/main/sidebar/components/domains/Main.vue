@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Domains from './Domains.vue'
 
-const hostname: string = window.location.hostname
-const isTestDomain: boolean = hostname === import.meta.env.VITE_SELF_DOMAIN_NAME
+// отображаю селект доменов только, если доменное имя в браузере совпадает с названием корневого домена для билда
+const isTestDomain: boolean = window.location.hostname === import.meta.env.VITE_SELF_DOMAIN_NAME
 </script>
 
 <template>
