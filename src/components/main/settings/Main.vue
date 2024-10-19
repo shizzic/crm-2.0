@@ -3,7 +3,7 @@ import { computed, watch } from 'vue'
 import type { ComputedRef } from 'vue'
 import { useSettingsStore } from '@stores'
 import { useStore } from './store'
-import { $setComponentStyle, $removeComponentStyle } from '@composables/theme'
+import { $setComponentStyle } from '@composables/theme'
 import Search from './Search.vue'
 import Expand from '@views/lib/expand/Main.vue'
 import Item from './Item.vue'
@@ -18,10 +18,7 @@ const $settings = useSettingsStore()
 const $store = useStore()
 const searchPattern: ComputedRef<RegExp> = computed(() => new RegExp($store.search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'imu'))
 
-watch(() => $settings.theme, () => {
-    $removeComponentStyle()
-    $setComponentStyle('settings')
-})
+watch(() => $settings.theme, () => $setComponentStyle('settings'))
 </script>
 
 <template>

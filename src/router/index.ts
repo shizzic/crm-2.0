@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useSettingsStore, useUserStore } from '@stores'
 import { children } from './children'
-import { $setComponentStyle, $removeComponentStyle } from '@composables/theme'
+import { $setComponentStyle } from '@composables/theme'
 
 const c = {
   login: () => import('@components/login/Main.vue'),
@@ -38,7 +38,6 @@ router.beforeEach((to) => {
 })
 
 router.beforeResolve(async (to) => {
-  $removeComponentStyle()
   if (to?.name) $setComponentStyle(String(to.name))
 })
 

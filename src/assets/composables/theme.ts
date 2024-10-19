@@ -6,6 +6,7 @@ const c = '$$component' // id style тега хранящего все, кром
 export async function $setComponentStyle(componentName: string): Promise<void> {
   if (!isComponentStyleExist(componentName)) return
 
+  await $removeComponentStyle()
   const palette = await import(
     `@css/themes/${useSettingsStore().theme}/components/${componentName}/index.css?inline`
   )
@@ -24,7 +25,7 @@ export async function $setComponentStyle(componentName: string): Promise<void> {
 }
 
 // удаляю style tag предыдущей темы, чтобы не наслаивать их друг на друга
-export function $removeComponentStyle(): void {
+function $removeComponentStyle(): void {
   const theme_component = document.getElementById(id)
   theme_component?.remove()
   const component = document.getElementById(c)

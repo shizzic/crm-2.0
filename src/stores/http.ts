@@ -4,11 +4,13 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 export const useHttpStore = defineStore('http', () => {
+  const $route = useRoute()
+
   const $endpoint: string = import.meta.env.VITE_API_ENDPOINT
   const domain_name: string | undefined = undefined
   const project = computed(() => useProjectStore().id)
   const component = computed(() =>
-    useRoute()?.name ? useComponentsStore().list[String(useRoute().name)]?.id : undefined
+    $route?.name ? useComponentsStore().list[String($route.name)]?.id : undefined
   )
 
   // С триггером авторизации
