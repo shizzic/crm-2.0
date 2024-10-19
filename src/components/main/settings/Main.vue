@@ -12,6 +12,7 @@ import Size from './components/Size.vue'
 import Theme from './components/Theme.vue'
 import Links from './components/Links.vue'
 import Month from './components/Month.vue'
+import LogoutFromEverywhere from './components/LogoutFromEverywhere.vue'
 
 const $settings = useSettingsStore()
 const $store = useStore()
@@ -60,11 +61,16 @@ watch(() => $settings.theme, () => {
                 :description="$settings.lang?.settings?.linkTo?.description">
                 <Links />
             </Item>
-            <Item style="margin: 0;"
+            <Item style="min-width: 100%;"
                 v-show="searchPattern.test($settings.lang?.settings?.theme?.title) || searchPattern.test($settings.lang?.settings?.theme?.description)"
                 :title="$settings.lang?.settings?.theme?.title"
                 :description="$settings.lang?.settings?.theme?.description">
                 <Theme />
+            </Item>
+            <Item style="min-width: 100%; margin: 0; display: flex; flex-direction: column; align-items: center;"
+                v-show="searchPattern.test($settings.lang?.settings?.devices_logout)"
+                :title="$settings.lang?.settings?.devices_logout">
+                <LogoutFromEverywhere />
             </Item>
         </div>
     </section>
@@ -83,6 +89,9 @@ section {
     display: flex;
     flex-direction: column;
     padding: 25rem;
+
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 [data-hat] {

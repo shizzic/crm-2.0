@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { theme, getTheme } from './theme'
 import { locale, beforeLocaleSwitch, languages, lang, getLang } from './lang'
-import { saveUserSettings } from '@stores/settings/saving'
+import { watchPersistableFields } from '@stores/settings/saving'
 import type { UserSettingsResponse } from './saving'
 
 export const useSettingsStore = defineStore(
@@ -43,11 +43,7 @@ export const useSettingsStore = defineStore(
         storage: localStorage,
         pick: ['version', 'locale', 'size', 'theme', 'month', 'linkTarget'],
         afterHydrate: (data) => {
-          watch(
-            () => data.store.$state,
-            () => saveUserSettings(),
-            { deep: true }
-          )
+          watchPersistableFields(data)
 
           watch(locale, (value, old) => {
             if (!(value in languages.value)) beforeLocaleSwitch.value = old

@@ -13,3 +13,8 @@
 [data-item] h4 {
   color: var(--color-6);
 }
+
+[data-logout-btn] {
+  --color: var(--color-1);
+  --bg: var(--color-5);
+}

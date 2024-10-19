@@ -47,7 +47,7 @@ if (props.src) {
 </script>
 
 <template>
-    <img v-if="isFetched && media" :src="media" loading="lazy" :key="String(isRecacheNeeded)">
+    <img v-if="isFetched && media" :src="media" loading="eager" :key="String(isRecacheNeeded)">
     <Skeletor v-else-if="!media && !isFetched" data-skeletor />
 </template>
 

@@ -1,8 +1,14 @@
 import { getActivePinia, defineStore } from 'pinia'
-import type { StateTree, StoreDefinition } from 'pinia'
-import { ref } from 'vue'
-import type { Ref } from 'vue'
-import { useUserStore, useSettingsStore } from '@stores'
+import type {
+  PiniaPluginContext,
+  StateTree,
+  StoreDefinition,
+  _GettersTree,
+  _ActionsTree
+} from 'pinia'
+import { ref, computed, watch } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
+import { useUserStore, useSettingsStore, useImageStore } from '@stores'
 import { fetcher } from '@composables/fetcher'
 import { setTimeout, clearTimeout, setInterval, clearInterval } from 'worker-timers'
 import clone from 'clone'
@@ -24,7 +30,7 @@ export function saveUserSettings(): void {
     timeTillSettingsSaving.value = null
   }
 
-  timeTillSettingsSaving.value = setTimeout(uploadSettings, 1700)
+  timeTillSettingsSaving.value = setTimeout(uploadSettings, 1000)
 }
 
 function uploadSettings(): void {
@@ -41,6 +47,7 @@ export async function loadUserSettings(): Promise<void> {
   if (!useUserStore().isLoggedIn) return
   const $settings = useSettingsStore()
   $settings.replicas = await fetcher.get(`user/user/get-user-settings?filename=${filename}`)
+  if ($settings.replicas) useImageStore().recache[$settings.replicas.avatar] = true
 
   applierInterval.value = setInterval(() => {
     if (
@@ -108,5 +115,23 @@ function applyLoadedSettings(): void {
     } catch {
       continue
     }
+  }
+}
+
+// каждый стор, который использует persist plugin, в хуке afterHydrate использует эту функцию,
+// чтобы при измении persistable fields (watch) сохранять их состояние на сервере
+// watch накладывается только на
+// в persist плагину обязательно нужно ложить localStorage на певрое место (0 индекс), так как если persist работает на оба стора (local and session),
+// то определить какой именно индекс относится к localStorage невозможно
+export function watchPersistableFields(
+  data: PiniaPluginContext<string, StateTree, _GettersTree<StateTree>, _ActionsTree>
+): void {
+  const persist = data.options.persist?.[0 as keyof typeof data.options.persist] as any
+
+  if (persist) {
+    const pick: string[] = persist.pick
+    const watchable: ComputedRef<any>[] = []
+    for (const fieldName of pick) watchable.push(computed(() => data.store[fieldName]))
+    if (watchable.length > 0) watch(watchable, () => saveUserSettings())
   }
 }

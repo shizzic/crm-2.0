@@ -59,10 +59,10 @@ function logoutIfCredentialsOutdated(r: Response): boolean {
 }
 
 // общий вывод ответа с автоматизацией
-export async function returnResponseData(r: Response, method?: keyof Response): Promise<any> {
+export async function returnResponseData(r: any, method?: string): Promise<any> {
   if (useUserStore().isLoggedIn && !logoutIfCredentialsOutdated(r)) {
     // если не передано название нужного метода, тогда по дефолту возвращаю json()
-    if (method && method in r && typeof r[method] === 'function') return r[method]()
+    if (method && method in r && r[method] && r[method] === 'function') return r[method]()
     else return r.json()
   }
 }

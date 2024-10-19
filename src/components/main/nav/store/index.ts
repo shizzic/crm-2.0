@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import type { Ref } from 'vue'
 import type { Item, Menu } from '..'
 import { useComponentsStore, useAccessStore } from '@stores'
-import { saveUserSettings } from '@stores/settings/saving'
+import { watchPersistableFields } from '@stores/settings/saving'
 
 export const useNavStore = defineStore(
   'nav',
@@ -42,13 +42,7 @@ export const useNavStore = defineStore(
       {
         storage: localStorage,
         pick: ['version', 'width'],
-        afterHydrate: (data) => {
-          watch(
-            () => data.store.$state,
-            () => saveUserSettings(),
-            { deep: true }
-          )
-        }
+        afterHydrate: (data) => watchPersistableFields(data)
       }
     ]
   }

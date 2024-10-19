@@ -1,11 +1,15 @@
 import { defineStore } from 'pinia'
-import { useUserStore, useSettingsStore } from '@stores'
+import { useUserStore, useSettingsStore, useProjectStore, useComponentsStore } from '@stores'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 export const useHttpStore = defineStore('http', () => {
   const $endpoint: string = import.meta.env.VITE_API_ENDPOINT
   const domain_name: string | undefined = undefined
-  const project_id: number | undefined = undefined
-  const component_id: number | undefined = undefined
+  const project = computed(() => useProjectStore().id)
+  const component = computed(() =>
+    useRoute()?.name ? useComponentsStore().list[String(useRoute().name)]?.id : undefined
+  )
 
   // С триггером авторизации
   function authorize_headers(): Headers {
@@ -15,8 +19,8 @@ export const useHttpStore = defineStore('http', () => {
     const headers: HeadersInit = new Headers()
     headers.set('Content-Type', 'application/json')
     headers.set('Authorization', 'Bearer some')
-    headers.set('project', String(project_id))
-    headers.set('component', String(component_id))
+    if (project.value) headers.set('project', String(project.value))
+    if (component.value) headers.set('component', String(component.value))
     headers.set('user', String(useUserStore().id))
     headers.set('uri', location.pathname)
     headers.set('viktoriaSecret', viktoriaSecret)
