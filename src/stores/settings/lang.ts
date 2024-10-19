@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { Lang } from '@types'
-import { useHttpStore } from '@stores'
+import { fetcher } from '@composables/fetcher'
 
 export type Locale = 'RU' | 'EN'
 
@@ -13,18 +13,10 @@ export const lang: ComputedRef<Lang> = computed(
 )
 
 // Получение всех переводов на выбранный язык (язык в headers)
-export function getLang(): void {
+export async function getLang(): Promise<void> {
   // if (!(locale.value in languages.value))
-  fetch(useHttpStore().$endpoint + 'user/user/get-lang?file=web', {
-    headers: useHttpStore().non_authorize_headers(),
-    credentials: 'include'
-  })
-    .then((data) => {
-      return data.json()
-    })
-    .then((r) => {
-      if (!r?.data) return
-      languages.value[locale.value] = r.data
-      beforeLocaleSwitch.value = undefined
-    })
+  const r = await fetcher.unauthorized.get('user/user/get-lang?file=web')
+  if (!r?.data) return
+  languages.value[locale.value] = r.data
+  beforeLocaleSwitch.value = undefined
 }

@@ -1,14 +1,17 @@
 import { useHttpStore, useUserStore } from '@stores'
 import Media from './media'
 import Blob from './blob'
+import Unauthorized from './unauthorized'
 
 class Fetcher {
   media: any
   blob: any
+  unauthorized: any
 
   constructor() {
     this.media = new Media()
     this.blob = new Blob()
+    this.unauthorized = new Unauthorized()
   }
 
   async get(url: string): Promise<any> {
@@ -19,22 +22,22 @@ class Fetcher {
     return returnResponseData(r)
   }
 
-  async put(url: string, data: any): Promise<any> {
+  async put(url: string, data?: any): Promise<any> {
     const r = await fetch(`${useHttpStore().$endpoint}${url}`, {
       method: 'PUT',
       headers: useHttpStore().authorize_headers() as HeadersInit,
       credentials: 'include',
-      body: JSON.stringify(data)
+      body: data ? JSON.stringify(data) : undefined
     })
     return returnResponseData(r)
   }
 
-  async post(url: string, data: any): Promise<any> {
+  async post(url: string, data?: any): Promise<any> {
     const r = await fetch(`${useHttpStore().$endpoint}${url}`, {
       method: 'POST',
       headers: useHttpStore().authorize_headers() as HeadersInit,
       credentials: 'include',
-      body: JSON.stringify(data)
+      body: data ? JSON.stringify(data) : undefined
     })
     return returnResponseData(r)
   }
@@ -50,7 +53,7 @@ class Fetcher {
 }
 
 function logoutIfCredentialsOutdated(r: Response): boolean {
-  if (r.status === 426) {
+  if (useUserStore().isLoggedIn && r.status === 426) {
     useUserStore().logout()
     return true
   }
@@ -60,7 +63,7 @@ function logoutIfCredentialsOutdated(r: Response): boolean {
 
 // общий вывод ответа с автоматизацией
 export async function returnResponseData(r: Response, method?: 'json' | 'blob'): Promise<any> {
-  if (useUserStore().isLoggedIn && !logoutIfCredentialsOutdated(r)) {
+  if (!logoutIfCredentialsOutdated(r)) {
     // если не передано название нужного метода, тогда по дефолту возвращаю json()
     if (method) return r[method]()
     else return r.json()

@@ -35,7 +35,7 @@ export const useAccessStore = defineStore(
             if (data?.data?.access) list.value = data.data.access
 
             if (data?.data?.role) {
-              roles.value = [String(data.data.role.title)]
+              roles.value = [data.data.role]
               is_manager.value = Boolean(data.data.role.is_manager)
             }
           })
@@ -58,12 +58,8 @@ export const useAccessStore = defineStore(
   {
     persist: [
       {
-        storage: localStorage,
-        pick: ['roles']
-      },
-      {
         storage: sessionStorage,
-        pick: ['list']
+        pick: ['list', 'roles']
       }
     ]
   }
