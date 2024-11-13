@@ -48,6 +48,7 @@ export async function loadUserSettings(): Promise<void> {
   const $settings = useSettingsStore()
   $settings.replicas = await fetcher.get(`user/user/get-user-settings?filename=${filename}`)
   if ($settings.replicas) useImageStore().recache[$settings.replicas.avatar] = true
+  else return
 
   applierInterval.value = setInterval(() => {
     if (
